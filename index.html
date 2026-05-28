@@ -132,18 +132,23 @@ footer{text-align:center;padding:28px;color:#3a3a4a;font-size:.7em;border-top:1p
 .rank-card{background:var(--panel);border:1px solid rgba(255,255,255,.04);border-radius:var(--radius-sm);padding:12px 16px;cursor:pointer;transition:var(--transition)}
 .rank-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.35);border-color:rgba(255,255,255,.1)}
 
-.tl-wrap{position:relative;max-width:900px;margin:0 auto;padding:20px 0}
-.tl-wrap::before{content:'';position:absolute;left:36px;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#8B4513,#B8860B,#CD853F,#DAA520,#8FBC8F,#6B8E23,#4682B4,#5F9EA0,#9370DB,#C71585);border-radius:2px}
-.tl-era{text-align:center;padding:36px 0 14px;position:relative;z-index:1}
+.tl-wrap{position:relative;max-width:1000px;margin:0 auto;padding:30px 0}
+.tl-wrap::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:3px;transform:translateX(-50%);background:linear-gradient(180deg,#8B4513,#B8860B,#CD853F,#DAA520,#8FBC8F,#6B8E23,#4682B4,#5F9EA0,#9370DB,#C71585);border-radius:2px}
+.tl-era{text-align:center;padding:40px 0 16px;position:relative;z-index:1;clear:both}
 .tl-era h3{display:inline-block;background:var(--panel);color:var(--gold);padding:10px 32px;border-radius:22px;border:1px solid rgba(232,193,118,.2);font-size:.88em;letter-spacing:2px;box-shadow:0 0 20px rgba(232,193,118,.06)}
-.tl-item{position:relative;padding:8px 0 8px 64px;margin:0}
-.tl-dot{position:absolute;left:28px;top:18px;width:18px;height:18px;border-radius:50%;border:3px solid;z-index:2;background:var(--bg);box-shadow:0 0 8px currentColor}
-.tl-card{background:var(--panel);border:1px solid rgba(255,255,255,.04);border-radius:var(--radius);padding:16px 18px;transition:var(--transition)}
-.tl-card:hover{border-color:rgba(255,255,255,.1);box-shadow:0 4px 16px rgba(0,0,0,.3);transform:translateX(2px)}
-.tl-date{font-size:.7em;color:var(--accent);font-weight:600;margin-bottom:3px;letter-spacing:.5px}
+.tl-row{display:flex;align-items:flex-start;margin:0;position:relative}
+.tl-row:nth-child(odd){flex-direction:row}.tl-row:nth-child(even){flex-direction:row-reverse}
+.tl-spacer{flex:1;min-width:20px}
+.tl-dot-col{width:0;display:flex;justify-content:center;position:relative;flex-shrink:0}
+.tl-dot{width:18px;height:18px;border-radius:50%;border:3px solid;z-index:2;background:var(--bg);box-shadow:0 0 10px currentColor;flex-shrink:0}
+.tl-card{flex:1;max-width:440px;background:var(--panel);border:1px solid rgba(255,255,255,.04);border-radius:var(--radius);padding:16px 18px;transition:var(--transition);margin:6px 20px}
+.tl-card:hover{border-color:rgba(255,255,255,.1);box-shadow:0 4px 16px rgba(0,0,0,.3);transform:translateY(-1px)}
+.tl-row:nth-child(odd) .tl-card{text-align:left}.tl-row:nth-child(even) .tl-card{text-align:left}
+.tl-date{font-size:.7em;color:var(--accent);font-weight:600;margin-bottom:4px;letter-spacing:.5px}
 .tl-title{color:var(--head);font-weight:600;font-size:.9em;margin-bottom:4px}
 .tl-desc{font-size:.76em;color:#999;line-height:1.6}
 .tl-book{display:inline-block;padding:3px 10px;border-radius:4px;font-size:.64em;font-weight:600;margin-top:6px}
+@media(max-width:768px){.tl-wrap::before{left:32px;transform:none}.tl-row{flex-direction:row!important}.tl-spacer{display:none}.tl-dot-col{width:auto;left:0}.tl-card{max-width:100%;margin:6px 6px 6px 24px}.tl-era h3{font-size:.78em;padding:8px 20px}}
 
 .map-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
 .map-card{background:var(--panel);border:1px solid rgba(255,255,255,.04);border-radius:var(--radius);padding:16px 18px;transition:var(--transition);border-left:4px solid}
@@ -287,7 +292,7 @@ const NOVELS = {};
 
 // ---------- 越女剑 ----------
 NOVELS['越女剑'] = [
-  {name:'阿青',alias:'越女',role:'越国牧羊女·剑术通神',note:'白猿授剑→一根竹棒破三千越甲→欲杀西施被其美貌所感而止'},
+  {name:'阿青',alias:'越女',role:'越国牧羊女·剑术通神',note:'越国牧羊女，与山中白猿嬉戏时无意中学得通神剑术。一根竹棒闯入越王宫，三千越甲不能挡。见到西施容貌后自愧不如黯然离去。剑术仅传下一丝影子即为越女剑法。'},
   {name:'范蠡',alias:'陶朱公',role:'越国大夫',note:'助勾践灭吴→与西施归隐太湖'},
   {name:'西施',alias:'夷光',role:'越国美人·入吴为妃',note:'四大美人之首·范蠡挚爱·吴灭后归越'},
   {name:'勾践',alias:'越王',role:'越国君主',note:'卧薪尝胆灭吴·请阿青教剑'},
@@ -299,9 +304,9 @@ NOVELS['越女剑'] = [
 
 // ---------- 天龙八部 ----------
 NOVELS['天龙八部'] = [
-  {name:'段誉',alias:'',role:'大理世子→皇帝·六脉神剑',note:'主角'},
-  {name:'乔峰/萧峰',alias:'北乔峰',role:'丐帮帮主·契丹人',note:'主角'},
-  {name:'虚竹',alias:'',role:'灵鹫宫主·西夏驸马',note:'主角'},
+  {name:'段誉',alias:'',role:'大理世子→皇帝·六脉神剑',note:'大理镇南王世子（实为段延庆之子）。因不愿习武离家出走，在无量山跌入深谷学得凌波微步与北冥神功。后在天龙寺学得六脉神剑。与乔峰、虚竹结为兄弟。北冥神功吸尽鸠摩智内力后内力震古烁今。最终回大理登基为帝。'},
+  {name:'乔峰/萧峰',alias:'北乔峰',role:'丐帮帮主·契丹人',note:'原名萧峰，契丹人。幼年被汉人收养，凭降龙十八掌成为丐帮帮主。杏子林身世揭露后被迫辞位。聚贤庄一人血战群雄。误杀挚爱阿朱。少室山大战扫地僧化解恩怨。最终在雁门关以性命换取辽宋数十年和平，自尽殉义。'},
+  {name:'虚竹',alias:'',role:'灵鹫宫主·西夏驸马',note:'少林寺最低辈小僧。误打误撞破了无崖子的珍珑棋局，获七十年功力。后被天山童姥强迫学武，集逍遥三老武功于一身。西夏招亲中与梦姑（李清露）相认。接任灵鹫宫主，以德服人。'},
   {name:'阿朱',alias:'',role:'段正淳之女·慕容家婢女',note:'乔峰挚爱'},
   {name:'阿紫',alias:'',role:'阿朱之妹·星宿派',note:''},
   {name:'王语嫣',alias:'神仙姐姐',role:'慕容复表妹·精通武学',note:''},
@@ -452,8 +457,8 @@ NOVELS['天龙八部'] = [
 
 // ---------- 射雕英雄传 ----------
 NOVELS['射雕英雄传'] = [
-  {name:'郭靖',alias:'北侠',role:'降龙十八掌传人·守襄阳',note:'主角'},
-  {name:'黄蓉',alias:'',role:'东邪之女·丐帮帮主',note:'主角'},
+  {name:'郭靖',alias:'北侠',role:'降龙十八掌传人·守襄阳',note:'郭啸天之子，生于蒙古草原。江南七怪授其武功根基，后得洪七公传降龙十八掌，周伯通传双手互搏和空明拳。与黄蓉相爱相守一生。镇守襄阳数十年，最终与黄蓉双双殉国。临死前铸倚天剑屠龙刀。侠之大者为国为民。'},
+  {name:'黄蓉',alias:'',role:'东邪之女·丐帮帮主',note:'黄药师之女，冰雪聪明冠绝金庸宇宙。与郭靖张家口相遇一见倾心。得洪七公传打狗棒法，接任丐帮帮主。助郭靖守卫襄阳，智计百出。生郭芙、郭襄、郭破虏。最终与郭靖双双殉国襄阳。'},
   {name:'黄药师',alias:'东邪',role:'桃花岛主',note:''},
   {name:'欧阳锋',alias:'西毒',role:'白驼山主·蛤蟆功',note:''},
   {name:'洪七公',alias:'北丐',role:'丐帮帮主·降龙十八掌',note:''},
@@ -537,8 +542,8 @@ NOVELS['射雕英雄传'] = [
 
 // ---------- 神雕侠侣 ----------
 NOVELS['神雕侠侣'] = [
-  {name:'杨过',alias:'神雕大侠/西狂',role:'独孤求败传人·玄铁重剑',note:'主角'},
-  {name:'小龙女',alias:'',role:'古墓派掌门',note:'主角'},
+  {name:'杨过',alias:'神雕大侠/西狂',role:'独孤求败传人·玄铁重剑',note:'杨康穆念慈之子。幼年孤苦，被郭靖带上终南山学艺。受赵志敬虐待后逃入古墓拜小龙女为师。断臂后得神雕指引学独孤求败玄铁剑法。创黯然销魂掌。十六年后与小龙女重逢。飞石击杀蒙古大汗蒙哥。新五绝之西狂。'},
+  {name:'小龙女',alias:'',role:'古墓派掌门',note:'古墓派第二代掌门。从小在古墓中长大，不谙世事。收杨过为徒后日久生情。因尹志平（甄志丙）事件离开杨过。绝情谷跳崖留下十六年之约。最终与杨过重逢，绝迹江湖。'},
   {name:'金轮法王',alias:'',role:'蒙古国师·龙象般若功',note:''},
   {name:'李莫愁',alias:'赤练仙子',role:'古墓派弃徒·冰魄银针',note:''},
   {name:'郭靖',alias:'北侠',role:'守襄阳',note:'跨书'},
@@ -601,7 +606,7 @@ NOVELS['神雕侠侣'] = [
 
 // ---------- 倚天屠龙记 ----------
 NOVELS['倚天屠龙记'] = [
-  {name:'张无忌',alias:'',role:'明教教主·九阳神功·乾坤大挪移',note:'主角'},
+  {name:'张无忌',alias:'',role:'明教教主·九阳神功·乾坤大挪移',note:'张翠山殷素素之子，生于冰火岛。幼年父母双亡，身中玄冥神掌。在昆仑山绝谷中练成九阳神功。光明顶力挫六大门派，被推举为明教教主。练成乾坤大挪移、太极拳剑。最终与赵敏归隐蒙古。'},
   {name:'赵敏',alias:'敏敏特穆尔',role:'蒙古郡主·绍敏郡主',note:''},
   {name:'周芷若',alias:'',role:'峨眉掌门·九阴白骨爪',note:''},
   {name:'张三丰',alias:'张真人',role:'武当创派祖师·太极宗师',note:'跨书'},
@@ -690,9 +695,9 @@ NOVELS['倚天屠龙记'] = [
 
 // ---------- 笑傲江湖 ----------
 NOVELS['笑傲江湖'] = [
-  {name:'令狐冲',alias:'',role:'恒山掌门·独孤九剑传人',note:'主角'},
+  {name:'令狐冲',alias:'',role:'恒山掌门·独孤九剑传人',note:'华山派大弟子。在思过崖遇风清扬传独孤九剑。被逐出华山后结识任盈盈。学得吸星大法后内力冲突，得方正大师传易筋经化解。接任恒山派掌门。最终与任盈盈归隐，琴箫合奏《笑傲江湖》。'},
   {name:'任盈盈',alias:'圣姑',role:'日月神教圣姑',note:'主角'},
-  {name:'东方不败',alias:'',role:'日月神教教主·葵花宝典',note:''},
+  {name:'东方不败',alias:'',role:'日月神教教主·葵花宝典',note:'原为日月神教副教主，篡位囚禁任我行。练葵花宝典后武功天下第一。一枚绣花针可敌令狐冲+任我行+向问天三人合击。因分心男宠杨莲亭被杀。'},
   {name:'岳不群',alias:'君子剑',role:'华山掌门(伪君子)',note:''},
   {name:'岳灵珊',alias:'',role:'岳不群之女',note:''},
   {name:'宁中则',alias:'华山玉女',role:'岳不群之妻',note:''},
@@ -759,7 +764,7 @@ NOVELS['笑傲江湖'] = [
 
 // ---------- 鹿鼎记 ----------
 NOVELS['鹿鼎记'] = [
-  {name:'韦小宝',alias:'',role:'康熙宠臣·天地会香主·神龙教白龙使',note:'主角'},
+  {name:'韦小宝',alias:'',role:'康熙宠臣·天地会香主·神龙教白龙使',note:'扬州丽春院妓女之子。因缘际会入宫结识康熙，助擒鳌拜。拜陈近南为师入天地会。周旋于清廷、天地会、神龙教、沐王府各方势力之间。娶七位夫人。最终携妻归隐，不知去向。'},
   {name:'康熙',alias:'玄烨',role:'清圣祖',note:''},
   {name:'陈近南',alias:'',role:'天地会总舵主·凝血神爪',note:''},
   {name:'九难师太',alias:'独臂神尼',role:'前明长平公主·阿九',note:'跨书(碧血)'},
@@ -814,7 +819,7 @@ NOVELS['鹿鼎记'] = [
 
 // ---------- 书剑恩仇录 ----------
 NOVELS['书剑恩仇录'] = [
-  {name:'陈家洛',alias:'',role:'红花会总舵主',note:'主角'},
+  {name:'陈家洛',alias:'',role:'红花会总舵主',note:'红花会第十五位当家，后接任总舵主。文武双全，百花错拳和庖丁解牛功为其绝技。与乾隆为亲兄弟。深爱霍青桐，却被香香公主（喀丝丽）痴恋。香香公主为给他报信而自尽。反清复汉失败后远走回疆。'},
   {name:'霍青桐',alias:'翠羽黄衫',role:'回部英雄',note:''},
   {name:'喀丝丽',alias:'香香公主',role:'回部·霍青桐之妹',note:''},
   {name:'乾隆',alias:'弘历',role:'清高宗·陈家洛之兄',note:''},
@@ -857,7 +862,7 @@ NOVELS['书剑恩仇录'] = [
 
 // ---------- 碧血剑 ----------
 NOVELS['碧血剑'] = [
-  {name:'袁承志',alias:'',role:'七省盟主·袁崇焕之子',note:'主角'},
+  {name:'袁承志',alias:'',role:'七省盟主·袁崇焕之子',note:'明末名将袁崇焕之子。父被冤杀后上华山拜穆人清为师。得金蛇郎君夏雪宜武功秘籍和金蛇剑。被推举为七省武林盟主。与温青青相爱。明朝灭亡后远走海外。'},
   {name:'夏青青',alias:'温青青',role:'夏雪宜之女',note:''},
   {name:'阿九',alias:'长平公主/九难',role:'崇祯之女·独臂',note:'跨书(鹿鼎)'},
   {name:'夏雪宜',alias:'金蛇郎君',role:'金蛇剑主人·已故',note:'回忆'},
@@ -928,7 +933,7 @@ NOVELS['雪山飞狐'] = [
 
 // ---------- 飞狐外传 ----------
 NOVELS['飞狐外传'] = [
-  {name:'胡斐',alias:'雪山飞狐',role:'少年至青年',note:'主角'},
+  {name:'胡斐',alias:'雪山飞狐',role:'少年至青年',note:'胡一刀之子。从小由平阿四抚养长大。练成胡家刀法。程灵素为其吸毒血而死，袁紫衣出家为尼。与苗人凤恩怨纠缠。玉笔峰决斗结局留给读者悬案。'},
   {name:'程灵素',alias:'',role:'毒手药王弟子·痴恋胡斐',note:''},
   {name:'袁紫衣',alias:'圆性',role:'峨眉弟子·凤天南之女',note:''},
   {name:'苗人凤',alias:'金面佛',role:'',note:'跨书(雪山)'},
@@ -1858,20 +1863,24 @@ const TIMELINE_EVENTS = [
 function renderTimeline() {
   let html = '<h3 style="color:var(--head);margin:12px 0 20px">⏳ 金庸宇宙 · 历史时间线 <span style="font-size:.65em;color:#888">(' + TIMELINE_EVENTS.length + '个事件)</span></h3><div class="tl-wrap">';
   let lastEra = '';
+  let isOdd = true;
   TIMELINE_EVENTS.forEach(e => {
     if(e.era !== lastEra){
       html += `<div class="tl-era"><h3>${e.era}</h3></div>`;
       lastEra = e.era;
+      isOdd = true;
     }
-    html += `<div class="tl-item">
-      <div class="tl-dot" style="border-color:${e.color}"></div>
-      <div class="tl-card">
+    html += `<div class="tl-row">
+      <div class="tl-spacer"></div>
+      <div class="tl-dot-col"><div class="tl-dot" style="border-color:${e.color}"></div></div>
+      <div class="tl-card" style="${isOdd?'':'margin-left:20px;margin-right:0'}">
         <div class="tl-date">${e.date}</div>
         <div class="tl-title">${e.title}</div>
         <div class="tl-desc">${e.desc}</div>
         <span class="tl-book" style="background:${e.color}22;color:${e.color};border:1px solid ${e.color}44">📖 ${e.book}</span>
       </div>
     </div>`;
+    isOdd = !isOdd;
   });
   html += '</div>';
   document.getElementById('tlContent').innerHTML = html;
