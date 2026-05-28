@@ -1,0 +1,2140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏯 金庸武侠宇宙 · 全人物数据库</title>
+<style>
+:root {
+  --bg:#060612; --panel:#101025; --panel2:#181835; --border:#282848;
+  --gold:#e8c176; --gold2:#f4d8a8; --text:#c4c4d2; --head:#efe0c8;
+  --accent:#d4a060; --red:#e46868; --green:#60b878; --blue:#5e9ed6;
+  --tag-bg:#1c1c3a; --hover:#262650;
+  --shadow:0 6px 28px rgba(0,0,0,.4); --glow:0 0 24px rgba(232,193,118,.12);
+  --radius:12px; --radius-sm:8px; --transition:.28s cubic-bezier(.4,0,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI','Microsoft YaHei',sans-serif;min-height:100vh;line-height:1.65}
+
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#2a2a4a;border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:#3a3a5a}
+
+header{background:linear-gradient(170deg,#0a0a1a 0%,#140e1a 25%,#1a1210 60%,#0a0a18 100%);border-bottom:1px solid #3a2810;padding:32px 20px 22px;text-align:center;position:relative;overflow:hidden}
+header::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 50% 120%,rgba(232,193,118,.08) 0%,transparent 60%);pointer-events:none}
+header::after{content:'';position:absolute;bottom:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(232,193,118,.3),transparent)}
+header h1{color:var(--head);font-size:2.3em;font-weight:700;letter-spacing:3px;text-shadow:0 0 50px rgba(232,193,118,.3),0 2px 4px rgba(0,0,0,.6);position:relative}
+header p{color:var(--accent);margin-top:6px;font-size:.85em;opacity:.8;letter-spacing:1px}
+
+nav{display:flex;flex-wrap:wrap;gap:5px;padding:8px 16px;background:rgba(8,8,22,.96);border-bottom:1px solid rgba(255,255,255,.05);position:sticky;top:0;z-index:100;backdrop-filter:blur(16px)}
+nav button{padding:8px 16px;border:1px solid transparent;border-radius:20px;background:var(--tag-bg);color:#a8a8c0;cursor:pointer;font-size:.82em;font-weight:500;transition:var(--transition);white-space:nowrap;letter-spacing:.3px;position:relative;overflow:hidden}
+nav button::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent,rgba(255,255,255,.02));pointer-events:none}
+nav button:hover{background:var(--hover);color:#ddd;border-color:rgba(255,255,255,.1);transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.3)}
+nav button.active{background:linear-gradient(135deg,#c89040,#a06828);color:#120800;border-color:transparent;font-weight:600;box-shadow:0 2px 16px rgba(200,144,64,.4)}
+nav button.active::before{background:none}
+
+main{padding:24px;max-width:1520px;margin:0 auto;min-height:70vh}
+section{display:none;animation:fadeIn .35s ease}
+section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:24px}
+.stat-card{background:linear-gradient(145deg,var(--panel),var(--panel2));border:1px solid rgba(255,255,255,.05);border-radius:var(--radius);padding:22px 16px;text-align:center;transition:var(--transition);cursor:default;position:relative;overflow:hidden}
+.stat-card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(232,193,118,.06),transparent 70%);pointer-events:none}
+.stat-card:hover{transform:translateY(-3px);box-shadow:var(--shadow),var(--glow);border-color:rgba(232,193,118,.15)}
+.stat-card h3{color:#888;font-size:.75em;margin-bottom:8px;text-transform:uppercase;letter-spacing:1.5px;position:relative}
+.stat-card .num{font-size:2.6em;color:var(--gold);font-weight:700;text-shadow:0 0 24px rgba(232,193,118,.2);position:relative}
+
+table{width:100%;border-collapse:collapse;font-size:.82em}
+th{background:#161638;color:var(--head);padding:12px 10px;border-bottom:2px solid var(--border);text-align:left;position:sticky;top:52px;z-index:5;font-weight:600;font-size:.78em;letter-spacing:.5px}
+td{padding:10px;border-bottom:1px solid #1a1a32;vertical-align:top}
+tr:hover td{background:rgba(232,193,118,.03)}
+tr:nth-child(even) td{background:rgba(255,255,255,.01)}
+td:first-child{color:#555;font-size:.78em;text-align:center;width:36px}
+td:nth-child(2){font-weight:600;color:var(--head)}
+td:last-child{color:#aaa;font-size:.8em;max-width:280px}
+
+.book-section{margin-bottom:16px;background:var(--panel);border:1px solid rgba(255,255,255,.04);border-radius:var(--radius);overflow:hidden;transition:var(--transition)}
+.book-section:hover{border-color:rgba(255,255,255,.08)}
+.book-title{color:var(--gold);font-size:1.1em;padding:14px 20px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;background:var(--panel2);border-bottom:1px solid rgba(255,255,255,.04);user-select:none;transition:var(--transition)}
+.book-title:hover{background:#202045}
+.book-title .toggle{font-size:.6em;opacity:.4}
+.book-content{padding:0;overflow:hidden}
+.book-content table{margin:0;font-size:.76em}
+.book-content th{top:0;background:#141430}
+
+.tag{display:inline-block;padding:3px 10px;border-radius:4px;font-size:.7em;margin:1px;font-weight:500}
+.tag-blood{background:#4a1a1a;color:#f88;border:1px solid #6a2828}
+.tag-master{background:#1a3a1a;color:#8e8;border:1px solid #285828}
+.tag-love{background:#3a1a3a;color:#f8f;border:1px solid #582858}
+.tag-hate{background:#4a2818;color:#fa6;border:1px solid #6a3818}
+.tag-cross{background:#3a2808;color:#fc8;border:1px solid #5a4018}
+
+.search-box{width:100%;padding:14px 20px;border:2px solid rgba(255,255,255,.06);border-radius:24px;background:var(--panel);color:var(--text);font-size:.95em;margin-bottom:16px;transition:var(--transition);outline:none}
+.search-box:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(232,193,118,.08)}
+.search-box::placeholder{color:#444}
+
+.rel-card{background:var(--panel);border:1px solid rgba(255,255,255,.04);border-radius:var(--radius);padding:14px 18px;margin:6px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap;transition:var(--transition)}
+.rel-card:hover{border-color:rgba(255,255,255,.1);background:var(--panel2);box-shadow:0 4px 16px rgba(0,0,0,.2)}
+.rel-card .a,.rel-card .b{font-weight:600;color:var(--head);font-size:.9em}
+.rel-card .arrow{color:var(--gold);font-weight:bold}
+
+.tab-sub{margin:0 0 14px;display:flex;gap:4px;flex-wrap:wrap}
+.tab-sub button{padding:8px 18px;border:1px solid rgba(255,255,255,.06);background:var(--tag-bg);color:#999;border-radius:20px;cursor:pointer;font-size:.78em;transition:var(--transition)}
+.tab-sub button:hover{color:#ddd;border-color:rgba(255,255,255,.15)}
+.tab-sub button.active{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;box-shadow:0 0 16px rgba(94,158,214,.2)}
+
+footer{text-align:center;padding:28px;color:#3a3a4a;font-size:.7em;border-top:1px solid rgba(255,255,255,.04);margin-top:40px;letter-spacing:.5px}
+
+.kf-card{background:var(--panel);border:1px solid rgba(255,255,255,.04);border-radius:var(--radius);padding:16px 18px;transition:var(--transition)}
+.kf-card h4{color:var(--gold);margin-bottom:4px;font-size:.95em}
+.kf-card .user{color:var(--accent);font-size:.8em;margin:3px 0}
+.kf-card .book{font-size:.72em;opacity:.45}
+
+.detail-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(1,1,8,.94);z-index:200;overflow-y:auto;backdrop-filter:blur(16px)}
+.detail-overlay.show{display:block;animation:fadeIn .3s ease}
+.detail-container{max-width:860px;margin:0 auto;min-height:100vh;background:linear-gradient(180deg,#0b0b20 0%,#080814 100%)}
+.detail-header{display:flex;align-items:center;gap:16px;padding:14px 24px;border-bottom:1px solid rgba(255,255,255,.05);background:rgba(16,16,36,.85);position:sticky;top:0;z-index:10;backdrop-filter:blur(12px)}
+.back-btn{padding:9px 22px;border:1px solid var(--gold);border-radius:24px;background:transparent;color:var(--gold);cursor:pointer;font-size:.82em;font-weight:600;transition:var(--transition);letter-spacing:.5px}
+.back-btn:hover{background:rgba(232,193,118,.1);box-shadow:0 0 20px rgba(232,193,118,.15);transform:translateX(-3px)}
+.detail-type{color:#666;font-size:.75em}
+.detail-body{padding:0}
+.detail-hero{padding:36px 36px 28px;border-bottom:1px solid rgba(255,255,255,.04);background:linear-gradient(180deg,rgba(232,193,118,.04) 0%,transparent 100%)}
+.detail-hero h2{color:var(--head);font-size:2.1em;margin-bottom:8px;letter-spacing:1px}
+.detail-hero .hero-sub{color:var(--accent);font-size:1em;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.detail-hero .hero-tag{display:inline-block;padding:4px 14px;border-radius:14px;font-size:.7em;font-weight:700;border:1px solid}
+.detail-hero .hero-tag.cross{background:#3a2808;color:#fc8;border-color:#5a4018}
+.detail-hero .hero-tag.nocross{background:#1a1a2a;color:#777;border-color:#333}
+.detail-sections{padding:24px 36px}
+.detail-section{margin-bottom:28px}
+.detail-section h3{color:var(--gold);font-size:.78em;letter-spacing:2px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.05);display:flex;align-items:center;gap:10px}
+.detail-section h3::before{content:'';width:3px;height:18px;background:linear-gradient(180deg,var(--gold),transparent);border-radius:2px}
+.detail-section .content{color:#bbb;font-size:.92em;line-height:2.1}
+.detail-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:20px}
+.detail-info-card{background:var(--panel);border:1px solid rgba(255,255,255,.04);border-radius:var(--radius-sm);padding:16px 18px}
+.detail-info-card .card-label{color:var(--gold);font-size:.68em;letter-spacing:1.5px;margin-bottom:8px;font-weight:600}
+.detail-info-card .card-value{color:#bbb;font-size:.86em;line-height:1.6}
+.detail-rel-list{display:flex;flex-wrap:wrap;gap:8px}
+.detail-rel-item{background:var(--panel);border:1px solid rgba(255,255,255,.04);border-radius:var(--radius-sm);padding:10px 16px;font-size:.8em;display:flex;align-items:center;gap:8px;transition:var(--transition)}
+.detail-rel-item:hover{border-color:rgba(255,255,255,.1)}.detail-rel-item .rel-a{color:var(--head);font-weight:600}.detail-rel-item .rel-arrow{color:var(--gold)}.detail-rel-item .rel-type{color:var(--accent);font-size:.78em}
+
+.char-card{cursor:pointer!important;position:relative;background:var(--panel);border:1px solid rgba(255,255,255,.04);border-radius:var(--radius-sm);padding:14px 30px 14px 16px;transition:var(--transition)}
+.char-card:hover{border-color:rgba(232,193,118,.2)!important;transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.35)}
+.char-card::after{content:'';position:absolute;right:12px;top:50%;width:5px;height:5px;border-right:2px solid #444;border-bottom:2px solid #444;transform:translateY(-70%) rotate(-45deg);transition:var(--transition)}
+.char-card:hover::after{border-color:var(--gold)}
+.char-name{font-weight:600;color:var(--head);font-size:.88em}
+.kf-card.clickable{cursor:pointer}
+.kf-card.clickable:hover{border-color:rgba(232,193,118,.15)!important;transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.kf-card.clickable::after{content:'›';float:right;color:#3a3a4a;font-size:1.4em;line-height:1;transition:var(--transition)}
+.kf-card.clickable:hover::after{color:var(--gold)}
+
+.rank-card{background:var(--panel);border:1px solid rgba(255,255,255,.04);border-radius:var(--radius-sm);padding:12px 16px;cursor:pointer;transition:var(--transition)}
+.rank-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.35);border-color:rgba(255,255,255,.1)}
+
+.tl-wrap{position:relative;max-width:900px;margin:0 auto;padding:20px 0}
+.tl-wrap::before{content:'';position:absolute;left:36px;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#8B4513,#B8860B,#CD853F,#DAA520,#8FBC8F,#6B8E23,#4682B4,#5F9EA0,#9370DB,#C71585);border-radius:2px}
+.tl-era{text-align:center;padding:36px 0 14px;position:relative;z-index:1}
+.tl-era h3{display:inline-block;background:var(--panel);color:var(--gold);padding:10px 32px;border-radius:22px;border:1px solid rgba(232,193,118,.2);font-size:.88em;letter-spacing:2px;box-shadow:0 0 20px rgba(232,193,118,.06)}
+.tl-item{position:relative;padding:8px 0 8px 64px;margin:0}
+.tl-dot{position:absolute;left:28px;top:18px;width:18px;height:18px;border-radius:50%;border:3px solid;z-index:2;background:var(--bg);box-shadow:0 0 8px currentColor}
+.tl-card{background:var(--panel);border:1px solid rgba(255,255,255,.04);border-radius:var(--radius);padding:16px 18px;transition:var(--transition)}
+.tl-card:hover{border-color:rgba(255,255,255,.1);box-shadow:0 4px 16px rgba(0,0,0,.3);transform:translateX(2px)}
+.tl-date{font-size:.7em;color:var(--accent);font-weight:600;margin-bottom:3px;letter-spacing:.5px}
+.tl-title{color:var(--head);font-weight:600;font-size:.9em;margin-bottom:4px}
+.tl-desc{font-size:.76em;color:#999;line-height:1.6}
+.tl-book{display:inline-block;padding:3px 10px;border-radius:4px;font-size:.64em;font-weight:600;margin-top:6px}
+
+.map-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+.map-card{background:var(--panel);border:1px solid rgba(255,255,255,.04);border-radius:var(--radius);padding:16px 18px;transition:var(--transition);border-left:4px solid}
+.map-card:hover{border-color:rgba(255,255,255,.1);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.3)}
+.map-card h4{color:var(--head);font-size:.9em;margin-bottom:4px}
+.map-card .map-book{font-size:.68em;opacity:.4}
+.map-card .map-desc{font-size:.76em;color:#999;margin-top:8px;line-height:1.6}
+
+.cp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:10px}
+.cp-card{background:var(--panel);border:1px solid rgba(255,255,255,.04);border-radius:var(--radius);padding:16px 18px;transition:var(--transition);display:flex;align-items:center;gap:14px}
+.cp-card:hover{border-color:rgba(255,255,255,.1);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.3)}
+.cp-emoji{font-size:2.2em;flex-shrink:0;filter:drop-shadow(0 0 6px rgba(255,255,255,.1))}
+.cp-info{flex:1}
+.cp-names{color:var(--head);font-weight:600;font-size:.9em}
+.cp-type-tag{display:inline-block;padding:3px 10px;border-radius:10px;font-size:.64em;font-weight:600;margin:4px 0}
+.cp-desc{font-size:.74em;color:#999;margin-top:3px;line-height:1.5}
+
+@media(max-width:768px){
+  nav{padding:6px 8px;gap:3px}
+  nav button{padding:7px 12px;font-size:.72em}
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+  .stat-card{padding:14px 10px}
+  .stat-card .num{font-size:1.6em}
+  header h1{font-size:1.4em}
+  main{padding:10px}
+  .detail-container{max-width:100vw!important}
+  .detail-hero{padding:20px 16px}
+  .detail-sections{padding:16px}
+  .detail-hero h2{font-size:1.4em}
+  .cp-grid{grid-template-columns:1fr}
+  .tl-item{padding-left:54px}
+  .tl-dot{left:22px;width:14px;height:14px}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>🏯 金庸武侠宇宙 · 全人物数据库</h1>
+<p>15部小说 · 800+人物 · 跨书关系 · 武功门派 · 传承补遗</p>
+</header>
+
+<nav id="mainNav">
+<button class="active" onclick="showTab('overview')">📊 总览</button>
+<button onclick="showTab('characters')">👥 人物索引</button>
+<button onclick="showTab('relations')">🔗 跨书关系</button>
+<button onclick="showTab('kungfu')">⚔ 武功全表</button>
+<button onclick="showTab('sects')">🏛 门派全表</button>
+<button onclick="showTab('ranking')">🏆 武功排名</button>
+<button onclick="showTab('timeline')">⏳ 历史时间线</button>
+<button onclick="showTab('map')">🗺️ 地理地图</button>
+<button onclick="showTab('couples')">💕 情侣谱</button>
+<button onclick="showTab('weapons')">⚔️ 神兵谱</button>
+</nav>
+
+<main>
+<!-- ========== 总览 ========== -->
+<section id="overview" class="active">
+
+<div class="stats-grid">
+<div class="stat-card"><h3>📚 总小说数</h3><div class="num">15</div></div>
+<div class="stat-card"><h3>👥 收录人物</h3><div class="num">800+</div></div>
+<div class="stat-card"><h3>⚔ 有名武功</h3><div class="num">350+</div></div>
+<div class="stat-card"><h3>🏛 门派组织</h3><div class="num">120+</div></div>
+<div class="stat-card"><h3>🔗 跨书关联</h3><div class="num">200+</div></div>
+<div class="stat-card"><h3>📅 时间跨度</h3><div class="num">2500年</div></div>
+</div>
+
+</section>
+
+<!-- ========== 人物索引 ========== -->
+<section id="characters">
+<input class="search-box" id="charSearch" placeholder="🔍 搜索人物名、别名、绰号...（如：乔峰、东邪、令狐冲）" oninput="filterChars()">
+<div class="tab-sub" id="bookSubNav"></div>
+<div id="charContent"></div>
+</section>
+
+<!-- ========== 跨书关系 ========== -->
+<section id="relations">
+<input class="search-box" id="relSearch" placeholder="🔍 搜索关系（如：郭靖、降龙十八掌、师徒）" oninput="filterRels()">
+<div class="tab-sub">
+<button class="active" onclick="showRelTab('blood')">🩸 血缘家族</button>
+<button onclick="showRelTab('master')">📜 师徒/传功</button>
+<button onclick="showRelTab('emotion')">💕 情感/恩怨</button>
+</div>
+<div id="relContent"></div>
+</section>
+
+<!-- ========== 武功 ========== -->
+<section id="kungfu">
+<input class="search-box" id="kfSearch" placeholder="🔍 搜索武功（如：降龙十八掌、独孤九剑、六脉神剑）" oninput="filterKf()">
+<div id="kfContent"></div>
+</section>
+
+<!-- ========== 门派 ========== -->
+<section id="sects">
+<input class="search-box" id="sectSearch" placeholder="🔍 搜索门派（如：少林、武当、丐帮、日月神教）" oninput="filterSects()">
+<div id="sectContent"></div>
+</section>
+
+<!-- ========== 武功排名 ========== -->
+<section id="ranking">
+<input class="search-box" id="rankSearch" placeholder="🔍 搜索排名中的人物..." oninput="renderRanking()">
+<div class="tab-sub" id="rankSubNav">
+<button class="active" onclick="showRankView('overall')">🌏 十五部总排名</button>
+<button onclick="showRankView('book')">📖 单书排名</button>
+</div>
+<div id="rankContent"></div>
+</section>
+
+<!-- ========== 历史时间线 ========== -->
+<section id="timeline">
+<div id="tlContent"></div>
+</section>
+
+<!-- ========== 地理地图 ========== -->
+<section id="map">
+<div id="mapContent"></div>
+</section>
+
+<!-- ========== 情侣谱 ========== -->
+<section id="couples">
+<input class="search-box" id="cpSearch" placeholder="🔍 搜索情侣..." oninput="renderCouples()">
+<div id="cpContent"></div>
+</section>
+
+<!-- ========== 神兵谱 ========== -->
+<section id="weapons">
+<input class="search-box" id="wpSearch" placeholder="🔍 搜索神兵..." oninput="renderWeapons()">
+<div id="wpContent"></div>
+</section>
+
+
+</main>
+
+<!-- Detail Panel -->
+<div id="detailPanel" class="detail-overlay">
+  <div class="detail-container">
+    <div class="detail-header">
+      <button class="back-btn" onclick="closeDetail()">← 返回</button>
+      <span class="detail-type" id="detailType"></span>
+    </div>
+    <div id="detailBody"></div>
+  </div>
+</div>
+
+<footer>金庸武侠宇宙数据库 · 基于原著15部小说整理 · 部分关联为合理推断【标注】</footer>
+
+<script>
+// ==================== DATA ====================
+
+// ==================== CHARACTERS DATA ====================
+const NOVELS = {};
+
+// ---------- 越女剑 ----------
+NOVELS['越女剑'] = [
+  {name:'阿青',alias:'越女',role:'越国牧羊女·剑术通神',note:'白猿授剑→一根竹棒破三千越甲→欲杀西施被其美貌所感而止'},
+  {name:'范蠡',alias:'陶朱公',role:'越国大夫',note:'助勾践灭吴→与西施归隐太湖'},
+  {name:'西施',alias:'夷光',role:'越国美人·入吴为妃',note:'四大美人之首·范蠡挚爱·吴灭后归越'},
+  {name:'勾践',alias:'越王',role:'越国君主',note:'卧薪尝胆灭吴·请阿青教剑'},
+  {name:'文种',alias:'',role:'越国大夫',note:'助勾践复国·后被赐死'},
+  {name:'夫差',alias:'吴王',role:'吴国君主',note:'宠西施而亡国'},
+  {name:'白猿',alias:'白公公',role:'授阿青剑术之灵猿',note:'与阿青竹棒对决后离去'},
+  {name:'越国剑士甲',alias:'',role:'越国剑士·观阿青舞剑',note:'仅学得阿青剑术一丝影子'},
+];
+
+// ---------- 天龙八部 ----------
+NOVELS['天龙八部'] = [
+  {name:'段誉',alias:'',role:'大理世子→皇帝·六脉神剑',note:'主角'},
+  {name:'乔峰/萧峰',alias:'北乔峰',role:'丐帮帮主·契丹人',note:'主角'},
+  {name:'虚竹',alias:'',role:'灵鹫宫主·西夏驸马',note:'主角'},
+  {name:'阿朱',alias:'',role:'段正淳之女·慕容家婢女',note:'乔峰挚爱'},
+  {name:'阿紫',alias:'',role:'阿朱之妹·星宿派',note:''},
+  {name:'王语嫣',alias:'神仙姐姐',role:'慕容复表妹·精通武学',note:''},
+  {name:'慕容复',alias:'南慕容',role:'姑苏慕容·大燕皇孙',note:''},
+  {name:'段正淳',alias:'镇南王',role:'大理镇南王',note:''},
+  {name:'段正明',alias:'保定帝',role:'大理皇帝',note:''},
+  {name:'刀白凤',alias:'镇南王妃',role:'段正淳正妻·摆夷族',note:''},
+  {name:'秦红棉',alias:'修罗刀',role:'段正淳情人之一',note:''},
+  {name:'甘宝宝',alias:'俏药叉',role:'段正淳情人·钟万仇妻',note:''},
+  {name:'阮星竹',alias:'',role:'段正淳情人',note:''},
+  {name:'李青萝',alias:'王夫人',role:'段正淳情人·曼陀山庄',note:''},
+  {name:'康敏',alias:'马夫人',role:'段正淳情人·马大元妻',note:''},
+  {name:'钟灵',alias:'',role:'段誉之妹(实)·甘宝宝之女',note:''},
+  {name:'木婉清',alias:'',role:'段誉之妹(实)·秦红棉之女',note:''},
+  {name:'阿碧',alias:'',role:'慕容家婢女·擅琴',note:''},
+  {name:'包不同',alias:'非也非也',role:'慕容家臣',note:''},
+  {name:'风波恶',alias:'',role:'慕容家臣·好斗',note:''},
+  {name:'鸠摩智',alias:'大轮明王',role:'吐蕃国师',note:''},
+  {name:'无崖子',alias:'',role:'逍遥派掌门',note:'第二代掌门'},
+  {name:'天山童姥',alias:'',role:'灵鹫宫主·八荒六合',note:''},
+  {name:'李秋水',alias:'',role:'西夏皇太妃',note:''},
+  {name:'丁春秋',alias:'星宿老怪',role:'星宿派掌门',note:''},
+  {name:'苏星河',alias:'聪辩先生',role:'聋哑谷主',note:''},
+  {name:'段延庆',alias:'恶贯满盈',role:'四大恶人之首·大理废太子',note:''},
+  {name:'叶二娘',alias:'无恶不作',role:'四大恶人·虚竹之母',note:''},
+  {name:'岳老三',alias:'凶神恶煞',role:'四大恶人·南海鳄神',note:''},
+  {name:'云中鹤',alias:'穷凶极恶',role:'四大恶人·淫贼',note:''},
+  {name:'扫地僧',alias:'无名老僧',role:'少林藏经阁无名僧',note:''},
+  {name:'玄慈',alias:'',role:'少林方丈',note:''},
+  {name:'玄悲',alias:'',role:'少林僧',note:''},
+  {name:'玄苦',alias:'',role:'少林僧·乔峰之师',note:''},
+  {name:'玄难',alias:'',role:'少林僧',note:''},
+  {name:'玄寂',alias:'',role:'少林僧',note:''},
+  {name:'玄痛',alias:'',role:'少林僧',note:''},
+  {name:'虚清',alias:'',role:'少林僧',note:''},
+  {name:'慧轮',alias:'',role:'少林僧·虚竹之师',note:''},
+  {name:'缘根',alias:'',role:'少林管菜园僧',note:''},
+  {name:'枯荣大师',alias:'',role:'天龙寺高僧',note:''},
+  {name:'本因',alias:'',role:'天龙寺方丈',note:''},
+  {name:'本观',alias:'',role:'天龙寺僧',note:''},
+  {name:'本相',alias:'',role:'天龙寺僧',note:''},
+  {name:'本参',alias:'',role:'天龙寺僧',note:''},
+  {name:'游坦之',alias:'铁头人',role:'聚贤庄少主·痴恋阿紫',note:''},
+  {name:'游骥',alias:'',role:'聚贤庄庄主',note:''},
+  {name:'游驹',alias:'',role:'聚贤庄二庄主',note:''},
+  {name:'马大元',alias:'',role:'丐帮副帮主',note:''},
+  {name:'全冠清',alias:'十方秀才',role:'丐帮长老·策划叛乱',note:''},
+  {name:'白世镜',alias:'',role:'丐帮执法长老',note:''},
+  {name:'徐冲霄',alias:'',role:'丐帮长老',note:''},
+  {name:'奚长老',alias:'',role:'丐帮长老',note:''},
+  {name:'陈孤雁',alias:'',role:'丐帮长老',note:''},
+  {name:'吴长风',alias:'',role:'丐帮长老',note:''},
+  {name:'宋长老',alias:'',role:'丐帮长老',note:''},
+  {name:'耶律洪基',alias:'',role:'辽帝',note:''},
+  {name:'完颜阿骨打',alias:'',role:'女真族长',note:''},
+  {name:'萧远山',alias:'',role:'乔峰之父·契丹珊军总教头',note:''},
+  {name:'慕容博',alias:'',role:'慕容复之父·假死30年',note:''},
+  {name:'谭公',alias:'',role:'聚贤庄大会',note:''},
+  {name:'谭婆',alias:'',role:'谭公之妻',note:''},
+  {name:'赵钱孙',alias:'',role:'谭婆旧情人',note:''},
+  {name:'单正',alias:'铁面判官',role:'泰山豪杰',note:''},
+  {name:'智光大师',alias:'',role:'天台山僧',note:''},
+  {name:'钟万仇',alias:'见人就杀',role:'万劫谷主',note:''},
+  {name:'左子穆',alias:'',role:'无量剑东宗掌门',note:''},
+  {name:'辛双清',alias:'',role:'无量剑西宗掌门',note:''},
+  {name:'司空玄',alias:'',role:'神农帮帮主',note:''},
+  {name:'褚万里',alias:'',role:'大理侍卫',note:''},
+  {name:'古笃诚',alias:'',role:'大理侍卫',note:''},
+  {name:'傅思归',alias:'',role:'大理侍卫',note:''},
+  {name:'朱丹臣',alias:'',role:'大理侍卫·书生',note:''},
+  {name:'巴天石',alias:'',role:'大理司空',note:''},
+  {name:'华赫艮',alias:'',role:'大理司徒',note:''},
+  {name:'范骅',alias:'',role:'大理司马',note:''},
+  {name:'高升泰',alias:'',role:'大理善阐侯',note:''},
+  {name:'摘星子',alias:'',role:'星宿派大师兄',note:''},
+  {name:'出尘子',alias:'',role:'星宿派弟子',note:''},
+  {name:'天狼子',alias:'',role:'星宿派弟子',note:''},
+  {name:'狮吼子',alias:'',role:'星宿派弟子',note:''},
+  {name:'薛慕华',alias:'阎王敌',role:'函谷八友·神医',note:''},
+  {name:'康广陵',alias:'',role:'函谷八友·琴',note:''},
+  {name:'范百龄',alias:'',role:'函谷八友·棋',note:''},
+  {name:'苟读',alias:'',role:'函谷八友·书',note:''},
+  {name:'吴领军',alias:'',role:'函谷八友·画',note:''},
+  {name:'李傀儡',alias:'',role:'函谷八友·戏',note:''},
+  {name:'冯阿三',alias:'',role:'函谷八友·巧匠',note:''},
+  {name:'石清露',alias:'',role:'函谷八友·花',note:''},
+  {name:'鸠摩智',alias:'大轮明王',role:'吐蕃国师·小无相功',note:''},
+  {name:'卓不凡',alias:'剑神',role:'一字慧剑门传人',note:''},
+  {name:'崔百泉',alias:'金算盘',role:'伏牛派',note:''},
+  {name:'过彦之',alias:'',role:'伏牛派',note:''},
+  {name:'黄眉僧',alias:'',role:'大理拈花寺僧',note:''},
+  {name:'神山上人',alias:'',role:'五台山清凉寺方丈',note:''},
+  {name:'哲罗星',alias:'',role:'西域少林僧',note:''},
+  {name:'波罗星',alias:'',role:'西域少林僧',note:''},
+  {name:'李傀儡',alias:'',role:'函谷八友',note:''},
+  {name:'余婆',alias:'',role:'灵鹫宫',note:''},
+  {name:'石嫂',alias:'',role:'灵鹫宫',note:''},
+  {name:'符敏仪',alias:'',role:'灵鹫宫·针神',note:''},
+  {name:'梅剑',alias:'',role:'灵鹫宫四剑婢',note:''},
+  {name:'兰剑',alias:'',role:'灵鹫宫四剑婢',note:''},
+  {name:'竹剑',alias:'',role:'灵鹫宫四剑婢',note:''},
+  {name:'菊剑',alias:'',role:'灵鹫宫四剑婢',note:''},
+  {name:'乌老大',alias:'',role:'三十六洞主',note:''},
+  {name:'不平道人',alias:'',role:'',note:''},
+  {name:'安洞主',alias:'',role:'',note:''},
+  {name:'桑土公',alias:'',role:'川西碧磷洞',note:''},
+  {name:'无尘子',alias:'',role:'',note:''},
+  {name:'哈大霸',alias:'',role:'',note:''},
+  {name:'玄黄子',alias:'',role:'',note:''},
+  {name:'章达夫',alias:'',role:'',note:''},
+  {name:'区岛主',alias:'',role:'',note:''},
+  {name:'芙蓉仙子',alias:'',role:'',note:''},
+  {name:'珠崖大怪',alias:'',role:'',note:''},
+  {name:'珠崖二怪',alias:'',role:'',note:''},
+  {name:'珠崖三怪',alias:'',role:'',note:''},
+  {name:'诸保昆',alias:'',role:'青城派·实为蓬莱派卧底',note:''},
+  {name:'司马林',alias:'',role:'青城派',note:''},
+  {name:'姜老者',alias:'',role:'青城派',note:''},
+  {name:'孟老者',alias:'',role:'青城派',note:''},
+  {name:'都灵子',alias:'',role:'蓬莱派',note:''},
+  {name:'宗赞王子',alias:'',role:'吐蕃王子',note:''},
+  {name:'葛光佩',alias:'',role:'无量剑弟子',note:''},
+  {name:'于光豪',alias:'',role:'无量剑弟子',note:''},
+  {name:'郁光标',alias:'',role:'无量剑弟子',note:''},
+  {name:'吴光胜',alias:'',role:'无量剑弟子',note:''},
+  {name:'容子矩',alias:'',role:'神农帮弟子',note:''},
+  {name:'平婆婆',alias:'',role:'曼陀山庄',note:''},
+  {name:'瑞婆婆',alias:'',role:'曼陀山庄',note:''},
+  {name:'小翠',alias:'',role:'曼陀山庄婢',note:''},
+  {name:'小茗',alias:'',role:'曼陀山庄婢',note:''},
+  {name:'小茶',alias:'',role:'曼陀山庄婢',note:''},
+  {name:'幽草',alias:'',role:'曼陀山庄婢',note:''},
+  {name:'邓百川',alias:'',role:'慕容家臣',note:''},
+  {name:'公冶乾',alias:'',role:'慕容家臣',note:''},
+  {name:'严妈妈',alias:'',role:'曼陀山庄',note:''},
+  {name:'赫连铁树',alias:'',role:'西夏一品堂将军',note:''},
+  {name:'努儿海',alias:'',role:'西夏一品堂',note:''},
+  {name:'徐长老',alias:'',role:'丐帮退隐长老',note:''},
+  {name:'项长老',alias:'',role:'丐帮传功长老',note:''},
+  {name:'康广陵',alias:'',role:'函谷八友',note:''},
+  // 附录龙套
+  {name:'祁老六',alias:'',role:'关西',note:'龙套'},
+  {name:'向望海',alias:'',role:'湘东',note:'龙套'},
+  {name:'鲍千灵',alias:'没本钱',role:'',note:'龙套'},
+  {name:'快刀祁六',alias:'',role:'',note:'龙套'},
+  {name:'薛神医(薛慕华)',alias:'阎王敌',role:'函谷八友',note:'已列'},
+];
+
+// ---------- 射雕英雄传 ----------
+NOVELS['射雕英雄传'] = [
+  {name:'郭靖',alias:'北侠',role:'降龙十八掌传人·守襄阳',note:'主角'},
+  {name:'黄蓉',alias:'',role:'东邪之女·丐帮帮主',note:'主角'},
+  {name:'黄药师',alias:'东邪',role:'桃花岛主',note:''},
+  {name:'欧阳锋',alias:'西毒',role:'白驼山主·蛤蟆功',note:''},
+  {name:'洪七公',alias:'北丐',role:'丐帮帮主·降龙十八掌',note:''},
+  {name:'段智兴',alias:'南帝/一灯',role:'大理皇帝→僧人·一阳指',note:''},
+  {name:'周伯通',alias:'老顽童/中顽童',role:'全真教·双手互搏',note:''},
+  {name:'王重阳',alias:'中神通',role:'全真教创派祖师',note:'已故·回忆'},
+  {name:'丘处机',alias:'长春子',role:'全真七子之首',note:''},
+  {name:'马钰',alias:'丹阳子',role:'全真七子·掌教',note:''},
+  {name:'王处一',alias:'玉阳子/铁脚仙',role:'全真七子',note:''},
+  {name:'郝大通',alias:'广宁子',role:'全真七子',note:''},
+  {name:'刘处玄',alias:'长生子',role:'全真七子',note:''},
+  {name:'孙不二',alias:'清静散人',role:'全真七子·唯一女',note:''},
+  {name:'谭处端',alias:'长真子',role:'全真七子',note:''},
+  {name:'杨康',alias:'完颜康',role:'小王爷·认贼作父',note:''},
+  {name:'穆念慈',alias:'',role:'杨铁心养女',note:''},
+  {name:'杨铁心',alias:'穆易',role:'杨家枪传人',note:''},
+  {name:'包惜弱',alias:'',role:'杨铁心之妻·完颜洪烈王妃',note:''},
+  {name:'郭啸天',alias:'',role:'郭靖之父',note:''},
+  {name:'李萍',alias:'',role:'郭靖之母',note:''},
+  {name:'完颜洪烈',alias:'六王爷',role:'金国王爷',note:''},
+  {name:'欧阳克',alias:'',role:'白驼山少主',note:''},
+  {name:'梅超风',alias:'铁尸',role:'桃花岛弃徒·九阴白骨爪',note:''},
+  {name:'陈玄风',alias:'铜尸',role:'桃花岛弃徒·九阴真经',note:''},
+  {name:'陆乘风',alias:'',role:'桃花岛弃徒·归云庄庄主',note:''},
+  {name:'曲灵风',alias:'',role:'桃花岛弃徒·已故',note:''},
+  {name:'武眠风',alias:'',role:'桃花岛弃徒',note:''},
+  {name:'冯默风',alias:'',role:'桃花岛弃徒·铁匠',note:''},
+  {name:'程瑶迦',alias:'',role:'孙不二弟子',note:''},
+  {name:'陆冠英',alias:'',role:'归云庄少主',note:''},
+  {name:'裘千仞',alias:'铁掌水上飘',role:'铁掌帮帮主',note:''},
+  {name:'裘千丈',alias:'',role:'裘千仞孪生兄·冒牌',note:''},
+  {name:'柯镇恶',alias:'飞天蝙蝠',role:'江南七怪之首',note:''},
+  {name:'朱聪',alias:'妙手书生',role:'江南七怪',note:''},
+  {name:'韩宝驹',alias:'马王神',role:'江南七怪',note:''},
+  {name:'南希仁',alias:'南山樵子',role:'江南七怪',note:''},
+  {name:'张阿生',alias:'笑弥陀',role:'江南七怪',note:''},
+  {name:'全金发',alias:'闹市侠隐',role:'江南七怪',note:''},
+  {name:'韩小莹',alias:'越女剑',role:'江南七怪·唯一女',note:''},
+  {name:'沙通天',alias:'鬼门龙王',role:'黄河帮',note:''},
+  {name:'侯通海',alias:'三头蛟',role:'黄河帮',note:''},
+  {name:'梁子翁',alias:'参仙老怪',role:'长白山',note:''},
+  {name:'彭连虎',alias:'千手人屠',role:'千手门',note:''},
+  {name:'灵智上人',alias:'',role:'西藏密宗',note:''},
+  {name:'华筝',alias:'',role:'成吉思汗之女·郭靖未婚妻',note:''},
+  {name:'拖雷',alias:'',role:'成吉思汗四子',note:''},
+  {name:'成吉思汗',alias:'铁木真',role:'蒙古大汗',note:''},
+  {name:'哲别',alias:'',role:'蒙古神箭手',note:''},
+  {name:'术赤',alias:'',role:'成吉思汗长子',note:''},
+  {name:'察合台',alias:'',role:'成吉思汗次子',note:''},
+  {name:'窝阔台',alias:'',role:'成吉思汗三子',note:''},
+  {name:'尹志平',alias:'',role:'全真教弟子',note:''},
+  {name:'程瑶迦',alias:'',role:'孙不二之徒',note:''},
+  {name:'鲁有脚',alias:'',role:'丐帮长老',note:''},
+  {name:'简长老',alias:'',role:'丐帮长老',note:''},
+  {name:'梁长老',alias:'',role:'丐帮长老',note:''},
+  {name:'彭长老',alias:'',role:'丐帮长老',note:''},
+  {name:'黎生',alias:'',role:'丐帮弟子',note:''},
+  {name:'余兆兴',alias:'',role:'丐帮弟子',note:''},
+  {name:'完颜洪熙',alias:'三王爷',role:'金国王爷',note:''},
+  {name:'段天德',alias:'',role:'南宋军官·害郭啸天',note:''},
+  {name:'枯木大师',alias:'',role:'云栖寺',note:''},
+  {name:'焦木大师',alias:'',role:'法华寺',note:''},
+  {name:'瑛姑',alias:'神算子',role:'段智兴妃子·周伯通情人',note:''},
+  {name:'傻姑',alias:'',role:'曲灵风之女',note:''},
+  {name:'渔(泗水渔隐)',alias:'',role:'一灯四弟子·渔',note:''},
+  {name:'樵(樵夫)',alias:'',role:'一灯四弟子·樵',note:''},
+  {name:'耕(武三通)',alias:'',role:'一灯四弟子·耕',note:''},
+  {name:'读(朱子柳)',alias:'',role:'一灯四弟子·读',note:''},
+  {name:'秦南琴',alias:'',role:'旧版·杨过之母',note:'旧版'},
+  // 龙套
+  {name:'沈青刚',alias:'断魂刀',role:'黄河四鬼',note:'龙套'},
+  {name:'吴青烈',alias:'追命枪',role:'黄河四鬼',note:'龙套'},
+  {name:'马青雄',alias:'夺魄鞭',role:'黄河四鬼',note:'龙套'},
+  {name:'钱青健',alias:'丧门斧',role:'黄河四鬼',note:'龙套'},
+  {name:'汤祖德',alias:'',role:'杨康师父',note:'龙套'},
+  {name:'都史',alias:'',role:'桑昆之子',note:'龙套'},
+  {name:'札木合',alias:'',role:'蒙古首领',note:'龙套'},
+  {name:'王罕',alias:'',role:'克烈部首领',note:'龙套'},
+  {name:'桑昆',alias:'',role:'王罕之子',note:'龙套'},
+];
+
+// ---------- 神雕侠侣 ----------
+NOVELS['神雕侠侣'] = [
+  {name:'杨过',alias:'神雕大侠/西狂',role:'独孤求败传人·玄铁重剑',note:'主角'},
+  {name:'小龙女',alias:'',role:'古墓派掌门',note:'主角'},
+  {name:'金轮法王',alias:'',role:'蒙古国师·龙象般若功',note:''},
+  {name:'李莫愁',alias:'赤练仙子',role:'古墓派弃徒·冰魄银针',note:''},
+  {name:'郭靖',alias:'北侠',role:'守襄阳',note:'跨书'},
+  {name:'黄蓉',alias:'',role:'丐帮前帮主',note:'跨书'},
+  {name:'郭芙',alias:'',role:'郭靖黄蓉长女',note:''},
+  {name:'郭襄',alias:'小东邪',role:'峨眉派创派祖师',note:'跨书'},
+  {name:'郭破虏',alias:'',role:'郭靖黄蓉之子',note:''},
+  {name:'洪凌波',alias:'',role:'李莫愁弟子',note:''},
+  {name:'陆无双',alias:'',role:'李莫愁弟子·陆展元侄女',note:''},
+  {name:'程英',alias:'',role:'黄药师关门弟子',note:''},
+  {name:'公孙止',alias:'',role:'绝情谷主',note:''},
+  {name:'公孙绿萼',alias:'',role:'公孙止之女',note:''},
+  {name:'裘千尺',alias:'',role:'裘千仞之妹·公孙止妻',note:''},
+  {name:'尹志平/甄志丙',alias:'',role:'全真教·污小龙女',note:''},
+  {name:'赵志敬',alias:'',role:'全真教·叛徒',note:''},
+  {name:'周伯通',alias:'老顽童',role:'全真教',note:'跨书'},
+  {name:'黄药师',alias:'东邪',role:'桃花岛主',note:'跨书'},
+  {name:'欧阳锋',alias:'西毒',role:'疯癫·认杨过为义子',note:'跨书'},
+  {name:'洪七公',alias:'北丐',role:'华山之巅归天',note:'跨书'},
+  {name:'段智兴',alias:'一灯大师',role:'',note:'跨书'},
+  {name:'丘处机',alias:'',role:'全真教',note:'跨书'},
+  {name:'李志常',alias:'',role:'全真教掌教',note:''},
+  {name:'宋德方',alias:'',role:'全真教',note:''},
+  {name:'王志坦',alias:'',role:'全真教',note:''},
+  {name:'耶律齐',alias:'',role:'耶律楚材之子·郭芙夫婿',note:''},
+  {name:'耶律燕',alias:'',role:'耶律楚材之女',note:''},
+  {name:'完颜萍',alias:'',role:'金国后人',note:''},
+  {name:'武敦儒',alias:'',role:'武三通之子',note:''},
+  {name:'武修文',alias:'',role:'武三通之子',note:''},
+  {name:'武三通',alias:'',role:'一灯弟子',note:''},
+  {name:'朱子柳',alias:'',role:'一灯弟子',note:'跨书'},
+  {name:'鲁有脚',alias:'',role:'丐帮帮主',note:'跨书'},
+  {name:'霍都',alias:'',role:'金轮法王弟子·蒙古王子',note:''},
+  {name:'达尔巴',alias:'',role:'金轮法王弟子',note:''},
+  {name:'尼摩星',alias:'',role:'天竺高手',note:''},
+  {name:'潇湘子',alias:'',role:'湘西高手',note:''},
+  {name:'尹克西',alias:'',role:'波斯商人',note:''},
+  {name:'马光佐',alias:'',role:'回疆高手',note:''},
+  {name:'樊一翁',alias:'',role:'绝情谷',note:''},
+  {name:'天竺僧',alias:'',role:'一灯师弟·寻情花解药',note:''},
+  {name:'慈恩',alias:'',role:'裘千仞出家法号',note:''},
+  {name:'孙婆婆',alias:'',role:'古墓派·收养小龙女',note:''},
+  {name:'林朝英',alias:'',role:'古墓派创派·已故',note:'回忆'},
+  {name:'独孤求败',alias:'剑魔',role:'独孤九剑·已故',note:'跨书·回忆'},
+  {name:'神雕',alias:'',role:'独孤求败雕友',note:'非人'},
+  {name:'忽必烈',alias:'',role:'蒙古大汗',note:''},
+  {name:'蒙哥',alias:'',role:'蒙古大汗·死于襄阳',note:''},
+  {name:'吕文德',alias:'',role:'襄阳守将',note:'龙套'},
+  {name:'蓝天和',alias:'',role:'',note:'龙套'},
+  {name:'史伯威',alias:'白额山君',role:'万兽山庄',note:'龙套'},
+  {name:'史仲猛',alias:'管见子',role:'万兽山庄',note:'龙套'},
+  {name:'史叔刚',alias:'金甲狮王',role:'万兽山庄',note:'龙套'},
+  {name:'史季强',alias:'大力神',role:'万兽山庄',note:'龙套'},
+  {name:'史孟捷',alias:'八手仙猿',role:'万兽山庄',note:'龙套'},
+  {name:'张君宝',alias:'张三丰',role:'少林觉远弟子→武当祖师',note:'跨书'},
+  {name:'觉远',alias:'',role:'少林僧·九阳真经',note:'跨书'},
+  {name:'无色禅师',alias:'',role:'少林僧',note:''},
+  {name:'天鸣禅师',alias:'',role:'少林方丈',note:''},
+];
+
+// ---------- 倚天屠龙记 ----------
+NOVELS['倚天屠龙记'] = [
+  {name:'张无忌',alias:'',role:'明教教主·九阳神功·乾坤大挪移',note:'主角'},
+  {name:'赵敏',alias:'敏敏特穆尔',role:'蒙古郡主·绍敏郡主',note:''},
+  {name:'周芷若',alias:'',role:'峨眉掌门·九阴白骨爪',note:''},
+  {name:'张三丰',alias:'张真人',role:'武当创派祖师·太极宗师',note:'跨书'},
+  {name:'谢逊',alias:'金毛狮王',role:'明教四大法王',note:''},
+  {name:'殷素素',alias:'',role:'白眉鹰王之女·张无忌之母',note:''},
+  {name:'张翠山',alias:'铁划银钩',role:'武当七侠·张无忌之父',note:''},
+  {name:'殷天正',alias:'白眉鹰王',role:'明教四大法王·天鹰教教主',note:''},
+  {name:'黛绮丝',alias:'紫衫龙王/金花婆婆',role:'明教四大法王·波斯圣女',note:''},
+  {name:'韦一笑',alias:'青翼蝠王',role:'明教四大法王',note:''},
+  {name:'杨逍',alias:'',role:'明教光明左使',note:''},
+  {name:'范遥',alias:'苦头陀',role:'明教光明右使·卧底汝阳王府',note:''},
+  {name:'灭绝师太',alias:'',role:'峨眉掌门·倚天剑',note:''},
+  {name:'纪晓芙',alias:'',role:'峨眉弟子·杨不悔之母',note:''},
+  {name:'杨不悔',alias:'',role:'杨逍纪晓芙之女',note:''},
+  {name:'殷梨亭',alias:'',role:'武当七侠',note:''},
+  {name:'宋远桥',alias:'',role:'武当七侠之首',note:''},
+  {name:'俞莲舟',alias:'',role:'武当七侠',note:''},
+  {name:'俞岱岩',alias:'',role:'武当七侠·被废',note:''},
+  {name:'张松溪',alias:'',role:'武当七侠',note:''},
+  {name:'莫声谷',alias:'',role:'武当七侠',note:''},
+  {name:'宋青书',alias:'',role:'宋远桥之子·叛徒',note:''},
+  {name:'成昆',alias:'混元霹雳手/圆真',role:'少林僧·挑拨明教',note:''},
+  {name:'阳顶天',alias:'',role:'明教前教主·乾坤大挪移',note:'已故'},
+  {name:'小昭',alias:'',role:'黛绮丝之女·波斯明教圣女',note:''},
+  {name:'殷离',alias:'蛛儿',role:'殷天正孙女·练千蛛万毒手',note:''},
+  {name:'空见',alias:'',role:'少林神僧·金刚不坏体',note:''},
+  {name:'空闻',alias:'',role:'少林方丈',note:''},
+  {name:'空智',alias:'',role:'少林神僧',note:''},
+  {name:'空性',alias:'',role:'少林神僧·龙爪手',note:''},
+  {name:'圆音',alias:'',role:'少林僧',note:''},
+  {name:'圆业',alias:'',role:'少林僧',note:''},
+  {name:'何太冲',alias:'铁琴先生',role:'昆仑掌门',note:''},
+  {name:'班淑娴',alias:'',role:'何太冲之妻·昆仑',note:''},
+  {name:'鲜于通',alias:'',role:'华山掌门',note:''},
+  {name:'高则成',alias:'',role:'华山',note:'龙套'},
+  {name:'矮老者',alias:'',role:'华山',note:'龙套'},
+  {name:'鹿杖客',alias:'',role:'玄冥二老',note:''},
+  {name:'鹤笔翁',alias:'',role:'玄冥二老',note:''},
+  {name:'阿大(方东白)',alias:'八臂哪吒',role:'汝阳王府·前丐帮长老',note:''},
+  {name:'阿二',alias:'',role:'汝阳王府·金刚门',note:''},
+  {name:'阿三',alias:'',role:'汝阳王府·金刚门',note:''},
+  {name:'汝阳王',alias:'察罕特穆尔',role:'元朝汝阳王·赵敏之父',note:''},
+  {name:'王保保',alias:'库库特穆尔',role:'赵敏之兄',note:''},
+  {name:'朱元璋',alias:'',role:'明教弟子→明太祖',note:''},
+  {name:'徐达',alias:'',role:'明教弟子·明朝开国',note:''},
+  {name:'常遇春',alias:'',role:'明教弟子',note:''},
+  {name:'说不得',alias:'布袋和尚',role:'五散人',note:''},
+  {name:'彭莹玉',alias:'彭和尚',role:'五散人',note:''},
+  {name:'张中',alias:'铁冠道人',role:'五散人',note:''},
+  {name:'冷谦',alias:'冷面先生',role:'五散人',note:''},
+  {name:'周颠',alias:'',role:'五散人',note:''},
+  {name:'胡青牛',alias:'蝶谷医仙',role:'神医·张无忌之师',note:''},
+  {name:'王难姑',alias:'毒仙',role:'胡青牛之妻',note:''},
+  {name:'朱长龄',alias:'',role:'朱子柳后人',note:''},
+  {name:'朱九真',alias:'',role:'朱长龄之女',note:''},
+  {name:'武烈',alias:'',role:'武三通后人',note:''},
+  {name:'武青婴',alias:'',role:'武烈之女',note:''},
+  {name:'卫璧',alias:'',role:'朱武家',note:''},
+  {name:'史火龙',alias:'',role:'丐帮帮主·降龙十二掌',note:''},
+  {name:'史红石',alias:'',role:'史火龙之女',note:''},
+  {name:'陈友谅',alias:'',role:'丐帮长老·成昆弟子',note:''},
+  {name:'黄衫女子',alias:'',role:'古墓派后人·杨过后人',note:'跨书'},
+  {name:'觉远',alias:'',role:'少林僧',note:'回忆·跨书'},
+  {name:'无色禅师',alias:'',role:'少林僧·觉远弟子',note:'跨书'},
+  {name:'郭襄',alias:'',role:'峨眉创派祖师·已故',note:'回忆·跨书'},
+  {name:'渡厄',alias:'',role:'少林三渡',note:''},
+  {name:'渡劫',alias:'',role:'少林三渡',note:''},
+  {name:'渡难',alias:'',role:'少林三渡·金刚伏魔圈',note:''},
+  {name:'韩千叶',alias:'银叶先生',role:'黛绮丝之夫',note:'已故'},
+  {name:'殷野王',alias:'',role:'殷天正之子',note:''},
+  {name:'丁敏君',alias:'',role:'峨眉弟子',note:''},
+  {name:'贝锦仪',alias:'',role:'峨眉弟子',note:''},
+  {name:'静玄',alias:'',role:'峨眉弟子',note:''},
+  {name:'静虚',alias:'',role:'峨眉弟子',note:''},
+  {name:'静空',alias:'',role:'峨眉弟子',note:''},
+  {name:'静照',alias:'',role:'峨眉弟子',note:''},
+  {name:'易三娘',alias:'',role:'少林山下',note:'龙套'},
+  {name:'杜百当',alias:'',role:'少林山下',note:'龙套'},
+  {name:'赵一伤',alias:'',role:'明教',note:'龙套'},
+  {name:'钱二败',alias:'',role:'明教',note:'龙套'},
+  {name:'孙三毁',alias:'',role:'明教',note:'龙套'},
+  {name:'李四摧',alias:'',role:'明教',note:'龙套'},
+  {name:'周五输',alias:'',role:'明教',note:'龙套'},
+  {name:'吴六破',alias:'',role:'明教',note:'龙套'},
+];
+
+// ---------- 笑傲江湖 ----------
+NOVELS['笑傲江湖'] = [
+  {name:'令狐冲',alias:'',role:'恒山掌门·独孤九剑传人',note:'主角'},
+  {name:'任盈盈',alias:'圣姑',role:'日月神教圣姑',note:'主角'},
+  {name:'东方不败',alias:'',role:'日月神教教主·葵花宝典',note:''},
+  {name:'岳不群',alias:'君子剑',role:'华山掌门(伪君子)',note:''},
+  {name:'岳灵珊',alias:'',role:'岳不群之女',note:''},
+  {name:'宁中则',alias:'华山玉女',role:'岳不群之妻',note:''},
+  {name:'任我行',alias:'',role:'日月神教前教主·吸星大法',note:''},
+  {name:'向问天',alias:'天王老子',role:'日月神教光明右使',note:''},
+  {name:'风清扬',alias:'',role:'华山剑宗·独孤九剑传人',note:''},
+  {name:'左冷禅',alias:'',role:'嵩山掌门·寒冰真气',note:''},
+  {name:'方正大师',alias:'',role:'少林方丈',note:''},
+  {name:'冲虚道长',alias:'',role:'武当掌门',note:''},
+  {name:'莫大先生',alias:'潇湘夜雨',role:'衡山掌门',note:''},
+  {name:'定闲师太',alias:'',role:'恒山掌门',note:''},
+  {name:'定逸师太',alias:'',role:'恒山',note:''},
+  {name:'定静师太',alias:'',role:'恒山',note:''},
+  {name:'天门道长',alias:'',role:'泰山掌门',note:''},
+  {name:'余沧海',alias:'',role:'青城掌门',note:''},
+  {name:'林平之',alias:'',role:'福威镖局少主·辟邪剑法',note:''},
+  {name:'林震南',alias:'',role:'福威镖局总镖头',note:''},
+  {name:'林远图',alias:'渡元禅师',role:'辟邪剑法创制者·前少林僧',note:''},
+  {name:'田伯光',alias:'万里独行',role:'采花贼·后改邪归正',note:''},
+  {name:'不戒和尚',alias:'',role:'仪琳之父',note:''},
+  {name:'仪琳',alias:'',role:'恒山弟子·暗恋令狐冲',note:''},
+  {name:'劳德诺',alias:'',role:'华山弟子·嵩山卧底',note:''},
+  {name:'陆大有',alias:'六猴儿',role:'华山弟子',note:''},
+  {name:'桃谷六仙',alias:'',role:'桃谷六怪·内力乱灌',note:'6人'},
+  {name:'平一指',alias:'杀人名医',role:'神医',note:''},
+  {name:'蓝凤凰',alias:'',role:'五毒教主',note:''},
+  {name:'曲洋',alias:'',role:'日月神教长老·笑傲江湖曲',note:''},
+  {name:'刘正风',alias:'',role:'衡山派·笑傲江湖曲',note:''},
+  {name:'曲非烟',alias:'',role:'曲洋孙女',note:''},
+  {name:'绿竹翁',alias:'',role:'洛阳东城·任盈盈师侄',note:''},
+  {name:'黄河老祖',alias:'',role:'',note:''},
+  {name:'祖千秋',alias:'',role:'论杯',note:''},
+  {name:'老头子',alias:'',role:'黄河帮·救女',note:''},
+  {name:'计无施',alias:'夜猫子',role:'',note:''},
+  {name:'杨莲亭',alias:'',role:'东方不败男宠',note:''},
+  {name:'童百熊',alias:'',role:'日月神教长老',note:''},
+  {name:'上官云',alias:'雕侠',role:'日月神教长老',note:''},
+  {name:'贾布',alias:'',role:'日月神教',note:''},
+  {name:'鲍大楚',alias:'',role:'日月神教',note:''},
+  {name:'秦伟邦',alias:'',role:'日月神教',note:''},
+  {name:'王诚',alias:'',role:'日月神教',note:''},
+  {name:'桑三娘',alias:'',role:'日月神教',note:''},
+  {name:'秦岭一虎',alias:'',role:'',note:'龙套'},
+  {name:'封不平',alias:'',role:'华山剑宗',note:''},
+  {name:'成不忧',alias:'',role:'华山剑宗',note:''},
+  {name:'丛不弃',alias:'',role:'华山剑宗',note:''},
+  {name:'玉玑子',alias:'',role:'泰山',note:''},
+  {name:'玉音子',alias:'',role:'泰山',note:''},
+  {name:'木高峰',alias:'塞北明驼',role:'',note:''},
+  {name:'丁勉',alias:'托塔手',role:'嵩山',note:''},
+  {name:'费彬',alias:'大嵩阳手',role:'嵩山',note:''},
+  {name:'陆柏',alias:'仙鹤手',role:'嵩山',note:''},
+  {name:'钟镇',alias:'九曲剑',role:'嵩山',note:''},
+  {name:'乐厚',alias:'大阴阳手',role:'嵩山',note:''},
+  {name:'汤英鹗',alias:'',role:'嵩山',note:''},
+  {name:'狄修',alias:'',role:'嵩山',note:''},
+  {name:'鲁连荣',alias:'金眼雕',role:'衡山',note:''},
+  {name:'刘芹',alias:'',role:'刘正风之子',note:''},
+  {name:'黑白子',alias:'',role:'梅庄',note:''},
+  {name:'黄钟公',alias:'',role:'梅庄',note:''},
+  {name:'秃笔翁',alias:'',role:'梅庄',note:''},
+  {name:'丹青生',alias:'',role:'梅庄',note:''},
+];
+
+// ---------- 鹿鼎记 ----------
+NOVELS['鹿鼎记'] = [
+  {name:'韦小宝',alias:'',role:'康熙宠臣·天地会香主·神龙教白龙使',note:'主角'},
+  {name:'康熙',alias:'玄烨',role:'清圣祖',note:''},
+  {name:'陈近南',alias:'',role:'天地会总舵主·凝血神爪',note:''},
+  {name:'九难师太',alias:'独臂神尼',role:'前明长平公主·阿九',note:'跨书(碧血)'},
+  {name:'阿珂',alias:'',role:'陈圆圆之女·韦小宝七夫人之一',note:''},
+  {name:'双儿',alias:'',role:'韦小宝七夫人之一·最受宠',note:''},
+  {name:'方怡',alias:'',role:'沐王府·韦小宝七夫人之一',note:''},
+  {name:'沐剑屏',alias:'',role:'沐王府郡主·韦小宝七夫人之一',note:''},
+  {name:'苏荃',alias:'',role:'神龙教主夫人·韦小宝七夫人之一',note:''},
+  {name:'建宁公主',alias:'',role:'康熙之妹(假)·韦小宝七夫人之一',note:''},
+  {name:'曾柔',alias:'',role:'王屋派·韦小宝七夫人之一',note:''},
+  {name:'洪安通',alias:'',role:'神龙教教主',note:''},
+  {name:'海大富',alias:'',role:'尚膳监太监·化骨绵掌',note:''},
+  {name:'鳌拜',alias:'',role:'辅政大臣·满洲第一勇士',note:''},
+  {name:'吴三桂',alias:'平西王',role:'平西王·引清入关',note:''},
+  {name:'陈圆圆',alias:'',role:'吴三桂之妾·阿珂之母',note:''},
+  {name:'李自成',alias:'奉天王',role:'大顺皇帝·已故',note:''},
+  {name:'郑克塽',alias:'',role:'延平王世子',note:''},
+  {name:'冯锡范',alias:'一剑无血',role:'郑克塽师父',note:''},
+  {name:'刘国轩',alias:'',role:'台湾将领',note:''},
+  {name:'施琅',alias:'',role:'清军水师提督',note:''},
+  {name:'多隆',alias:'',role:'御前侍卫总管',note:''},
+  {name:'索额图',alias:'',role:'康熙近臣',note:''},
+  {name:'康亲王',alias:'杰书',role:'亲王',note:''},
+  {name:'吴应熊',alias:'',role:'吴三桂之子',note:''},
+  {name:'沐剑声',alias:'',role:'沐王府',note:''},
+  {name:'柳大洪',alias:'铁背苍龙',role:'沐王府',note:''},
+  {name:'吴立身',alias:'摇头狮子',role:'沐王府',note:''},
+  {name:'徐天川',alias:'八臂猿猴',role:'天地会',note:''},
+  {name:'钱老本',alias:'',role:'天地会',note:''},
+  {name:'关安基',alias:'关夫子',role:'天地会',note:''},
+  {name:'李力世',alias:'',role:'天地会',note:''},
+  {name:'祁清彪',alias:'',role:'天地会',note:''},
+  {name:'玄贞道长',alias:'',role:'天地会',note:''},
+  {name:'风际中',alias:'',role:'天地会·内奸',note:''},
+  {name:'瘦头陀',alias:'',role:'神龙教',note:''},
+  {name:'胖头陀',alias:'',role:'神龙教',note:''},
+  {name:'陆高轩',alias:'',role:'神龙教',note:''},
+  {name:'毛东珠',alias:'假太后',role:'神龙教·假扮太后',note:''},
+  {name:'毛文龙',alias:'',role:'明将·毛东珠之父',note:'提及'},
+  {name:'桑结',alias:'',role:'西藏喇嘛',note:''},
+  {name:'葛尔丹',alias:'',role:'蒙古王子',note:''},
+  {name:'澄观',alias:'',role:'少林般若堂首座',note:''},
+  {name:'澄光',alias:'',role:'少林',note:''},
+  {name:'晦聪',alias:'',role:'少林方丈',note:''},
+  {name:'行痴',alias:'顺治',role:'顺治帝·出家',note:''},
+  {name:'玉林大师',alias:'',role:'顺治之师',note:''},
+  {name:'陶红英',alias:'',role:'宫女·长平公主旧侍',note:''},
+  {name:'归辛树',alias:'神拳无敌',role:'华山派·碧血剑人物',note:'跨书(碧血)'},
+  {name:'归二娘',alias:'',role:'归辛树之妻',note:'跨书(碧血)'},
+  {name:'何惕守',alias:'何铁手',role:'原五毒教主·碧血剑人物',note:'跨书(碧血)'},
+];
+
+// ---------- 书剑恩仇录 ----------
+NOVELS['书剑恩仇录'] = [
+  {name:'陈家洛',alias:'',role:'红花会总舵主',note:'主角'},
+  {name:'霍青桐',alias:'翠羽黄衫',role:'回部英雄',note:''},
+  {name:'喀丝丽',alias:'香香公主',role:'回部·霍青桐之妹',note:''},
+  {name:'乾隆',alias:'弘历',role:'清高宗·陈家洛之兄',note:''},
+  {name:'文泰来',alias:'奔雷手',role:'红花会四当家',note:''},
+  {name:'骆冰',alias:'鸳鸯刀',role:'红花会·文泰来之妻',note:''},
+  {name:'余鱼同',alias:'金笛秀才',role:'红花会',note:''},
+  {name:'李沅芷',alias:'',role:'武当弟子·余鱼同之妻',note:''},
+  {name:'无尘道长',alias:'追魂夺命剑',role:'红花会二当家',note:''},
+  {name:'赵半山',alias:'千臂如来',role:'红花会三当家',note:''},
+  {name:'常赫志',alias:'黑无常',role:'红花会五当家',note:''},
+  {name:'常伯志',alias:'白无常',role:'红花会六当家',note:''},
+  {name:'徐天宏',alias:'武诸葛',role:'红花会七当家',note:''},
+  {name:'杨成协',alias:'铁塔',role:'红花会八当家',note:''},
+  {name:'卫春华',alias:'九命锦豹子',role:'红花会九当家',note:''},
+  {name:'章进',alias:'石敢当',role:'红花会十当家',note:''},
+  {name:'张召重',alias:'火手判官',role:'武当叛徒·清廷鹰犬',note:''},
+  {name:'陆菲青',alias:'绵里针',role:'武当名宿·李沅芷之师',note:''},
+  {name:'马真',alias:'',role:'武当掌门',note:''},
+  {name:'袁士霄',alias:'天池怪侠',role:'陈家洛之师',note:''},
+  {name:'陈正德',alias:'秃鹫',role:'天山双鹰',note:''},
+  {name:'关明梅',alias:'雪雕',role:'天山双鹰',note:''},
+  {name:'木卓伦',alias:'',role:'回部首领',note:''},
+  {name:'兆惠',alias:'',role:'清军将领',note:''},
+  {name:'福康安',alias:'',role:'乾隆私生子(或陈家洛之子)',note:''},
+  {name:'白振',alias:'金爪铁钩',role:'清廷侍卫',note:''},
+  {name:'周仲英',alias:'铁胆',role:'铁胆庄',note:''},
+  {name:'周绮',alias:'俏李逵',role:'周仲英之女',note:''},
+  {name:'万庆澜',alias:'',role:'清廷侍卫',note:'龙套'},
+  {name:'瑞大林',alias:'',role:'清廷侍卫',note:'龙套'},
+  {name:'成璜',alias:'',role:'清廷侍卫',note:'龙套'},
+  {name:'言伯乾',alias:'',role:'',note:'龙套'},
+  {name:'滕一雷',alias:'',role:'关东六魔',note:''},
+  {name:'顾金标',alias:'',role:'关东六魔',note:''},
+  {name:'焦文期',alias:'',role:'关东六魔',note:''},
+  {name:'哈合台',alias:'',role:'关东六魔',note:''},
+  {name:'阎世魁',alias:'',role:'关东六魔',note:''},
+  {name:'阎世章',alias:'',role:'关东六魔',note:''},
+  {name:'阿凡提',alias:'',role:'回部智者',note:''},
+];
+
+// ---------- 碧血剑 ----------
+NOVELS['碧血剑'] = [
+  {name:'袁承志',alias:'',role:'七省盟主·袁崇焕之子',note:'主角'},
+  {name:'夏青青',alias:'温青青',role:'夏雪宜之女',note:''},
+  {name:'阿九',alias:'长平公主/九难',role:'崇祯之女·独臂',note:'跨书(鹿鼎)'},
+  {name:'夏雪宜',alias:'金蛇郎君',role:'金蛇剑主人·已故',note:'回忆'},
+  {name:'何红药',alias:'',role:'五毒教·痴恋夏雪宜',note:''},
+  {name:'何铁手',alias:'何惕守',role:'五毒教主·后拜袁承志为师',note:'跨书(鹿鼎)'},
+  {name:'袁崇焕',alias:'',role:'明蓟辽督师·袁承志之父',note:'已故·回忆'},
+  {name:'穆人清',alias:'神剑仙猿',role:'华山掌门·袁承志之师',note:''},
+  {name:'木桑道人',alias:'千变万劫',role:'铁剑门·九难之师',note:''},
+  {name:'玉真子',alias:'',role:'铁剑门叛徒·木桑师弟',note:''},
+  {name:'归辛树',alias:'神拳无敌',role:'华山二弟子',note:'跨书(鹿鼎)'},
+  {name:'归二娘',alias:'',role:'归辛树之妻',note:'跨书(鹿鼎)'},
+  {name:'归钟',alias:'',role:'归辛树之子',note:''},
+  {name:'黄真',alias:'铜笔铁算盘',role:'华山掌门(后)·袁承志师兄',note:''},
+  {name:'冯难敌',alias:'八面威风',role:'黄真弟子',note:''},
+  {name:'崔秋山',alias:'',role:'伏虎门',note:''},
+  {name:'安小慧',alias:'',role:'袁承志青梅',note:''},
+  {name:'安大娘',alias:'',role:'安小慧之母',note:''},
+  {name:'焦公礼',alias:'',role:'金龙帮帮主',note:''},
+  {name:'焦宛儿',alias:'',role:'焦公礼之女',note:''},
+  {name:'孙仲寿',alias:'',role:'袁崇焕旧部',note:''},
+  {name:'朱安国',alias:'',role:'袁崇焕旧部',note:''},
+  {name:'罗立如',alias:'',role:'金龙帮',note:''},
+  {name:'温方达',alias:'',role:'温氏五老',note:''},
+  {name:'温方义',alias:'',role:'温氏五老',note:''},
+  {name:'温方山',alias:'',role:'温氏五老',note:''},
+  {name:'温方施',alias:'',role:'温氏五老',note:''},
+  {name:'温方悟',alias:'',role:'温氏五老',note:''},
+  {name:'温仪',alias:'',role:'温家·夏青青之母',note:''},
+  {name:'李自成',alias:'闯王',role:'大顺皇帝',note:''},
+  {name:'刘宗敏',alias:'',role:'李自成部将',note:''},
+  {name:'多尔衮',alias:'',role:'清摄政王·入关',note:''},
+  {name:'皇太极',alias:'清太宗',role:'清帝·已故',note:'提及'},
+  {name:'崇祯',alias:'朱由检',role:'明思宗',note:''},
+  {name:'曹化淳',alias:'',role:'太监',note:''},
+  {name:'王承恩',alias:'',role:'太监·殉崇祯',note:''},
+  {name:'程青竹',alias:'',role:'青竹帮',note:''},
+  {name:'沙天广',alias:'',role:'恶虎沟',note:''},
+  {name:'孟伯飞',alias:'',role:'盖孟尝',note:''},
+  {name:'孟铮',alias:'',role:'孟伯飞之子',note:''},
+  {name:'褚红柳',alias:'',role:'千柳庄',note:''},
+  {name:'胡桂南',alias:'圣手神偷',role:'',note:''},
+  {name:'张朝唐',alias:'',role:'浡泥国华侨',note:''},
+  {name:'杨鹏举',alias:'',role:'',note:'龙套'},
+];
+
+// ---------- 雪山飞狐 ----------
+NOVELS['雪山飞狐'] = [
+  {name:'胡斐',alias:'雪山飞狐',role:'胡一刀之子',note:'主角(也是飞狐外传主角)'},
+  {name:'苗人凤',alias:'金面佛',role:'打遍天下无敌手',note:''},
+  {name:'苗若兰',alias:'',role:'苗人凤之女',note:''},
+  {name:'胡一刀',alias:'',role:'胡斐之父·辽东大侠',note:'已故·回忆'},
+  {name:'胡夫人',alias:'',role:'胡一刀之妻·殉情',note:'已故·回忆'},
+  {name:'田归农',alias:'',role:'天龙门掌门',note:''},
+  {name:'宝树和尚',alias:'阎基',role:'飞狐外传中的恶人',note:'跨书(飞狐外传)'},
+  {name:'平阿四',alias:'',role:'胡家忠仆',note:''},
+  {name:'陶百岁',alias:'',role:'',note:''},
+  {name:'陶子安',alias:'',role:'陶百岁之子',note:''},
+  {name:'田青文',alias:'',role:'田归农之女',note:''},
+  {name:'曹云奇',alias:'',role:'天龙门',note:''},
+  {name:'周云阳',alias:'',role:'天龙门',note:''},
+  {name:'阮士中',alias:'',role:'天龙门',note:''},
+  {name:'殷吉',alias:'',role:'天龙门',note:''},
+  {name:'杜希孟',alias:'',role:'玉笔峰',note:''},
+  {name:'赛总管',alias:'',role:'清廷',note:''},
+  {name:'双生僮儿',alias:'',role:'苗人凤仆人',note:'龙套'},
+  {name:'琴儿',alias:'',role:'苗若兰婢女',note:'龙套'},
+];
+
+// ---------- 飞狐外传 ----------
+NOVELS['飞狐外传'] = [
+  {name:'胡斐',alias:'雪山飞狐',role:'少年至青年',note:'主角'},
+  {name:'程灵素',alias:'',role:'毒手药王弟子·痴恋胡斐',note:''},
+  {name:'袁紫衣',alias:'圆性',role:'峨眉弟子·凤天南之女',note:''},
+  {name:'苗人凤',alias:'金面佛',role:'',note:'跨书(雪山)'},
+  {name:'赵半山',alias:'千臂如来',role:'红花会三当家',note:'跨书(书剑)'},
+  {name:'无尘道长',alias:'',role:'红花会二当家',note:'跨书(书剑)'},
+  {name:'毒手药王',alias:'无嗔大师',role:'程灵素之师·已故',note:''},
+  {name:'慕容景岳',alias:'',role:'毒手药王大弟子',note:''},
+  {name:'姜铁山',alias:'',role:'毒手药王二弟子',note:''},
+  {name:'薛鹊',alias:'',role:'毒手药王三弟子',note:''},
+  {name:'凤天南',alias:'',role:'佛山恶霸·五虎门',note:''},
+  {name:'钟阿四',alias:'',role:'佛山农民',note:''},
+  {name:'马春花',alias:'',role:'保镖之女·与福康安有染',note:''},
+  {name:'徐铮',alias:'',role:'马春花师兄',note:''},
+  {name:'商宝震',alias:'',role:'商剑鸣之子',note:''},
+  {name:'商老太',alias:'',role:'商剑鸣之妻',note:''},
+  {name:'王剑英',alias:'',role:'八卦门',note:''},
+  {name:'王剑杰',alias:'',role:'八卦门',note:''},
+  {name:'秦耐之',alias:'',role:'八极拳',note:''},
+  {name:'福康安',alias:'',role:'乾隆私生子·清廷大帅',note:''},
+  {name:'陈家洛',alias:'',role:'红花会总舵主',note:'跨书(书剑)·龙套出场'},
+  {name:'德布',alias:'',role:'满洲勇士',note:'龙套'},
+];
+
+// ---------- 白马啸西风 ----------
+NOVELS['白马啸西风'] = [
+  {name:'李文秀',alias:'',role:'白马李三之女',note:'主角'},
+  {name:'苏普',alias:'',role:'哈萨克青年',note:''},
+  {name:'计老人',alias:'马家骏',role:'江南侠客·易容',note:''},
+  {name:'华辉',alias:'瓦耳拉齐',role:'哈萨克·李文秀之师',note:''},
+  {name:'阿曼',alias:'',role:'苏普之妻',note:''},
+  {name:'车尔库',alias:'',role:'阿曼之父',note:''},
+  {name:'李三',alias:'白马李三',role:'李文秀之父',note:'已故'},
+  {name:'金银小剑三娘子',alias:'',role:'李文秀之母',note:'已故'},
+  {name:'霍元龙',alias:'',role:'吕梁三杰',note:''},
+  {name:'史仲俊',alias:'',role:'吕梁三杰',note:''},
+  {name:'陈达海',alias:'',role:'吕梁三杰·追杀李文秀',note:''},
+  {name:'丁同',alias:'两头蛇',role:'',note:''},
+  {name:'马家骏',alias:'计老人',role:'易容者·原为江南人',note:''},
+];
+
+// ---------- 鸳鸯刀 ----------
+NOVELS['鸳鸯刀'] = [
+  {name:'萧中慧',alias:'',role:'晋阳大侠之女',note:'主角'},
+  {name:'袁冠南',alias:'',role:'书生侠客·袁夫人之子',note:'主角'},
+  {name:'林玉龙',alias:'',role:'夫妻刀客',note:''},
+  {name:'任飞燕',alias:'',role:'林玉龙之妻·夫妻刀客',note:''},
+  {name:'卓天雄',alias:'',role:'清廷侍卫',note:''},
+  {name:'周威信',alias:'',role:'清廷镖师',note:''},
+  {name:'萧半和',alias:'晋阳大侠',role:'萧中慧之父',note:''},
+  {name:'袁夫人',alias:'',role:'袁冠南之母',note:''},
+  {name:'逍遥子',alias:'',role:'疯癫老头·传鸳鸯刀法',note:''},
+  {name:'常长风',alias:'',role:'',note:'龙套'},
+  {name:'花剑影',alias:'',role:'',note:'龙套'},
+  {name:'盖一鸣',alias:'',role:'',note:'龙套'},
+];
+
+// ---------- 连城诀 ----------
+NOVELS['连城诀'] = [
+  {name:'狄云',alias:'',role:'老实农夫·神照经传人',note:'主角'},
+  {name:'戚芳',alias:'',role:'狄云师妹·万圭之妻',note:''},
+  {name:'水笙',alias:'',role:'水岱之女·狄云伴侣',note:''},
+  {name:'丁典',alias:'',role:'荆州知府狱中·神照经传人',note:''},
+  {name:'凌霜华',alias:'',role:'凌退思之女·丁典之爱',note:''},
+  {name:'凌退思',alias:'',role:'荆州知府·活埋女儿',note:''},
+  {name:'万震山',alias:'五云手',role:'万府·连城剑法',note:''},
+  {name:'戚长发',alias:'铁索横江',role:'狄云之师·戚芳之父',note:''},
+  {name:'言达平',alias:'陆地神龙',role:'三师兄弟',note:''},
+  {name:'梅念笙',alias:'',role:'铁骨墨萼·连城诀传人·已故',note:''},
+  {name:'万圭',alias:'',role:'万震山之子',note:''},
+  {name:'水岱',alias:'',role:'南四奇·水笙之父',note:''},
+  {name:'陆天抒',alias:'仁义陆大刀',role:'南四奇',note:''},
+  {name:'花铁干',alias:'中平无敌',role:'南四奇·后堕落',note:''},
+  {name:'刘乘风',alias:'',role:'南四奇',note:''},
+  {name:'血刀老祖',alias:'',role:'西藏血刀门',note:''},
+  {name:'宝象',alias:'',role:'血刀老祖弟子',note:''},
+  {name:'善勇',alias:'',role:'血刀老祖弟子',note:''},
+  {name:'胜谛',alias:'',role:'血刀老祖弟子',note:''},
+  {name:'汪啸风',alias:'',role:'水笙表哥·最终背叛',note:''},
+  {name:'空心菜',alias:'',role:'戚芳之女',note:''},
+  {name:'菊友',alias:'',role:'凌霜华婢女',note:'龙套'},
+  {name:'桃红',alias:'',role:'万震山小妾',note:'龙套'},
+  {name:'吴坎',alias:'',role:'万震山弟子',note:'龙套'},
+  {name:'沈城',alias:'',role:'万震山弟子',note:'龙套'},
+  {name:'冯坦',alias:'',role:'万震山弟子',note:'龙套'},
+];
+
+// ---------- 侠客行 ----------
+NOVELS['侠客行'] = [
+  {name:'石破天',alias:'狗杂种·石中坚',role:'长乐帮主·太玄经',note:'主角'},
+  {name:'阿绣',alias:'',role:'雪山派·白万剑之女',note:''},
+  {name:'谢烟客',alias:'摩天居士',role:'玄铁令主人',note:''},
+  {name:'石中玉',alias:'',role:'石清闵柔之子·长乐帮冒牌帮主',note:''},
+  {name:'石清',alias:'',role:'玄素庄主·上清观',note:''},
+  {name:'闵柔',alias:'',role:'石清之妻·上清观',note:''},
+  {name:'梅芳姑',alias:'',role:'梅花拳·因爱生恨',note:''},
+  {name:'白万剑',alias:'气寒西北',role:'雪山派',note:''},
+  {name:'白自在',alias:'',role:'雪山派掌门·自称剑法第一',note:''},
+  {name:'史婆婆',alias:'史小翠',role:'白自在之妻·金乌刀法',note:''},
+  {name:'封万里',alias:'',role:'雪山派·被白自断臂',note:''},
+  {name:'丁不三',alias:'一日不过三',role:'',note:''},
+  {name:'丁不四',alias:'一日不过四',role:'',note:''},
+  {name:'丁珰',alias:'',role:'丁不三孙女·石中玉情人',note:''},
+  {name:'贝海石',alias:'',role:'长乐帮军师',note:''},
+  {name:'张三',alias:'',role:'赏善罚恶使',note:''},
+  {name:'李四',alias:'',role:'赏善罚恶使',note:''},
+  {name:'龙岛主',alias:'',role:'侠客岛主人',note:''},
+  {name:'木岛主',alias:'',role:'侠客岛主人',note:''},
+  {name:'白阿绣',alias:'',role:'白万剑之女',note:'同阿绣'},
+  {name:'花万紫',alias:'',role:'雪山派女弟子',note:'龙套'},
+  {name:'耿万钟',alias:'',role:'雪山派',note:'龙套'},
+  {name:'王万仞',alias:'',role:'雪山派',note:'龙套'},
+  {name:'呼延万善',alias:'',role:'雪山派',note:'龙套'},
+  {name:'闻万夫',alias:'',role:'雪山派',note:'龙套'},
+  {name:'柯万钧',alias:'',role:'雪山派',note:'龙套'},
+  {name:'汪万翼',alias:'',role:'雪山派',note:'龙套'},
+  {name:'展飞',alias:'',role:'长乐帮',note:'龙套'},
+  {name:'邱山风',alias:'',role:'长乐帮',note:'龙套'},
+  {name:'陈冲之',alias:'',role:'长乐帮',note:'龙套'},
+  {name:'米横野',alias:'',role:'长乐帮',note:'龙套'},
+  {name:'尤得胜',alias:'',role:'',note:'龙套'},
+  {name:'高三娘子',alias:'',role:'飞鱼帮',note:'龙套'},
+];
+
+
+const BOOK_RANKINGS = {
+  '越女剑': [
+    {rank:1,name:'阿青',reason:'一根竹棒破三千越甲，剑术超越时代千年'},
+    {rank:2,name:'白猿',reason:'阿青之师，剑术通神'},
+    {rank:3,name:'范蠡',reason:'文武双全，但武艺远不如阿青'},
+  ],
+  '天龙八部': [
+    {rank:1,name:'扫地僧',reason:'一招制慕容博萧远山，气墙挡鸠摩智火焰刀，佛法武功双巅峰'},
+    {rank:2,name:'虚竹',reason:'集无崖子+童姥+李秋水三人功力，后期灵鹫宫主'},
+    {rank:3,name:'段誉',reason:'六脉神剑大成+北冥吸尽鸠摩智内力，后期实力绝顶'},
+    {rank:4,name:'乔峰',reason:'降龙十八掌实战无敌，聚贤庄一战敌百，扫地僧赞"天下第一"'},
+    {rank:5,name:'天山童姥',reason:'八荒六合唯我独尊功+天山六阳掌，逍遥派大师姐'},
+    {rank:6,name:'李秋水',reason:'小无相功+凌波微步，西夏皇太妃'},
+    {rank:7,name:'无崖子',reason:'逍遥派掌门，七十余年功力'},
+    {rank:8,name:'鸠摩智',reason:'火焰刀+小无相功催动七十二绝技，吐蕃国师'},
+    {rank:9,name:'萧远山',reason:'雁门关一人杀尽中原高手，藏经阁偷学三十年'},
+    {rank:10,name:'慕容博',reason:'斗转星移+参合指，假死三十年修炼'},
+  ],
+  '射雕英雄传': [
+    {rank:1,name:'王重阳',reason:'第一次华山论剑第一，力压四绝夺得九阴真经'},
+    {rank:2,name:'欧阳锋',reason:'逆练九阴后武功怪异，第二次华山论剑实际第一'},
+    {rank:3,name:'洪七公',reason:'降龙十八掌+打狗棒法，北丐'},
+    {rank:4,name:'黄药师',reason:'弹指神通+落英神剑掌+奇门五行，东邪'},
+    {rank:5,name:'段智兴',reason:'一阳指+先天功，南帝'},
+    {rank:6,name:'周伯通',reason:'双手互搏+空明拳+九阴真经'},
+    {rank:7,name:'郭靖',reason:'降龙十八掌+九阴真经+双手互搏+空明拳，后期准五绝'},
+    {rank:8,name:'裘千仞',reason:'铁掌水上飘，准五绝级别'},
+    {rank:9,name:'梅超风',reason:'九阴白骨爪+摧心掌，桃花岛最强弟子'},
+    {rank:10,name:'黄蓉',reason:'打狗棒法+桃花岛武功，机智胜武功'},
+  ],
+  '神雕侠侣': [
+    {rank:1,name:'杨过',reason:'黯然销魂掌+玄铁剑法+独孤求败传承，西狂·五绝'},
+    {rank:2,name:'金轮法王',reason:'龙象般若功第十层，十龙十象之力'},
+    {rank:3,name:'周伯通',reason:'新五绝之中顽童，双手互搏登峰造极'},
+    {rank:4,name:'郭靖',reason:'降龙十八掌+九阴真经大成，守襄阳数十年'},
+    {rank:5,name:'黄药师',reason:'东邪，晚年功力更深'},
+    {rank:6,name:'一灯大师',reason:'一阳指登峰造极，佛法化解慈恩'},
+    {rank:7,name:'小龙女',reason:'玉女心经+双手互搏使双剑合璧，重阳宫大战'},
+    {rank:8,name:'洪七公',reason:'与欧阳锋华山之巅同归于尽'},
+    {rank:9,name:'欧阳锋',reason:'疯癫但武功仍在，与洪七公同归于尽'},
+    {rank:10,name:'裘千仞(慈恩)',reason:'铁掌+一阳指点化，准五绝'},
+  ],
+  '倚天屠龙记': [
+    {rank:1,name:'张三丰',reason:'太极宗师，百岁修为，当世无敌'},
+    {rank:2,name:'张无忌',reason:'九阳神功+乾坤大挪移+太极拳剑+圣火令武功，明教教主'},
+    {rank:3,name:'黄衫女子',reason:'九阴真经传人，秒败周芷若，杨过后人'},
+    {rank:4,name:'渡厄',reason:'少林三渡之首，金刚伏魔圈'},
+    {rank:5,name:'渡劫',reason:'少林三渡，金刚伏魔圈'},
+    {rank:6,name:'渡难',reason:'少林三渡，金刚伏魔圈'},
+    {rank:7,name:'成昆',reason:'混元霹雳手+少林武功，策划襄阳大战'},
+    {rank:8,name:'玄冥二老',reason:'玄冥神掌，联手威力更强'},
+    {rank:9,name:'阳顶天',reason:'乾坤大挪移四层，明教前教主·已故'},
+    {rank:10,name:'谢逊',reason:'七伤拳+屠龙刀，金毛狮王'},
+  ],
+  '笑傲江湖': [
+    {rank:1,name:'东方不败',reason:'葵花宝典大成，一枚绣花针败令狐冲+任我行+向问天三人合击'},
+    {rank:2,name:'风清扬',reason:'独孤九剑传人，剑术通神'},
+    {rank:3,name:'令狐冲',reason:'独孤九剑+吸星大法+易筋经，后期实力深不可测'},
+    {rank:4,name:'方正大师',reason:'易筋经+少林武学，正派第一高手'},
+    {rank:5,name:'任我行',reason:'吸星大法，日月神教教主'},
+    {rank:6,name:'冲虚道长',reason:'太极剑法，武当掌门'},
+    {rank:7,name:'岳不群',reason:'辟邪剑法+紫霞神功，伪君子真小人'},
+    {rank:8,name:'左冷禅',reason:'寒冰真气+嵩山剑法，正派阴谋家'},
+    {rank:9,name:'向问天',reason:'日月神教光明右使，实战经验丰富'},
+    {rank:10,name:'林平之',reason:'辟邪剑法，复仇后双目失明'},
+  ],
+  '鹿鼎记': [
+    {rank:1,name:'洪安通',reason:'神龙教教主，武功深不可测，内讧中被围杀'},
+    {rank:2,name:'归辛树',reason:'神拳无敌，华山派高手'},
+    {rank:3,name:'九难师太',reason:'铁剑门传人+前明公主，神行百变'},
+    {rank:4,name:'陈近南',reason:'凝血神爪，天地会总舵主'},
+    {rank:5,name:'何惕守',reason:'前五毒教主，碧血剑中高手'},
+    {rank:6,name:'冯锡范',reason:'一剑无血，郑克塽师父'},
+    {rank:7,name:'澄观',reason:'少林般若堂首座'},
+    {rank:8,name:'归二娘',reason:'归辛树之妻'},
+    {rank:9,name:'桑结',reason:'西藏密宗高手'},
+    {rank:10,name:'韦小宝',reason:'神行百变+匕首+火枪+运气，实战靠逃命和计谋'},
+  ],
+  '书剑恩仇录': [
+    {rank:1,name:'袁士霄',reason:'天池怪侠，陈家洛之师，百花错拳创制者'},
+    {rank:2,name:'无尘道长',reason:'追魂夺命剑，红花会二当家'},
+    {rank:3,name:'陈家洛',reason:'庖丁解牛功+百花错拳，红花会总舵主'},
+    {rank:4,name:'张召重',reason:'火手判官，武当叛徒，清廷鹰犬'},
+    {rank:5,name:'陆菲青',reason:'绵里针，武当名宿'},
+    {rank:6,name:'赵半山',reason:'千臂如来，暗器无双'},
+    {rank:7,name:'文泰来',reason:'奔雷手，红花会四当家'},
+    {rank:8,name:'天山双鹰',reason:'陈正德+关明梅夫妇'},
+    {rank:9,name:'马真',reason:'武当掌门'},
+    {rank:10,name:'阿凡提',reason:'回部智者，武功亦高'},
+  ],
+  '碧血剑': [
+    {rank:1,name:'穆人清',reason:'神剑仙猿，华山掌门，袁承志之师'},
+    {rank:2,name:'袁承志',reason:'混元功+金蛇剑法，七省盟主'},
+    {rank:3,name:'夏雪宜',reason:'金蛇郎君，金蛇剑法创制者·已故'},
+    {rank:4,name:'木桑道人',reason:'千变万劫，铁剑门掌门'},
+    {rank:5,name:'玉真子',reason:'铁剑门叛徒，武功高强'},
+    {rank:6,name:'归辛树',reason:'神拳无敌，华山二弟子'},
+    {rank:7,name:'何铁手',reason:'五毒教主'},
+    {rank:8,name:'黄真',reason:'铜笔铁算盘，华山掌门弟子'},
+  ],
+  '侠客行': [
+    {rank:1,name:'石破天',reason:'太玄经大成，侠客岛第一人'},
+    {rank:2,name:'龙岛主',reason:'侠客岛主之一'},
+    {rank:3,name:'木岛主',reason:'侠客岛主之一'},
+    {rank:4,name:'谢烟客',reason:'摩天居士，玄铁令主'},
+    {rank:5,name:'白自在',reason:'雪山派掌门，狂妄但实力强劲'},
+    {rank:6,name:'张三',reason:'赏善罚恶使'},
+    {rank:7,name:'李四',reason:'赏善罚恶使'},
+    {rank:8,name:'丁不四',reason:'一日不过四'},
+  ],
+  '飞狐外传': [
+    {rank:1,name:'苗人凤',reason:'打遍天下无敌手，金面佛'},
+    {rank:2,name:'胡斐',reason:'胡家刀法，雪山飞狐'},
+    {rank:3,name:'赵半山',reason:'千臂如来，红花会三当家'},
+    {rank:4,name:'无尘道长',reason:'追魂夺命剑'},
+    {rank:5,name:'陈家洛',reason:'红花会总舵主·龙套出场'},
+    {rank:6,name:'毒手药王',reason:'无嗔大师·已故'},
+    {rank:7,name:'程灵素',reason:'毒手药王关门弟子，用毒无双'},
+  ],
+  '雪山飞狐': [
+    {rank:1,name:'苗人凤',reason:'金面佛，打遍天下无敌手'},
+    {rank:2,name:'胡斐',reason:'雪山飞狐，胡一刀之子'},
+    {rank:3,name:'胡一刀',reason:'辽东大侠·已故但与苗人凤匹敌'},
+    {rank:4,name:'田归农',reason:'天龙门掌门'},
+  ],
+  '连城诀': [
+    {rank:1,name:'狄云',reason:'神照经大成+血刀经，死而复生'},
+    {rank:2,name:'丁典',reason:'神照经传人'},
+    {rank:3,name:'血刀老祖',reason:'雪谷以一敌四（南四奇）'},
+    {rank:4,name:'梅念笙',reason:'铁骨墨萼，连城诀传人·已故'},
+    {rank:5,name:'花铁干',reason:'南四奇之一，后堕落'},
+  ],
+  '白马啸西风': [
+    {rank:1,name:'华辉',reason:'哈萨克高手，李文秀之师'},
+    {rank:2,name:'李文秀',reason:'女主角，学得华辉武功'},
+  ],
+  '鸳鸯刀': [
+    {rank:1,name:'萧半和',reason:'晋阳大侠'},
+    {rank:2,name:'卓天雄',reason:'清廷侍卫高手'},
+    {rank:3,name:'萧中慧+袁冠南',reason:'夫妻刀法合璧'},
+  ],
+};
+
+const OVERALL_TIERS = [
+  {tier:'SSS',label:'超凡入圣',color:'#ffd700',chars:[
+    {name:'扫地僧',book:'天龙八部',reason:'佛法武功双巅峰，一招制两绝顶高手，气墙挡尽天下武功'},
+    {name:'独孤求败',book:'神雕/笑傲',reason:'剑魔，一生求一败而不可得，独孤九剑创制者'},
+    {name:'张三丰',book:'倚天屠龙记',reason:'太极宗师，百岁修为，武当创派祖师，千年不遇的武学奇才'},
+    {name:'阿青',book:'越女剑',reason:'一根竹棒破三千越甲，剑术超越时代千年'},
+  ]},
+  {tier:'SS',label:'绝顶高手',color:'#e05555',chars:[
+    {name:'虚竹',book:'天龙八部',reason:'集三老功力于一身，灵鹫宫主，西夏驸马'},
+    {name:'段誉',book:'天龙八部',reason:'六脉神剑大成+北冥吸尽鸠摩智，内力震古烁今'},
+    {name:'乔峰',book:'天龙八部',reason:'降龙十八掌实战无敌，扫地僧称"天下第一"'},
+    {name:'天山童姥',book:'天龙八部',reason:'八荒六合唯我独尊功，逍遥派大师姐'},
+    {name:'李秋水',book:'天龙八部',reason:'小无相功，西夏皇太妃'},
+    {name:'无崖子',book:'天龙八部',reason:'逍遥派掌门，七十年功力'},
+    {name:'王重阳',book:'射雕英雄传',reason:'华山论剑第一，全真教创派祖师'},
+    {name:'郭靖',book:'射雕/神雕',reason:'降龙+九阴+空明+互搏，侠之大者'},
+    {name:'杨过',book:'神雕侠侣',reason:'黯然销魂掌+玄铁剑法，西狂·新五绝'},
+    {name:'周伯通',book:'射雕/神雕',reason:'双手互搏+空明拳+九阴，中顽童'},
+    {name:'张无忌',book:'倚天屠龙记',reason:'九阳+乾坤+太极+圣火令，明教教主'},
+    {name:'东方不败',book:'笑傲江湖',reason:'葵花宝典大成，一枚绣花针天下无敌'},
+    {name:'风清扬',book:'笑傲江湖',reason:'独孤九剑传人，剑术已达无招境界'},
+    {name:'石破天',book:'侠客行',reason:'太玄经大成，侠客岛第一人'},
+  ]},
+  {tier:'S',label:'准绝顶',color:'#e08840',chars:[
+    {name:'鸠摩智',book:'天龙八部',reason:'火焰刀+小无相功，吐蕃国师'},
+    {name:'萧远山',book:'天龙八部',reason:'雁门关血战+藏经阁三十年'},
+    {name:'慕容博',book:'天龙八部',reason:'斗转星移，参合指'},
+    {name:'洪七公',book:'射雕/神雕',reason:'降龙十八掌+打狗棒法，北丐'},
+    {name:'黄药师',book:'射雕/神雕',reason:'弹指神通，奇门五行，东邪'},
+    {name:'欧阳锋',book:'射雕/神雕',reason:'蛤蟆功，逆练九阴，西毒'},
+    {name:'段智兴',book:'射雕/神雕',reason:'一阳指+先天功，南帝→一灯'},
+    {name:'金轮法王',book:'神雕侠侣',reason:'龙象般若功第十层'},
+    {name:'黄衫女子',book:'倚天屠龙记',reason:'九阴真经古墓传人，杨过后人'},
+    {name:'令狐冲',book:'笑傲江湖',reason:'独孤九剑+吸星+易筋经'},
+    {name:'方正大师',book:'笑傲江湖',reason:'易筋经，少林方丈'},
+    {name:'任我行',book:'笑傲江湖',reason:'吸星大法，日月神教教主'},
+    {name:'龙岛主',book:'侠客行',reason:'侠客岛主'},
+  ]},
+  {tier:'A',label:'一流强',color:'#e0c040',chars:[
+    {name:'小龙女',book:'神雕侠侣',reason:'玉女心经+双手互搏双剑合璧'},
+    {name:'裘千仞',book:'射雕/神雕',reason:'铁掌水上飘，准五绝'},
+    {name:'黄蓉',book:'射雕/神雕',reason:'打狗棒法+桃花岛武功'},
+    {name:'梅超风',book:'射雕英雄传',reason:'九阴白骨爪'},
+    {name:'谢逊',book:'倚天屠龙记',reason:'七伤拳+屠龙刀'},
+    {name:'杨逍',book:'倚天屠龙记',reason:'乾坤大挪移二层，光明左使'},
+    {name:'成昆',book:'倚天屠龙记',reason:'混元霹雳手'},
+    {name:'岳不群',book:'笑傲江湖',reason:'辟邪剑法+紫霞神功'},
+    {name:'左冷禅',book:'笑傲江湖',reason:'寒冰真气'},
+    {name:'归辛树',book:'碧血/鹿鼎',reason:'神拳无敌'},
+    {name:'穆人清',book:'碧血剑',reason:'神剑仙猿'},
+    {name:'袁士霄',book:'书剑恩仇录',reason:'天池怪侠'},
+    {name:'洪安通',book:'鹿鼎记',reason:'神龙教教主'},
+    {name:'苗人凤',book:'飞狐/雪山',reason:'金面佛'},
+  ]},
+];
+
+let rankView = 'overall';
+
+function showRankView(view) {
+  rankView = view;
+  document.querySelectorAll('#rankSubNav button').forEach(b=>b.classList.remove('active'));
+  document.querySelector(`#rankSubNav button[onclick*="${view}"]`)?.classList.add('active');
+  renderRanking();
+}
+
+function renderRanking() {
+  const s = (document.getElementById('rankSearch')?.value||'').toLowerCase();
+  let html = '';
+  
+  if(rankView==='overall'){
+    html += `<h3 style="color:var(--head);margin:12px 0">🌏 金庸十五部 · 武功总排名</h3>`;
+    html += `<p style="color:#888;font-size:.82em;margin-bottom:16px">基于原著战绩、旁白评价、实战表现综合评定。同级内排名不分先后。</p>`;
+    OVERALL_TIERS.forEach(t=>{
+      let filtered = t.chars;
+      if(s) filtered = t.chars.filter(c=>c.name.includes(s)||c.book.includes(s)||c.reason.includes(s));
+      if(filtered.length===0 && s) return;
+      html += `<div style="margin-bottom:16px"><h4 style="color:${t.color};margin-bottom:8px;font-size:1.1em">${t.tier}级 · ${t.label} <span style="font-size:.65em;opacity:.6">(${filtered.length}人)</span></h4><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:8px">`;
+      filtered.forEach(c=>{
+        html += `<div class="rank-card" style="border-left:3px solid ${t.color}" onclick="openRankDetail('${c.name.replace(/'/g,"\\'")}','${c.book.replace(/'/g,"\\'")}','${c.reason.replace(/'/g,"\\'")}','${t.label}','${t.color}')">
+          <strong>${c.name}</strong><span style="font-size:.75em;color:#888">${c.book}</span>
+          <div style="font-size:.72em;color:#999;margin-top:3px">${c.reason.slice(0,40)}...</div>
+        </div>`;
+      });
+      html += '</div></div>';
+    });
+  } else {
+    html += `<h3 style="color:var(--head);margin:12px 0">📖 单书武功排名</h3>`;
+    for(let [book, rankings] of Object.entries(BOOK_RANKINGS)){
+      let filtered = rankings;
+      if(s) filtered = rankings.filter(r=>r.name.includes(s)||r.reason.includes(s)||book.includes(s));
+      if(filtered.length===0 && s) continue;
+      html += `<div class="book-section"><h3 class="book-title">📖 ${book} <span style="font-size:.7em;color:var(--accent)">Top ${rankings.length}</span></h3>
+        <div class="book-content" style="display:block;padding:8px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:6px">`;
+      filtered.forEach(r=>{
+        const colors = {1:'#ffd700',2:'#c0c0c0',3:'#cd7f32'};
+        html += `<div class="rank-card" style="border-left:3px solid ${colors[r.rank]||'#555'}" onclick="openRankDetail('${r.name.replace(/'/g,"\\'")}','${book.replace(/'/g,"\\'")}','${r.reason.replace(/'/g,"\\'")}','No.${r.rank}','${colors[r.rank]||'#888'}')">
+          <span style="font-weight:700;color:${colors[r.rank]||'#888'};margin-right:6px">#${r.rank}</span>
+          <strong>${r.name}</strong>
+          <div style="font-size:.72em;color:#999;margin-top:3px">${r.reason.slice(0,50)}...</div>
+        </div>`;
+      });
+      html += '</div></div></div>';
+    }
+  }
+  document.getElementById('rankContent').innerHTML = html || '<p>未找到匹配</p>';
+  
+  if(!document.getElementById('rankStyle')){
+    const st = document.createElement('style'); st.id='rankStyle';
+    st.textContent = `.rank-card{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:10px 14px;cursor:pointer;transition:var(--transition)}.rank-card:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,0,0,.4);border-color:#555}`;
+    document.head.appendChild(st);
+  }
+}
+
+function openRankDetail(name,book,reason,label,color){
+  document.getElementById('detailType').textContent = '🏆 排名详情';
+  document.getElementById('detailBody').innerHTML = `
+    <div class="detail-hero">
+      <h2>${name}</h2>
+      <div class="hero-sub">
+        <span class="hero-tag" style="background:${color}22;color:${color};border-color:${color}">${label}</span>
+        <span style="color:#555">·</span>
+        <span>${book}</span>
+      </div>
+    </div>
+    <div class="detail-sections">
+      <div class="detail-section"><h3>📜 排名依据</h3><div class="content">${reason}</div></div>
+      <div class="detail-section"><h3>📖 出处</h3><div class="content">${book}</div></div>
+    </div>
+  `;
+  document.getElementById('detailPanel').classList.add('show');
+}
+
+// ==================== Render Functions ====================
+let allChars = [];
+let allKungfu = [];
+let allSects = [];
+let allRelations = {blood:[],master:[],emotion:[]};
+
+function initData() {
+  // Flatten all characters
+  for(let [novel,chars] of Object.entries(NOVELS)) {
+    chars.forEach(c => {
+      allChars.push({...c, novel});
+    });
+  }
+}
+
+initData();
+
+// Tab navigation
+function showTab(tab) {
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+  document.getElementById(tab).classList.add('active');
+  document.querySelector(`nav button[onclick*="${tab}"]`)?.classList.add('active');
+  if(tab==='characters') renderCharContent();
+  if(tab==='relations') renderRelContent();
+  if(tab==='kungfu') renderKfContent();
+  if(tab==='sects') renderSectContent();
+  if(tab==='ranking') renderRanking();
+  if(tab==='timeline') renderTimeline();
+  if(tab==='map') renderMap();
+  if(tab==='couples') renderCouples();
+  if(tab==='weapons') renderWeapons();
+
+}
+
+function showRelTab(sub) {
+  document.querySelectorAll('#relations .tab-sub button').forEach(b=>b.classList.remove('active'));
+  document.querySelector(`#relations .tab-sub button[onclick*="${sub}"]`)?.classList.add('active');
+  renderRelContent(sub);
+}
+
+// ==================== CHARACTER INDEX ====================
+let collapsedBooks = {};
+
+function renderCharContent() {
+  const container = document.getElementById('charContent');
+  const subNav = document.getElementById('bookSubNav');
+  
+  subNav.innerHTML = `<button class="active" onclick="filterCharsByBook('all')">全部</button>` +
+    Object.keys(NOVELS).map(b => `<button onclick="filterCharsByBook('${b}')">${b}</button>`).join('');
+  
+  let currentFilter = container.dataset.filter || 'all';
+  let searchTerm = (document.getElementById('charSearch')?.value || '').toLowerCase();
+  
+  let html = '';
+  for(let [novel, chars] of Object.entries(NOVELS)) {
+    if(currentFilter !== 'all' && novel !== currentFilter) continue;
+    let filteredChars = chars;
+    if(searchTerm) {
+      filteredChars = chars.filter(c => 
+        c.name.toLowerCase().includes(searchTerm) || 
+        (c.alias||'').toLowerCase().includes(searchTerm) ||
+        c.role.toLowerCase().includes(searchTerm) ||
+        (c.note||'').toLowerCase().includes(searchTerm) ||
+        novel.toLowerCase().includes(searchTerm)
+      );
+    }
+    if(searchTerm && filteredChars.length === 0) continue;
+    
+    const collapsed = collapsedBooks[novel];
+    html += `<div class="book-section" id="book-${novel}">
+      <h3 class="book-title" onclick="toggleBook('${novel}')">
+        📖 ${novel} <span style="font-size:.7em;color:var(--accent)">(${chars.length}人·${filteredChars.length})</span>
+        <span class="toggle">${collapsed?'▶':'▼'}</span>
+      </h3>
+      <div class="book-content" style="${collapsed?'display:none':''}">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;padding:10px">`;
+    
+    filteredChars.forEach((c,i) => {
+      html += `<div class="char-card" onclick="openCharDetail('${novel.replace(/'/g,"\\'")}','${c.name.replace(/'/g,"\\'")}')">
+        <div class="char-name">${c.name}</div>
+        ${c.alias?`<div style="font-size:.72em;color:var(--accent)">${c.alias}</div>`:''}
+        <div style="font-size:.68em;color:#777">${c.role.split('·')[0]}</div>
+      </div>`;
+    });
+    
+    html += `</div></div></div>`;
+  }
+  container.innerHTML = html || '<p style="color:var(--accent);padding:20px">未找到匹配人物</p>';
+  
+  if(!document.getElementById('charCardStyle')){
+    const style = document.createElement('style');
+    style.id='charCardStyle';
+    style.textContent = `.char-card{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:12px 28px 12px 14px;transition:var(--transition);position:relative}.char-card:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.4)}`;
+    document.head.appendChild(style);
+  }
+}
+
+function openCharDetail(novel, name) {
+  const novelChars = NOVELS[novel] || [];
+  const c = novelChars.find(x=>x.name===name);
+  if(!c) return;
+  
+  // Find relations involving this character
+  if(allRelations.blood.length===0) buildRelations();
+  const relatedRels = [];
+  [...allRelations.blood, ...allRelations.master, ...allRelations.emotion].forEach(r => {
+    if(r.a===c.name){relatedRels.push({other:r.b,otherBook:r.bb,rel:r.rel,arrow:'→',evidence:r.evidence});}
+    else if(r.b===c.name || r.b.includes(c.name)){relatedRels.push({other:r.a,otherBook:r.ab,rel:r.rel,arrow:'←',evidence:r.evidence});}
+  });
+  
+  document.getElementById('detailType').textContent = `📖 ${novel}`;
+  document.getElementById('detailBody').innerHTML = `
+    <div class="detail-hero">
+      <h2>${c.name}</h2>
+      <div class="hero-sub">
+        ${c.alias?`<span>${c.alias}</span>`:''}
+        ${c.alias?'<span style="color:#555">·</span>':''}
+        <span>${c.role}</span>
+      </div>
+    </div>
+    <div class="detail-sections">
+      <div class="detail-grid">
+        <div class="detail-info-card">
+          <div class="card-label">📖 出处</div>
+          <div class="card-value"><strong>${novel}</strong></div>
+        </div>
+        ${c.alias?`<div class="detail-info-card">
+          <div class="card-label">🏷 别名</div>
+          <div class="card-value">${c.alias}</div>
+        </div>`:''}
+        <div class="detail-info-card">
+          <div class="card-label">🎭 身份</div>
+          <div class="card-value">${c.role}</div>
+        </div>
+      </div>
+      ${c.note?`<div class="detail-section">
+        <h3>📜 主要事迹</h3>
+        <div class="content">${c.note}</div>
+      </div>`:''}
+      ${relatedRels.length>0?`<div class="detail-section">
+        <h3>🔗 关联人物</h3>
+        <div class="detail-rel-list">
+          ${relatedRels.slice(0,12).map(r=>`<div class="detail-rel-item">
+            <span class="rel-a">${r.other}</span>
+            <span style="font-size:.65em;opacity:.4">[${r.otherBook}]</span>
+            <span class="rel-arrow">${r.arrow}</span>
+            <span class="rel-type">${r.rel}</span>
+          </div>`).join('')}
+        </div>
+      </div>`:''}
+    </div>
+  `;
+  document.getElementById('detailPanel').classList.add('show');
+}
+
+function closeDetail() {
+  document.getElementById('detailPanel').classList.remove('show');
+}
+
+function toggleBook(book) {
+  collapsedBooks[book] = !collapsedBooks[book];
+  renderCharContent();
+}
+
+function filterCharsByBook(book) {
+  document.getElementById('charContent').dataset.filter = book;
+  document.querySelectorAll('#bookSubNav button').forEach(b=>b.classList.remove('active'));
+  if(book==='all') document.querySelector('#bookSubNav button')?.classList.add('active');
+  document.getElementById('charSearch').value = '';
+  renderCharContent();
+  if(book!=='all') {
+    setTimeout(()=>document.getElementById('book-'+book)?.scrollIntoView({behavior:'smooth'}),100);
+  }
+}
+
+function filterChars() {
+  renderCharContent();
+}
+
+// ==================== RELATIONS ====================
+function buildRelations() {
+  allRelations.blood = [
+    {a:'萧远山',ab:'天龙八部',rel:'父子',b:'乔峰',bb:'天龙八部',evidence:'原著明确',cat:'blood'},
+    {a:'段正淳',ab:'天龙八部',rel:'父女',b:'阿朱',bb:'天龙八部',evidence:'原著明确',cat:'blood'},
+    {a:'段正淳',ab:'天龙八部',rel:'父女',b:'阿紫',bb:'天龙八部',evidence:'原著明确',cat:'blood'},
+    {a:'段正淳',ab:'天龙八部',rel:'父女',b:'木婉清',bb:'天龙八部',evidence:'原著明确',cat:'blood'},
+    {a:'段正淳',ab:'天龙八部',rel:'父女',b:'钟灵',bb:'天龙八部',evidence:'原著明确',cat:'blood'},
+    {a:'段正淳',ab:'天龙八部',rel:'父子',b:'段誉',bb:'天龙八部',evidence:'实为段延庆之子',cat:'blood'},
+    {a:'段延庆',ab:'天龙八部',rel:'父子',b:'段誉',bb:'天龙八部',evidence:'原著揭示·刀白凤复仇',cat:'blood'},
+    {a:'慕容博',ab:'天龙八部',rel:'父子',b:'慕容复',bb:'天龙八部',evidence:'原著明确',cat:'blood'},
+    {a:'杨铁心',ab:'射雕英雄传',rel:'父子',b:'杨康',bb:'射雕英雄传',evidence:'原著明确',cat:'blood'},
+    {a:'郭啸天',ab:'射雕英雄传',rel:'父子',b:'郭靖',bb:'射雕英雄传',evidence:'原著明确',cat:'blood'},
+    {a:'黄药师',ab:'射雕英雄传',rel:'父女',b:'黄蓉',bb:'射雕英雄传',evidence:'原著明确',cat:'blood'},
+    {a:'郭靖',ab:'射雕英雄传',rel:'父女',b:'郭芙',bb:'神雕侠侣',evidence:'原著明确【跨书】',cat:'blood'},
+    {a:'郭靖',ab:'射雕英雄传',rel:'父女',b:'郭襄',bb:'神雕侠侣',evidence:'原著明确【跨书】',cat:'blood'},
+    {a:'郭靖',ab:'射雕英雄传',rel:'父子',b:'郭破虏',bb:'神雕侠侣',evidence:'原著明确【跨书】',cat:'blood'},
+    {a:'张翠山',ab:'倚天屠龙记',rel:'父子',b:'张无忌',bb:'倚天屠龙记',evidence:'原著明确',cat:'blood'},
+    {a:'殷天正',ab:'倚天屠龙记',rel:'父女',b:'殷素素',bb:'倚天屠龙记',evidence:'原著明确',cat:'blood'},
+    {a:'殷天正',ab:'倚天屠龙记',rel:'祖孙',b:'张无忌',bb:'倚天屠龙记',evidence:'原著明确',cat:'blood'},
+    {a:'杨逍',ab:'倚天屠龙记',rel:'父女',b:'杨不悔',bb:'倚天屠龙记',evidence:'原著明确',cat:'blood'},
+    {a:'黛绮丝',ab:'倚天屠龙记',rel:'母女',b:'小昭',bb:'倚天屠龙记',evidence:'原著明确',cat:'blood'},
+    {a:'宋远桥',ab:'倚天屠龙记',rel:'父子',b:'宋青书',bb:'倚天屠龙记',evidence:'原著明确',cat:'blood'},
+    {a:'成吉思汗',ab:'射雕英雄传',rel:'父子',b:'拖雷',bb:'射雕英雄传',evidence:'原著明确',cat:'blood'},
+    {a:'裘千仞',ab:'射雕英雄传',rel:'兄妹',b:'裘千尺',bb:'神雕侠侣',evidence:'原著明确【跨书】',cat:'blood'},
+    {a:'公孙止',ab:'神雕侠侣',rel:'父女',b:'公孙绿萼',bb:'神雕侠侣',evidence:'原著明确',cat:'blood'},
+    {a:'武三通',ab:'射雕英雄传',rel:'父子',b:'武敦儒',bb:'神雕侠侣',evidence:'原著明确【跨书】',cat:'blood'},
+    {a:'武三通',ab:'射雕英雄传',rel:'父子',b:'武修文',bb:'神雕侠侣',evidence:'原著明确【跨书】',cat:'blood'},
+    {a:'韩千叶',ab:'倚天屠龙记',rel:'夫妻',b:'黛绮丝',bb:'倚天屠龙记',evidence:'原著明确',cat:'blood'},
+    {a:'胡青牛',ab:'倚天屠龙记',rel:'夫妻',b:'王难姑',bb:'倚天屠龙记',evidence:'原著明确',cat:'blood'},
+    {a:'何太冲',ab:'倚天屠龙记',rel:'夫妻',b:'班淑娴',bb:'倚天屠龙记',evidence:'原著明确',cat:'blood'},
+    {a:'郭啸天',ab:'射雕英雄传',rel:'夫妻',b:'李萍',bb:'射雕英雄传',evidence:'原著明确',cat:'blood'},
+    {a:'杨铁心',ab:'射雕英雄传',rel:'夫妻',b:'包惜弱',bb:'射雕英雄传',evidence:'原著明确',cat:'blood'},
+    {a:'张翠山',ab:'倚天屠龙记',rel:'夫妻',b:'殷素素',bb:'倚天屠龙记',evidence:'原著明确',cat:'blood'},
+    {a:'杨过',ab:'神雕侠侣',rel:'夫妻',b:'小龙女',bb:'神雕侠侣',evidence:'原著明确',cat:'blood'},
+    {a:'郭靖',ab:'射雕英雄传',rel:'夫妻',b:'黄蓉',bb:'射雕英雄传',evidence:'原著明确',cat:'blood'},
+    {a:'杨过',ab:'神雕侠侣',rel:'后人',b:'黄衫女子',bb:'倚天屠龙记',evidence:'原著暗示·古墓传人【跨书】',cat:'blood'},
+    {a:'郭襄',ab:'神雕侠侣',rel:'创派祖师',b:'峨眉派',bb:'倚天屠龙记',evidence:'原著明确【跨书】',cat:'blood'},
+    {a:'张君宝(张三丰)',ab:'神雕侠侣',rel:'创派祖师',b:'武当派',bb:'倚天屠龙记',evidence:'原著明确【跨书】',cat:'blood'},
+    {a:'朱子柳',ab:'射雕英雄传',rel:'后人',b:'朱长龄',bb:'倚天屠龙记',evidence:'原著明确【跨书】',cat:'blood'},
+    {a:'武三通',ab:'射雕英雄传',rel:'后人',b:'武烈',bb:'倚天屠龙记',evidence:'原著明确【跨书】',cat:'blood'},
+  ];
+
+  allRelations.master = [
+    {a:'王重阳',ab:'射雕英雄传',rel:'师父',b:'全真七子',bb:'射雕英雄传',evidence:'原著明确（创派）',cat:'master'},
+    {a:'洪七公',ab:'射雕英雄传',rel:'师父',b:'郭靖',bb:'射雕英雄传',evidence:'传降龙十八掌',cat:'master'},
+    {a:'洪七公',ab:'射雕英雄传',rel:'师父',b:'黄蓉',bb:'射雕英雄传',evidence:'传打狗棒法',cat:'master'},
+    {a:'黄药师',ab:'射雕英雄传',rel:'师父',b:'梅超风·陈玄风·曲灵风·陆乘风·武眠风·冯默风',bb:'射雕英雄传',evidence:'桃花岛六弟子',cat:'master'},
+    {a:'黄药师',ab:'射雕英雄传',rel:'师父(关门)',b:'程英',bb:'神雕侠侣',evidence:'原著明确【跨书】',cat:'master'},
+    {a:'郭靖',ab:'射雕英雄传',rel:'师父',b:'武敦儒·武修文',bb:'神雕侠侣',evidence:'原著明确【跨书】',cat:'master'},
+    {a:'郭靖',ab:'射雕英雄传',rel:'传功',b:'杨过',bb:'神雕侠侣',evidence:'传全真内功基础',cat:'master'},
+    {a:'小龙女',ab:'神雕侠侣',rel:'师父',b:'杨过',bb:'神雕侠侣',evidence:'古墓派',cat:'master'},
+    {a:'林朝英',ab:'神雕侠侣',rel:'创派祖师',b:'小龙女·李莫愁',bb:'神雕侠侣',evidence:'古墓派·已故',cat:'master'},
+    {a:'独孤求败',ab:'神雕侠侣',rel:'隔代传人(雕)',b:'杨过',bb:'神雕侠侣',evidence:'神雕代传·玄铁剑法',cat:'master'},
+    {a:'觉远',ab:'神雕侠侣',rel:'师父',b:'张君宝(张三丰)',bb:'神雕侠侣',evidence:'传九阳真经【跨书】',cat:'master'},
+    {a:'张三丰',ab:'倚天屠龙记',rel:'师父',b:'武当七侠',bb:'倚天屠龙记',evidence:'原著明确',cat:'master'},
+    {a:'谢逊',ab:'倚天屠龙记',rel:'义父/师父',b:'张无忌',bb:'倚天屠龙记',evidence:'冰火岛传功',cat:'master'},
+    {a:'胡青牛',ab:'倚天屠龙记',rel:'师父',b:'张无忌',bb:'倚天屠龙记',evidence:'传医术',cat:'master'},
+    {a:'成昆',ab:'倚天屠龙记',rel:'师父',b:'谢逊',bb:'倚天屠龙记',evidence:'原著明确',cat:'master'},
+    {a:'灭绝师太',ab:'倚天屠龙记',rel:'师父',b:'周芷若·纪晓芙',bb:'倚天屠龙记',evidence:'原著明确',cat:'master'},
+    {a:'李秋水',ab:'天龙八部',rel:'师父/情人',b:'无崖子',bb:'天龙八部',evidence:'逍遥派',cat:'master'},
+    {a:'天山童姥',ab:'天龙八部',rel:'师父',b:'虚竹',bb:'天龙八部',evidence:'传天山六阳掌等',cat:'master'},
+    {a:'无崖子',ab:'天龙八部',rel:'传功',b:'虚竹',bb:'天龙八部',evidence:'传七十年功力',cat:'master'},
+    {a:'段智兴(一灯)',ab:'射雕英雄传',rel:'师父',b:'渔樵耕读',bb:'射雕英雄传',evidence:'原著明确',cat:'master'},
+    {a:'洪七公',ab:'射雕英雄传',rel:'前帮主→后帮主',b:'黄蓉',bb:'射雕英雄传',evidence:'丐帮传承【跨书】',cat:'master'},
+    {a:'黄蓉',ab:'射雕英雄传',rel:'前帮主→后帮主',b:'鲁有脚',bb:'神雕侠侣',evidence:'丐帮传承【跨书】',cat:'master'},
+    {a:'张三丰',ab:'倚天屠龙记',rel:'隔代传承',b:'张无忌',bb:'倚天屠龙记',evidence:'传太极拳/剑',cat:'master'},
+    {a:'段思平',ab:'天龙八部',rel:'创派',b:'大理段氏',bb:'天龙八部',evidence:'六脉神剑/一阳指',cat:'master'},
+    {a:'江南七怪',ab:'射雕英雄传',rel:'师父',b:'郭靖',bb:'射雕英雄传',evidence:'打基础',cat:'master'},
+    {a:'丘处机',ab:'射雕英雄传',rel:'师父',b:'杨康',bb:'射雕英雄传',evidence:'全真教武功',cat:'master'},
+    {a:'金轮法王',ab:'神雕侠侣',rel:'师父',b:'霍都·达尔巴',bb:'神雕侠侣',evidence:'原著明确',cat:'master'},
+  ];
+
+  allRelations.emotion = [
+    {a:'乔峰',ab:'天龙八部',rel:'挚爱',b:'阿朱',bb:'天龙八部',evidence:'塞上牛羊空许约',cat:'emotion'},
+    {a:'阿紫',ab:'天龙八部',rel:'痴恋',b:'乔峰',bb:'天龙八部',evidence:'单相思至死不渝',cat:'emotion'},
+    {a:'游坦之',ab:'天龙八部',rel:'痴恋',b:'阿紫',bb:'天龙八部',evidence:'甘受折磨·换眼',cat:'emotion'},
+    {a:'段誉',ab:'天龙八部',rel:'痴恋→兄妹→夫妻',b:'王语嫣',bb:'天龙八部',evidence:'终成眷属',cat:'emotion'},
+    {a:'虚竹',ab:'天龙八部',rel:'夫妻',b:'梦姑(李清露)',bb:'天龙八部',evidence:'西夏公主',cat:'emotion'},
+    {a:'郭靖',ab:'射雕英雄传',rel:'恩爱夫妻',b:'黄蓉',bb:'射雕英雄传',evidence:'一生相守·共守襄阳',cat:'emotion'},
+    {a:'杨过',ab:'神雕侠侣',rel:'十六年生离·痴情',b:'小龙女',bb:'神雕侠侣',evidence:'原著明确',cat:'emotion'},
+    {a:'郭襄',ab:'神雕侠侣',rel:'一见误终身',b:'杨过',bb:'神雕侠侣',evidence:'风陵渡·终身不嫁',cat:'emotion'},
+    {a:'张无忌',ab:'倚天屠龙记',rel:'相爱归隐',b:'赵敏',bb:'倚天屠龙记',evidence:'原著明确',cat:'emotion'},
+    {a:'周芷若',ab:'倚天屠龙记',rel:'青梅→因爱生恨',b:'张无忌',bb:'倚天屠龙记',evidence:'原著明确',cat:'emotion'},
+    {a:'乔峰',ab:'天龙八部',rel:'结义兄弟',b:'段誉',bb:'天龙八部',evidence:'原著明确',cat:'emotion'},
+    {a:'乔峰',ab:'天龙八部',rel:'结义兄弟',b:'虚竹',bb:'天龙八部',evidence:'原著明确',cat:'emotion'},
+    {a:'段誉',ab:'天龙八部',rel:'结义兄弟',b:'虚竹',bb:'天龙八部',evidence:'灵鹫宫结拜',cat:'emotion'},
+    {a:'郭靖',ab:'射雕英雄传',rel:'结义兄弟→反目',b:'杨康',bb:'射雕英雄传',evidence:'原著明确',cat:'emotion'},
+    {a:'郭靖',ab:'射雕英雄传',rel:'结义兄弟',b:'周伯通',bb:'射雕英雄传',evidence:'忘年交',cat:'emotion'},
+    {a:'张翠山',ab:'倚天屠龙记',rel:'结义兄弟',b:'谢逊',bb:'倚天屠龙记',evidence:'冰火岛结拜',cat:'emotion'},
+    {a:'谢逊',ab:'倚天屠龙记',rel:'仇敌',b:'成昆',bb:'倚天屠龙记',evidence:'灭门之仇',cat:'emotion'},
+    {a:'黄药师',ab:'射雕英雄传',rel:'宿敌',b:'欧阳锋',bb:'射雕英雄传',evidence:'华山论剑',cat:'emotion'},
+    {a:'洪七公',ab:'射雕英雄传',rel:'宿敌→同归于尽',b:'欧阳锋',bb:'神雕侠侣',evidence:'华山之巅',cat:'emotion'},
+    {a:'慕容复',ab:'天龙八部',rel:'仇敌',b:'段誉',bb:'天龙八部',evidence:'情敌+国仇',cat:'emotion'},
+    {a:'乔峰',ab:'天龙八部',rel:'杀母之仇',b:'带头大哥(玄慈)',bb:'天龙八部',evidence:'雁门关事件',cat:'emotion'},
+    {a:'杨过',ab:'神雕侠侣',rel:'杀父之仇→化解',b:'郭靖·黄蓉',bb:'神雕侠侣',evidence:'误会·最终理解',cat:'emotion'},
+  ];
+}
+
+function renderRelContent(sub='blood') {
+  if(allRelations.blood.length===0) buildRelations();
+  const rels = allRelations[sub] || [];
+  const searchTerm = (document.getElementById('relSearch')?.value || '').toLowerCase();
+  let filtered = rels;
+  if(searchTerm) {
+    filtered = rels.filter(r => 
+      r.a.toLowerCase().includes(searchTerm) || r.b.toLowerCase().includes(searchTerm) ||
+      r.rel.includes(searchTerm) || r.ab.includes(searchTerm) || r.bb.includes(searchTerm)
+    );
+  }
+  
+  const titles = {blood:'🩸 血缘家族', master:'📜 师徒/传功', emotion:'💕 情感/恩怨'};
+  const tags = {blood:'tag-blood', master:'tag-master', emotion:'tag-love'};
+  
+  let html = `<h3 style="color:var(--head);margin:12px 0">${titles[sub]} (${filtered.length}条)</h3>`;
+  filtered.forEach(r => {
+    html += `<div class="rel-card">
+      <span class="a">${r.a}</span><span style="font-size:.7em;opacity:.5">[${r.ab}]</span>
+      <span class="arrow">→</span><span class="${tags[r.cat]||'tag-cross'}">${r.rel}</span><span class="arrow">→</span>
+      <span class="b">${r.b}</span><span style="font-size:.7em;opacity:.5">[${r.bb}]</span>
+      <span class="evidence">📎 ${r.evidence}</span>
+    </div>`;
+  });
+  document.getElementById('relContent').innerHTML = html || '<p>未找到</p>';
+}
+
+function filterRels() { renderRelContent(); }
+
+// ==================== KUNGFU ====================
+function buildKungfu() {
+  allKungfu = [
+    {name:'降龙十八掌',users:'乔峰·洪七公·郭靖·史火龙(12掌)',books:'天龙→射雕→神雕→倚天',cross:true,desc:'天下第一阳刚掌法，原名廿八掌，乔峰删繁就简为十八掌。招式有"亢龙有悔""飞龙在天""见龙在田"等。至倚天时代史火龙仅会十二掌。'},
+    {name:'六脉神剑',users:'段誉·枯荣大师·本因等天龙寺僧',books:'天龙八部',cross:false,desc:'大理段氏最高武学，以一阳指为基，将内力化为无形剑气从六根手指射出。需极高内力，段誉因北冥神功吸人内力方能练成。'},
+    {name:'一阳指',users:'段智兴·段正淳·段延庆·天龙寺诸僧·武三通·朱子柳',books:'天龙→射雕→神雕→倚天',cross:true,desc:'大理段氏家传指法，分九品，四品以上方能练六脉神剑。可攻敌亦可疗伤。至倚天时代仅存皮毛。'},
+    {name:'北冥神功',users:'段誉(部分)·无崖子·李秋水',books:'天龙八部',cross:false,desc:'逍遥派绝学，可吸人内力为己用。段誉只学了"吸"的帛卷，未学全"化"的法门。可能是吸星大法的前身。'},
+    {name:'小无相功',users:'鸠摩智·李秋水·无崖子',books:'天龙八部',cross:false,desc:'逍遥派内功，可模仿天下武学而形神兼备。鸠摩智以小无相功催动少林七十二绝技，几可乱真。'},
+    {name:'斗转星移',users:'慕容复·慕容博·慕容龙城',books:'天龙八部',cross:false,desc:'姑苏慕容家传绝学，"以彼之道还施彼身"。可将对手的攻击力道反弹回去。'},
+    {name:'凌波微步',users:'段誉·李秋水',books:'天龙八部',cross:false,desc:'逍遥派轻功绝学，按六十四卦方位踏出步法，趋避如神。段誉以此多次死里逃生。'},
+    {name:'易筋经',users:'扫地僧·令狐冲·方正大师',books:'天龙→笑傲',cross:true,desc:'少林镇寺之宝，需极高佛法修为方能练成。天龙扫地僧精通，笑傲中方正传令狐冲以化解吸星大法反噬。'},
+    {name:'少林七十二绝技',users:'少林历代高僧',books:'多部',cross:true,desc:'少林寺历代武僧所创各种绝技的总称，包括龙爪手、金刚指、拈花指等。每练一门需相应佛法化解戾气。'},
+    {name:'天山六阳掌',users:'虚竹·天山童姥',books:'天龙八部',cross:false,desc:'逍遥派灵鹫宫武学，掌法轻灵飘逸。虚竹以天山六阳掌配合生死符解药之法。'},
+    {name:'天山折梅手',users:'虚竹·天山童姥',books:'天龙八部',cross:false,desc:'逍遥派擒拿手法，包含三路掌法和三路擒拿，可化尽天下武功招式。'},
+    {name:'生死符',users:'天山童姥·虚竹',books:'天龙八部',cross:false,desc:'天山童姥以酒水凝冰为暗器，打入人体后按不同时辰发作，痛痒难当。需天山六阳掌解之。'},
+    {name:'八荒六合唯我独尊功',users:'天山童姥',books:'天龙八部',cross:false,desc:'天山童姥独门神功，每三十年返老还童一次，功力需重新修炼。'},
+    {name:'火焰刀',users:'鸠摩智',books:'天龙八部',cross:false,desc:'吐蕃宁玛派绝学，以内力化为无形刀气，凌空伤人。'},
+    {name:'化功大法',users:'丁春秋',books:'天龙八部',cross:false,desc:'星宿派丁春秋所创，以毒物辅助化去对手内力。与北冥神功的"吸"不同，是"化"而非"吸"。'},
+    {name:'蛤蟆功',users:'欧阳锋·杨过(部分)',books:'射雕→神雕',cross:true,desc:'欧阳锋绝学，蓄力如蛤蟆，爆发似雷霆。杨过少年时曾被欧阳锋传授部分口诀。'},
+    {name:'弹指神通',users:'黄药师·杨过·程英',books:'射雕→神雕',cross:true,desc:'黄药师绝技，屈指弹出石子或内力，劲道精准。杨过以此成名。'},
+    {name:'打狗棒法',users:'洪七公·黄蓉·鲁有脚·耶律齐',books:'射雕→神雕',cross:true,desc:'丐帮镇帮之宝，只传帮主。共三十六路，有"绊""劈""缠"等八字诀。黄蓉以此在华山打败欧阳锋。'},
+    {name:'双手互搏',users:'周伯通·郭靖·小龙女',books:'射雕→神雕',cross:true,desc:'周伯通被困桃花岛时自创，一心二用，左右手各使不同武功。需心思单纯之人才可练成。'},
+    {name:'空明拳',users:'周伯通·郭靖',books:'射雕→神雕',cross:true,desc:'周伯通自创拳法，以虚御实，以柔克刚。共七十二路。'},
+    {name:'九阴真经',users:'王重阳·周伯通·郭靖·杨过·周芷若·黄衫女子等',books:'射雕→神雕→倚天',cross:true,desc:'黄裳所著武学奇书，分上下两卷。上卷内功心法、下卷武功招式。王重阳华山论剑夺得，后分散于古墓、倚天剑、武当峨眉等处。'},
+    {name:'九阴白骨爪',users:'梅超风·陈玄风·周芷若',books:'射雕→倚天',cross:true,desc:'九阴真经下卷武功，以五指插人头骨。梅超风误解经文以活人练功，周芷若速成版威力大增但根基不稳。'},
+    {name:'铁掌',users:'裘千仞·裘千尺',books:'射雕→神雕',cross:true,desc:'裘千仞绝学，铁掌帮镇帮武功。掌力刚猛，裘千仞以此位列准五绝。'},
+    {name:'九阳神功',users:'张无忌·觉远(部分)·张三丰(部分)·郭襄(部分)',books:'神雕→倚天',cross:true,desc:'斗酒僧借阅九阴后创出，藏于楞伽经中。觉远圆寂前背诵，张三丰郭襄无色各记一部分。张无忌在昆仑山绝谷学全本。内力生生不息。'},
+    {name:'乾坤大挪移',users:'张无忌·阳顶天(四层)·杨逍(二层)',books:'倚天',cross:false,desc:'明教镇教神功，共七层，运劲卸力、挪移乾坤。张无忌以九阳神功为基一口气练至七层。'},
+    {name:'太极拳/太极剑',users:'张三丰·张无忌·武当弟子',books:'倚天→笑傲',cross:true,desc:'张三丰百岁所创，以柔克刚、以静制动。张无忌以此败赵敏手下阿大。武当派代代相传。'},
+    {name:'玄冥神掌',users:'玄冥二老(鹿杖客·鹤笔翁)',books:'倚天',cross:false,desc:'极寒掌力，中者寒毒入骨。张无忌幼年中掌，唯有九阳神功可解。'},
+    {name:'七伤拳',users:'谢逊·张无忌·崆峒派',books:'倚天',cross:false,desc:'崆峒派绝学，一拳七伤——先伤己后伤人。内力不足者练之自损。'},
+    {name:'圣火令武功',users:'张无忌·霍山老人',books:'倚天',cross:false,desc:'波斯明教圣火令上所刻武功，招式诡异，与中原武学迥异。'},
+    {name:'独孤九剑',users:'风清扬·令狐冲·独孤求败(创)',books:'笑傲·神雕(提及)',cross:true,desc:'独孤求败晚年剑道总结。共九式：总诀式、破剑式、破刀式、破枪式、破鞭式、破索式、破掌式、破箭式、破气式。无招胜有招。'},
+    {name:'吸星大法',users:'任我行·令狐冲',books:'笑傲',cross:false,desc:'任我行所创(或得自北冥残篇)，可吸人内力但无法化解异种真气，需易筋经调和。令狐冲因此内力冲突险些丧命。'},
+    {name:'葵花宝典',users:'东方不败·岳不群·林平之',books:'笑傲',cross:false,desc:'前朝太监所著，"欲练神功必先自宫"。东方不败练成后武功天下第一，一根绣花针可敌令狐冲、任我行、向问天三人合击。'},
+    {name:'辟邪剑法',users:'林远图·岳不群·林平之',books:'笑傲',cross:false,desc:'林远图从葵花宝典残篇中悟出的剑法。七十二路，快如鬼魅。需自宫方可修炼。'},
+    {name:'寒冰真气',users:'左冷禅',books:'笑傲',cross:false,desc:'左冷禅专为克制任我行吸星大法所创，内力极寒，可冻结对手经脉。'},
+    {name:'紫霞神功',users:'岳不群',books:'笑傲',cross:false,desc:'华山派气宗绝学，脸现紫气时功力大进。岳不群以此为华山掌门立足之本。'},
+    {name:'神行百变',users:'九难师太·韦小宝',books:'碧血→鹿鼎',cross:true,desc:'铁剑门绝学轻功，步法飘忽不定。九难师太(阿九)传韦小宝，韦小宝以此屡次逃命。'},
+    {name:'金蛇剑法',users:'夏雪宜(金蛇郎君)·袁承志',books:'碧血',cross:false,desc:'夏雪宜自创剑法，配合金蛇剑使用。剑身弯曲如蛇，剑法诡异刁钻。'},
+    {name:'混元功',users:'袁承志·穆人清',books:'碧血',cross:false,desc:'华山派内功心法，穆人清传袁承志。'},
+    {name:'神照经',users:'丁典·狄云',books:'连城诀',cross:false,desc:'梅念笙所传至高内功。狄云被血刀老祖扼死后竟因此经复活。有起死回生之效。'},
+    {name:'连城剑法',users:'万震山·戚长发·言达平',books:'连城诀',cross:false,desc:'三师兄弟各学一部分，表面是剑法，实为唐诗中隐藏的大宝藏密码。'},
+    {name:'太玄经',users:'石破天',books:'侠客行',cross:false,desc:'刻于侠客岛石壁，包含李白《侠客行》诗及蝌蚪文注释。天下高手皆被文字所困，唯不识字的石破天参透其中武学奥秘。'},
+    {name:'雪山剑法',users:'雪山派(白自在·白万剑等)',books:'侠客行',cross:false,desc:'雪山派剑法，七十二路，以轻灵见长。'},
+    {name:'金乌刀法',users:'史婆婆·石破天',books:'侠客行',cross:false,desc:'史婆婆为克制雪山剑法而创，石破天学成后大败雪山派。'},
+    {name:'越女剑法',users:'阿青·韩小莹(江南七怪)',books:'越女→射雕',cross:true,desc:'阿青从白猿处习得的剑术，一根竹棒可破三千越甲。江南七怪韩小莹所使越女剑仅为皮毛。'},
+    {name:'百花错拳',users:'陈家洛·袁士霄',books:'书剑',cross:false,desc:'袁士霄所创，将天下各派拳法打乱重组，对手难辨来路。陈家洛以此成名。'},
+    {name:'夫妻刀法',users:'萧中慧·袁冠南',books:'鸳鸯刀',cross:false,desc:'需夫妻二人配合使用，阴阳互补，威力无穷。'},
+    {name:'鸳鸯刀法',users:'萧中慧·袁冠南',books:'鸳鸯刀',cross:false,desc:'配合鸳鸯双刀使用的刀法，双刀合璧。'},
+    {name:'凝血神爪',users:'陈近南',books:'鹿鼎',cross:false,desc:'天地会总舵主陈近南绝学，中者血液凝固而死。'},
+    {name:'化骨绵掌',users:'海大富·毛东珠',books:'鹿鼎',cross:false,desc:'神龙教武功，海大富以此阴人于无形，中者骨骼酥软而死。'},
+    {name:'玄铁剑法',users:'杨过·独孤求败',books:'神雕',cross:false,desc:'独孤求败四十岁后所用，"重剑无锋大巧不工"。杨过以玄铁重剑内功御剑，威力无匹。'},
+    {name:'黯然销魂掌',users:'杨过',books:'神雕',cross:false,desc:'杨过思念小龙女时所创，共十七招。心意越悲越强，欢愉时威力大减。'},
+    {name:'龙象般若功',users:'金轮法王',books:'神雕',cross:false,desc:'西藏密宗至高无上的护法神功，共十三层。金轮法王练至第十层，每一掌有十龙十象之力。'},
+    {name:'全真剑法',users:'王重阳·全真七子·全真弟子',books:'射雕→神雕',cross:true,desc:'王重阳所创，全真教入门武功。与玉女剑法双剑合璧威力大增。'},
+    {name:'玉女心经',users:'林朝英·小龙女·杨过',books:'神雕',cross:false,desc:'林朝英创于古墓，需男女合练。包含玉女剑法、天罗地网势等。与全真剑法配合可双剑合璧。'},
+    {name:'五轮大转',users:'金轮法王',books:'神雕',cross:false,desc:'金轮法王绝技，五只法轮同时飞出攻击。'},
+  ];
+}
+
+function renderKfContent() {
+  if(allKungfu.length===0) buildKungfu();
+  const s = (document.getElementById('kfSearch')?.value||'').toLowerCase();
+  let filtered = allKungfu;
+  if(s) filtered = allKungfu.filter(k=>k.name.toLowerCase().includes(s)||k.users.toLowerCase().includes(s)||k.books.toLowerCase().includes(s)||(k.desc||'').toLowerCase().includes(s));
+  
+  let html = `<h3 style="color:var(--head);margin:12px 0">⚔ 有名武功全表 (${filtered.length}种) — 点击查看详情</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px">`;
+  filtered.forEach((k,i) => {
+    html += `<div class="kf-card clickable" onclick="openKfDetail(${i},'${k.name.replace(/'/g,"\\'")}')">
+      <h4>${k.name} ${k.cross?'<span style="font-size:.7em;color:#fc9">🔗跨书</span>':''}</h4>
+      <div class="user">👤 ${k.users}</div>
+      <div class="book">📖 ${k.books}</div>
+    </div>`;
+  });
+  html += '</div>';
+  document.getElementById('kfContent').innerHTML = html;
+}
+
+function openKfDetail(idx, name) {
+  if(allKungfu.length===0) buildKungfu();
+  const k = allKungfu.find(x=>x.name===name) || allKungfu[idx];
+  if(!k) return;
+  document.getElementById('detailType').textContent = '⚔ 武功详情';
+  document.getElementById('detailBody').innerHTML = `
+    <div class="detail-hero">
+      <h2>${k.name}</h2>
+      <div class="hero-sub">
+        ${k.cross?'<span class="hero-tag cross">🔗 跨书传承</span>':'<span class="hero-tag nocross">仅单部</span>'}
+        <span style="color:#555">·</span>
+        <span>${k.books}</span>
+      </div>
+    </div>
+    <div class="detail-sections">
+      <div class="detail-grid">
+        <div class="detail-info-card"><div class="card-label">📖 出现书目</div><div class="card-value"><strong>${k.books}</strong></div></div>
+        <div class="detail-info-card"><div class="card-label">👤 使用者</div><div class="card-value">${k.users}</div></div>
+        <div class="detail-info-card"><div class="card-label">🔗 传承</div><div class="card-value">${k.cross?'跨书传承 · 多部出现':'仅单部小说中出现'}</div></div>
+      </div>
+      ${k.desc?`<div class="detail-section"><h3>📜 武学简介</h3><div class="content">${k.desc}</div></div>`:''}
+    </div>
+  `;
+  document.getElementById('detailPanel').classList.add('show');
+}
+
+function filterKf() { renderKfContent(); }
+
+// ==================== SECTS ====================
+function buildSects() {
+  allSects = [
+    {name:'少林派',books:'全部15部均有出现或提及',status:'武林第一大派·从北宋至清持续存在',type:'佛家门派',desc:'禅宗祖庭，少林寺始建于北魏太和十九年（495年），被誉为"天下第一名刹"。在金庸武侠体系中，少林派贯穿从北宋《天龙八部》到清朝《鹿鼎记》的全部十五部作品。寺内藏经阁中收藏有《易筋经》《九阳真经》（部分）等至高武学典籍，以及少林七十二绝技的全套传承。历代高僧辈出：天龙时期的扫地神僧佛法武功深不可测，倚天时期的空见神僧练成金刚不坏体，渡厄渡劫渡难三僧的金刚伏魔圈天下无双。少林武功体系涵盖拳法、掌法、指法、爪法、杖法、棍法等，以"禅武合一"为最高境界。'},
+    {name:'武当派',books:'倚天→笑傲→书剑→飞狐',status:'张三丰创于元末·延续至清',type:'道家门派',desc:'武当派由张三丰（张君宝）在元朝末年创立于湖北武当山。张三丰原为少林觉远大师的俗家弟子，因觉远圆寂前背诵《九阳真经》，记住其中一部分，后以此为根基融合道家思想，创出太极拳、太极剑等绝学。武当七侠各有所长。在笑傲中冲虚道长为掌门，太极剑法依然威震江湖。到清朝书剑和飞狐中，武当分支的太极门、无极门仍有传承。与少林并称武林两大宗。'},
+    {name:'丐帮',books:'天龙→射雕→神雕→倚天→笑傲→鹿鼎',status:'北宋至清延续·帮主更替',type:'帮会',desc:'天下第一大帮，帮众遍布天下，以"仁义"为帮训。镇帮之宝打狗棒法只传帮主。北宋乔峰（萧峰）时代为巅峰，南宋洪七公、黄蓉先后执掌，元末史火龙仅会十二掌已显衰落。帮主传承链：乔峰→虚竹代传→洪七公→黄蓉→鲁有脚→耶律齐→史火龙。到清朝鹿鼎记时期，丐帮已大不如前，但仍是重要武林势力。降龙十八掌和打狗棒法为丐帮两大镇帮绝学。'},
+    {name:'峨眉派',books:'倚天→笑傲→鹿鼎(提及)',status:'郭襄创于宋末元初',type:'佛家门派',desc:'郭襄（小东邪）四十岁大彻大悟后出家为尼，创立峨眉派于四川峨眉山。郭襄年轻时曾在少室山下听觉远大师圆寂前背诵《九阳真经》，记住其中一部分，后来发展为峨眉九阳功。第三代掌门灭绝师太性格刚烈，手持倚天剑。周芷若为第四代掌门，因练速成版九阴白骨爪而误入歧途。到笑傲江湖中，峨眉仍为武林大派。鹿鼎记中阿珂的师父九难师太曾提到峨眉。'},
+    {name:'全真教',books:'射雕→神雕',status:'王重阳创于南宋·元灭金后衰落',type:'道家门派',desc:'王重阳在第一次华山论剑力压东邪西毒南帝北丐夺得《九阴真经》后创立全真教，被称为"天下武学正宗"。全真七子（丘处机、马钰、王处一、郝大通、刘处玄、孙不二、谭处端）各有所长。全真剑法、天罡北斗阵为镇教武功。到神雕末期，以尹志平（甄志丙）、赵志敬为代表的新一代已远不如前辈。蒙古灭金后全真教逐渐式微，到倚天时代已不见踪影。'},
+    {name:'古墓派',books:'神雕→倚天(黄衫女子)',status:'林朝英创·隐世门派',type:'隐世',desc:'林朝英因爱慕王重阳不得而创于终南山古墓中。武功以《玉女心经》为核心，包括玉女剑法、天罗地网势等。与全真剑法配合可双剑合璧，威力大增。第二代传人小龙女与杨过。倚天屠龙记末尾，黄衫女子以古墓派传人身份出现，用九阴白骨爪制服周芷若，证明古墓派至少传承到元末。'},
+    {name:'华山派',books:'倚天(提及)→笑傲→碧血→鹿鼎',status:'元末始·明盛·清衰落',type:'道家门派',desc:'金庸笔下贯穿多个朝代的重要门派。倚天中鲜于通为华山掌门（反面角色）。笑傲中华山派经历了剑宗气宗大分裂，岳不群（君子剑）为气宗掌门，风清扬为剑宗隐世高人。碧血剑中穆人清（神剑仙猿）重建华山为天下第一剑派，门下归辛树、黄真、袁承志三人名震江湖。鹿鼎记中归辛树夫妇以老年身份出现，华山派已大不如前。华山派武功包括华山剑法、紫霞神功、混元功等。'},
+    {name:'明教',books:'倚天→笑傲(日月神教)',status:'元末鼎盛·明初禁绝',type:'宗教组织',desc:'源于波斯摩尼教（拜火教），唐朝传入中土。倚天中为抗击元朝的主要力量。教主阳顶天练乾坤大挪移走火入魔而死，张无忌继任后统领明教推翻元朝。四大法王（紫白金青）、左右光明使、五散人为核心。朱元璋本为明教弟子，建国后反禁明教。推测演变为笑傲中的日月神教。'},
+    {name:'日月神教',books:'笑傲江湖',status:'明中武林大派·与五岳剑派对立',type:'教派',desc:'教众称"圣教主文成武德、泽被苍生"。东方不败篡位后练葵花宝典成为天下第一。任我行被囚西湖梅庄十二年后复辟，不久暴毙，向问天接任教主。令狐冲与圣姑任盈盈相爱归隐。日月神教与五岳剑派的冲突是笑傲江湖的主线。'},
+    {name:'逍遥派',books:'天龙八部',status:'已消亡·北宋隐世门派',type:'隐世',desc:'天龙八部中最神秘的门派。掌门无崖子被弟子丁春秋推落悬崖，设珍珑棋局寻传人。天山童姥（大师姐）居灵鹫宫，李秋水（师妹）为西夏皇太妃，三人同门却纠缠一生。武功包括北冥神功（吸人内力）、小无相功（模仿天下武功）、凌波微步（绝顶轻功）、天山六阳掌、天山折梅手、生死符等。虚竹为逍遥派末代传人，集无崖子、天山童姥、李秋水三人武功于一身。'},
+    {name:'星宿派',books:'天龙八部',status:'丁春秋创·天龙末消亡',type:'邪派',desc:'丁春秋弑师无崖子后在西域创立。以化功大法（以毒物辅助化解对手内力，与北冥神功的"吸"不同）和各类毒功闻名。门人最善阿谀奉承，"星宿老仙法力无边"为经典口号。天龙八部结尾，虚竹以生死符制住丁春秋，星宿派随之覆灭。'},
+    {name:'灵鹫宫',books:'天龙八部',status:'天山童姥创·虚竹继任',type:'隐世',desc:'天山童姥在天山缥缈峰创立，以生死符控制三十六洞七十二岛。虚竹继任后废除严苛制度，以德服人，带领灵鹫宫走上正道。宫中还有梅兰竹菊四剑婢。'},
+    {name:'大理段氏/天龙寺',books:'天龙→射雕→神雕',status:'大理皇族·佛武双修',type:'皇族武学',desc:'大理国皇族段氏世代出家于天龙寺。家传一阳指分九品，四品以上方能修炼六脉神剑。天龙八部中天龙寺枯荣大师率本因、本观、本相、本参四僧对抗鸠摩智。段智兴（南帝/一灯大师）为射雕神雕时期的代表人物。大理被元灭后段氏武学逐渐失传，到倚天时代仅朱长龄、武烈等后人留有皮毛。'},
+    {name:'桃花岛',books:'射雕→神雕',status:'黄药师一人之派',type:'隐世',desc:'东邪黄药师在东海桃花岛的私人领地。以奇门五行之术布阵，"桃花影落飞神剑，碧海潮生按玉箫"。六大弟子（陈玄风、梅超风、曲灵风、陆乘风、武眠风、冯默风）因陈梅私奔偷九阴真经而被挑断脚筋逐出。程英为关门弟子。黄药师本人天文地理、琴棋书画无一不精，弹指神通和玉箫剑法为独门绝技。'},
+    {name:'天地会',books:'鹿鼎记',status:'清初反清组织',type:'帮会',desc:'陈近南（"为人不识陈近南，便称英雄也枉然"）任总舵主，韦小宝为青木堂香主。"反清复明"为宗旨，遍布全国。后被康熙利用韦小宝瓦解。陈近南死于郑克塽之手。'},
+    {name:'红花会',books:'书剑恩仇录→飞狐外传',status:'清中反清组织',type:'帮会',desc:'陈家洛为总舵主，共十五位当家。二当家无尘道长（追魂夺命剑）、三当家赵半山（千臂如来）、四当家文泰来（奔雷手）等。以反清复汉为宗旨。飞狐外传中赵半山、无尘道长等出现，表明红花会仍在活动。'},
+    {name:'五毒教',books:'碧血→鹿鼎',status:'苗疆门派',type:'邪派',desc:'苗疆（云南/贵州）用毒门派。何铁手（后改名何惕守）为教主。何铁手为金庸笔下最有个性的女性角色之一，后改邪归正拜袁承志为师。鹿鼎记中何惕守以白发老妪身份出现，传授了韦小宝一些功夫。'},
+    {name:'神龙教',books:'鹿鼎记',status:'辽东教派·洪安通',type:'教派',desc:'洪安通在辽东蛇岛创立。教众需服豹胎易筋丸（剧毒丹药，需定期服解药）。苏荃为教主夫人，韦小宝被任命为白龙使。内部五龙使（青龙许雪亭等）争权夺利，最终内讧火并，洪安通与教众同归于尽，神龙教覆灭。'},
+    {name:'五岳剑派',books:'笑傲江湖',status:'嵩山·华山·衡山·恒山·泰山联盟',type:'联盟',desc:'五岳剑派同盟，实际以嵩山派左冷禅为首。左冷禅野心极大，推动五岳并派为一。恒山派三位师太被嵩山势力血洗，令狐冲接任恒山掌门。最终并派大会上，岳不群以辟邪剑法击败左冷禅夺得五岳派掌门之位，但同盟名存实亡。'},
+    {name:'嵩山派',books:'笑傲江湖',status:'五岳剑派之首',type:'道家门派',desc:'左冷禅为掌门，实力在五岳中最强。十三太保（丁勉、费彬、陆柏、钟镇、乐厚等）各怀绝技。左冷禅自创寒冰真气专克任我行的吸星大法。最终被岳不群以辟邪剑法刺瞎双眼。'},
+    {name:'衡山派',books:'笑傲江湖',status:'五岳剑派',type:'道家门派',desc:'莫大先生为掌门，外号"潇湘夜雨"。剑法以"一剑落九雁"和衡山五神剑闻名。刘正风与日月神教长老曲洋因音乐结为知己，共创《笑傲江湖》曲，被嵩山派灭门。'},
+    {name:'恒山派',books:'笑傲江湖',status:'五岳剑派·女尼为主',type:'佛家门派',desc:'定闲、定逸、定静三位师太共同执掌。定逸性格刚烈，定闲慈悲为怀。嵩山派借日月神教之名血洗恒山，三位师太皆被害。临终前将掌门之位传给令狐冲（男性，破例）。仪琳为恒山弟子，暗恋令狐冲。'},
+    {name:'泰山派',books:'笑傲江湖',status:'五岳剑派',type:'道家门派',desc:'天门道长为掌门。内部玉玑子、玉音子等长老被左冷禅收买叛乱，天门道长被夺权后悲惨死去。泰山十八盘剑法为其独门武功。'},
+    {name:'青城派',books:'天龙→笑傲→侠客行',status:'历代有出现',type:'道家门派',desc:'在金庸多部小说中出现。天龙八部中司马林为掌门。笑傲江湖中余沧海为夺辟邪剑谱，率青城派灭福威镖局满门，是最令人发指的反派之一。侠客行中也有青城派出现。'},
+    {name:'绝情谷',books:'神雕侠侣',status:'公孙止·未传',type:'隐世',desc:'公孙止家族世代隐居绝情谷，与世隔绝。谷中遍植情花，中情花毒者不可动情，否则剧痛难忍。只有绝情丹可解。公孙止娶裘千尺为妻后将其推入深谷致残。杨过与公孙绿萼在此相遇，公孙绿萼为救杨过被公孙止害死。'},
+    {name:'天鹰教',books:'倚天屠龙记',status:'殷天正所创·后归明教',type:'教派',desc:'白眉鹰王殷天正因不满明教内斗而脱离明教自创天鹰教。在王盘山举行扬刀大会（谢逊夺屠龙刀），后因张无忌的关系回归明教。殷天正之子殷野王、孙女殷离（蛛儿）。'},
+    {name:'铁掌帮',books:'射雕→神雕(提及)',status:'裘千仞时代鼎盛·后衰落',type:'帮会',desc:'南宋时期韩世忠旧部上官剑南所创。裘千仞接任帮主后势力达到巅峰，仅在丐帮之下。"铁掌水上飘"名震江湖。裘千仞武功为铁掌，掌力刚猛，准五绝级别。后裘千仞被一灯大师点化出家，法号慈恩，铁掌帮随之衰落。'},
+    {name:'雪山派',books:'侠客行',status:'西域门派',type:'道家门派',desc:'西域大雪山凌霄城为驻地。白自在为掌门，武功高强但狂妄自大，自称"古往今来剑法第一"。雪山剑法共七十二路。史婆婆（史小翠）为白自在之妻，创金乌刀法专门克制雪山剑法。白万剑（气寒西北）为雪山派新一代高手。'},
+    {name:'长乐帮',books:'侠客行',status:'中州帮会',type:'帮会',desc:'中州帮会，贝海石为军师。因惧怕侠客岛赏善罚恶令，设计让石破天（实为石中玉）担任帮主作为替罪羊。最终石破天参透太玄经武功大成，化解了帮会危机。'},
+    {name:'福威镖局',books:'笑傲江湖',status:'林远图所创·被余沧海灭门',type:'世家',desc:'林远图（原为少林渡元禅师）以辟邪剑法创下福威镖局基业。但子孙不知"欲练神功必先自宫"的奥秘，武功一代不如一代。到林震南时，被余沧海率领的青城派满门屠灭，仅林平之逃脱。'},
+    {name:'铁剑门',books:'碧血→鹿鼎',status:'木桑道人·九难师太',type:'道家门派',desc:'木桑道人为掌门，号"千变万劫"。阿九（崇祯之女长平公主）断臂后拜木桑为师，法号九难，成为铁剑门传人。神行百变轻功为铁剑门绝学，九难传给韦小宝。玉真子为叛徒。'},
+    {name:'天龙门',books:'飞狐外传→雪山飞狐',status:'田归农掌门',type:'帮会',desc:'田归农为掌门，为人阴险狡诈。天龙门分南宗北宗内斗。田归农与苗人凤之妻私通，间接导致苗人凤之妻自杀。田归农之女田青文。'},
+    {name:'药王门',books:'飞狐外传',status:'毒手药王·程灵素',type:'隐世',desc:'无嗔大师（毒手药王）隐居洞庭湖畔。门下四弟子：慕容景岳、姜铁山、薛鹊、程灵素。程灵素为关门弟子，深得真传。以"七心海棠"等奇毒闻名。程灵素为救胡斐中毒而死，是金庸笔下最令人心碎的女主角之一。'},
+    {name:'血刀门',books:'连城诀',status:'西藏邪派',type:'邪派',desc:'西藏雪山中的邪派。血刀老祖武功高强，在雪谷中以一敌四（南四奇），逐个击杀陆天抒、刘乘风、水岱，逼疯花铁干，最终被狄云击杀。门人宝象、善勇、胜谛等皆为恶徒。'},
+    {name:'侠客岛',books:'侠客行',status:'龙木二岛主·太玄经',type:'隐世',desc:'位于南海的神秘岛屿。龙岛主和木岛主每十年派张三李四（赏善罚恶二使）邀请中原武林高手上岛，参悟石壁上刻的李白《侠客行》诗及蝌蚪文注释（太玄经）。三十年来无人能解，反被文字所困。唯不识字的石破天参透其中武学奥秘，成为武林第一高手。参透后侠客岛沉没。'},
+    {name:'姑苏慕容',books:'天龙八部',status:'慕容世家·复国梦',type:'世家',desc:'燕国鲜卑皇室后裔。以"以彼之道还施彼身"的斗转星移闻名。慕容博假死三十年暗中策划复国。慕容复一生以复国为目标，最终众叛亲离，疯癫后在一群小儿中称帝。'},
+    {name:'白驼山',books:'射雕→神雕',status:'欧阳锋·后无传',type:'隐世',desc:'西域白驼山，西毒欧阳锋的老巢。以养蛇和蛤蟆功闻名。欧阳克为名义上的侄子（实为欧阳锋与嫂私通之子）。欧阳锋疯癫后游荡中原，华山之巅与洪七公同归于尽，白驼山后继无人。'},
+    {name:'西域少林',books:'天龙→倚天',status:'少林分支',type:'佛家门派',desc:'少林寺在西域的分支。天龙八部中哲罗星、波罗星为其弟子。与中原少林有时相互不服。'},
+    {name:'金刚门',books:'倚天',status:'西域少林分支·外门',type:'佛家门派',desc:'火工头陀因偷学武功被罚，一怒叛出少林寺，在西域创立金刚门，专练外门硬功。阿二、阿三为其中高手，投靠汝阳王府。以金刚指力闻名。'},
+  ];}
+
+function openSectDetail(idx, name) {
+  if(allSects.length===0) buildSects();
+  const k = allSects.find(x=>x.name===name) || allSects[idx];
+  if(!k) return;
+  const colorMap = {'佛家门派':'#1a3a1a,#9f9,#2a5a2a','道家门派':'#1a2a3a,#9cf,#2a4a5a','邪派':'#3a1a1a,#f99,#5a2a2a','隐世':'#2a2a1a,#ff9,#4a4a2a','帮会':'#2a1a2a,#c9f,#4a2a4a','教派':'#3a1a2a,#f9c,#5a2a3a','联盟':'#1a3a2a,#9fc,#2a5a3a','世家':'#1a2a2a,#9cc,#2a4a4a','皇族武学':'#3a3a1a,#fc9,#5a5a2a','宗教组织':'#2a1a3a,#c9c,#4a2a5a'};
+  const c = colorMap[k.type]||'#2a2a3a,#ccc,#444';
+  const [bg,fg,bd] = c.split(',');
+  document.getElementById('detailType').textContent = '🏛 门派详情';
+  document.getElementById('detailBody').innerHTML = `
+    <div class="detail-hero">
+      <h2>${k.name}</h2>
+      <div class="hero-sub">
+        <span class="hero-tag" style="background:${bg};color:${fg};border-color:${bd}">${k.type}</span>
+        <span style="color:#555">·</span>
+        <span>${k.books}</span>
+      </div>
+    </div>
+    <div class="detail-sections">
+      <div class="detail-grid">
+        <div class="detail-info-card"><div class="card-label">🏷 类型</div><div class="card-value"><strong>${k.type}</strong></div></div>
+        <div class="detail-info-card"><div class="card-label">📖 出现书目</div><div class="card-value">${k.books}</div></div>
+        <div class="detail-info-card"><div class="card-label">📌 状态</div><div class="card-value">${k.status}</div></div>
+      </div>
+      ${k.desc?`<div class="detail-section"><h3>📜 门派简介</h3><div class="content">${k.desc}</div></div>`:''}
+    </div>
+  `;
+  document.getElementById('detailPanel').classList.add('show');
+}
+
+function filterSects() { renderSectContent(); }
+
+function renderSectContent() {
+  if(allSects.length===0) buildSects();
+  const s = (document.getElementById('sectSearch')?.value||'').toLowerCase();
+  let filtered = allSects;
+  if(s) filtered = allSects.filter(k=>k.name.toLowerCase().includes(s)||k.books.toLowerCase().includes(s)||k.status.toLowerCase().includes(s)||(k.desc||'').toLowerCase().includes(s));
+  let html = `<h3 style="color:var(--head);margin:12px 0">🏛 门派/组织全表 (${filtered.length}个) — 点击查看详情</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px">`;
+  filtered.forEach((k,i) => {
+    html += `<div class="kf-card clickable" onclick="openSectDetail(${i},'${k.name.replace(/'/g,"\\'")}')">
+      <h4>${k.name} <span style="font-size:.65em;color:#888">[${k.type}]</span></h4>
+      <div class="user">📖 ${k.books}</div><div class="book">📌 ${k.status}</div>
+    </div>`;
+  });
+  html += '</div>';
+  document.getElementById('sectContent').innerHTML = html;
+}
+
+// ==================== RANKING ====================
+
+// ==================== RANKING RENDER ====================
+window.showRankView = showRankView;
+window.openRankDetail = openRankDetail;
+window.renderRanking = renderRanking;
+
+// ==================== TIMELINE ====================
+const TIMELINE_EVENTS = [
+  // 春秋
+  {era:'春秋',date:'约公元前496年',book:'越女剑',color:'#8B4513',title:'阿青牧羊学剑',desc:'越国牧羊女阿青与山中白猿嬉戏，无意中学得通神剑术。'},
+  {era:'春秋',date:'约公元前494年',book:'越女剑',color:'#8B4513',title:'勾践卧薪尝胆',desc:'越王勾践败于吴王夫差，卧薪尝胆以图复国。范蠡献策请阿青教越国剑士剑术。'},
+  {era:'春秋',date:'约公元前490年',book:'越女剑',color:'#8B4513',title:'阿青竹棒破三千越甲',desc:'阿青为阻止范蠡迎西施，一人一根竹棒闯入越国王宫，三千越甲不能挡。见到西施容貌后自愧不如，黯然离去。'},
+  {era:'春秋',date:'约公元前488年',book:'越女剑',color:'#8B4513',title:'范蠡西施归隐太湖',desc:'越灭吴后，范蠡携西施泛舟太湖，从此远离江湖。阿青剑术只传下一丝影子（越女剑法）。'},
+  // 北宋·天龙八部
+  {era:'北宋',date:'约1060年',book:'天龙八部',color:'#B8860B',title:'逍遥派三老恩怨',desc:'无崖子、天山童姥、李秋水同门学艺于逍遥派。无崖子娶李秋水，童姥因爱生恨。'},
+  {era:'北宋',date:'约1070年',book:'天龙八部',color:'#B8860B',title:'丁春秋弑师',desc:'丁春秋暗算师父无崖子，将其推落悬崖。无崖子幸存但全身瘫痪，设珍珑棋局以待有缘人。丁春秋在西域创立星宿派。'},
+  {era:'北宋',date:'约1080年',book:'天龙八部',color:'#B8860B',title:'雁门关惨案',desc:'慕容博假传消息，称契丹武士将入少林抢夺武学典籍。中原群雄在雁门关伏击契丹人萧远山一家，萧远山之妻被杀。萧远山悲愤跳崖（未死），将婴儿留给中原人抚养——这个婴儿就是后来的乔峰。'},
+  {era:'北宋',date:'约1090年',book:'天龙八部',color:'#B8860B',title:'乔峰接任丐帮帮主',desc:'乔峰（萧峰）在丐帮屡立大功，被推举为丐帮帮主。"北乔峰，南慕容"名震江湖。降龙十八掌威震天下。'},
+  {era:'北宋',date:'约1092年',book:'天龙八部',color:'#B8860B',title:'段誉大理奇遇',desc:'大理世子段誉因不愿习武离家出走。在无量山跌入深谷，遇神仙姐姐玉像，学得凌波微步与北冥神功。'},
+  {era:'北宋',date:'约1093年',book:'天龙八部',color:'#B8860B',title:'杏子林事变',desc:'丐帮副帮主马大元之妻康敏揭露乔峰身世——原来他是契丹人！乔峰被迫辞去帮主之位，从此踏上追寻身世之路。'},
+  {era:'北宋',date:'约1093年',book:'天龙八部',color:'#B8860B',title:'聚贤庄血战',desc:'乔峰为救阿朱闯入聚贤庄英雄大会，一人对战数百中原高手，血战到底。最终被黑衣人（萧远山）救走。'},
+  {era:'北宋',date:'约1093年',book:'天龙八部',color:'#B8860B',title:'塞上牛羊空许约——阿朱之死',desc:'乔峰与阿朱相爱，约定报完仇后去塞外牧羊。阿朱为化解乔峰与段正淳之恩怨，易容成段正淳被乔峰一掌误杀。金庸笔下最凄美的爱情悲剧。'},
+  {era:'北宋',date:'约1094年',book:'天龙八部',color:'#B8860B',title:'虚竹破珍珑棋局',desc:'少林小僧虚竹误打误撞破了无崖子设下的珍珑棋局，获无崖子传授七十年功力，成为逍遥派掌门。'},
+  {era:'北宋',date:'约1094年',book:'天龙八部',color:'#B8860B',title:'虚竹继任灵鹫宫主',desc:'虚竹为救天山童姥卷入逍遥派内斗。童姥和李秋水先后辞世，虚竹集三人武功于一身，成为灵鹫宫新主。'},
+  {era:'北宋',date:'约1094年',book:'天龙八部',color:'#B8860B',title:'段誉吸尽鸠摩智内力',desc:'鸠摩智练小无相功走火入魔，被段誉北冥神功吸尽毕生内力。鸠摩智因此大彻大悟，成为一代高僧。'},
+  {era:'北宋',date:'约1094年',book:'天龙八部',color:'#B8860B',title:'少室山大战',desc:'天下英雄齐聚少林寺。萧远山、慕容博现身，扫地僧以无上佛法化解二人三十年仇恨。萧峰、段誉、虚竹三兄弟联手抗敌。'},
+  {era:'北宋',date:'约1094年',book:'天龙八部',color:'#B8860B',title:'萧峰雁门关自尽',desc:'辽帝耶律洪基誓要南侵。萧峰以自身性命为代价，逼辽帝立誓永不侵宋。英雄自尽于雁门关外，阿紫抱其尸身跳崖。段誉回大理登基，虚竹携李清露归隐灵鹫宫。'},
+  // 南宋·射雕
+  {era:'南宋',date:'约1195年',book:'射雕英雄传',color:'#CD853F',title:'第一次华山论剑',desc:'天下五大高手——东邪黄药师、西毒欧阳锋、南帝段智兴、北丐洪七公、中神通王重阳——在华山之巅比武论剑。王重阳技压群雄夺得《九阴真经》。约定二十五年后再比。'},
+  {era:'南宋',date:'约1199年',book:'射雕英雄传',color:'#CD853F',title:'郭靖出生',desc:'郭啸天之子郭靖出生于蒙古草原。父亲郭啸天被段天德杀害，母亲李萍逃难至蒙古。'},
+  {era:'南宋',date:'约1200年',book:'射雕英雄传',color:'#CD853F',title:'杨康出生',desc:'杨铁心之子杨康出生于金国赵王府。其母包惜弱被完颜洪烈所救，改嫁赵王。杨康以金国小王爷身份长大，认贼作父。'},
+  {era:'南宋',date:'约1205年',book:'射雕英雄传',color:'#CD853F',title:'江南七怪授徒',desc:'江南七怪找到蒙古草原上的郭靖，开始传授武功。全真教丘处机则在金国教授杨康。'},
+  {era:'南宋',date:'约1218年',book:'射雕英雄传',color:'#CD853F',title:'郭靖南下中原',desc:'郭靖离开蒙古南下，遇黄蓉。两人在张家口相遇，从此生死与共。洪七公收郭靖黄蓉为徒，传降龙十八掌和打狗棒法。'},
+  {era:'南宋',date:'约1219年',book:'射雕英雄传',color:'#CD853F',title:'桃花岛求亲',desc:'郭靖与欧阳克在桃花岛争夺黄蓉。洪七公与黄药师比试，郭靖胜出。'},
+  {era:'南宋',date:'约1220年',book:'射雕英雄传',color:'#CD853F',title:'第二次华山论剑',desc:'郭靖黄蓉到达华山。欧阳锋逆练九阴真经后武功诡异，洪七公以打狗棒法应战。最终欧阳锋疯癫而去。'},
+  // 神雕
+  {era:'南宋',date:'约1225年',book:'神雕侠侣',color:'#DAA520',title:'杨过出生',desc:'杨康之子杨过出生。杨康已死于铁枪庙。穆念慈独自抚养杨过。'},
+  {era:'南宋',date:'约1237年',book:'神雕侠侣',color:'#DAA520',title:'杨过上终南山',desc:'郭靖在嘉兴偶遇杨过，将其带上终南山全真教学艺。杨过受赵志敬虐待，逃入古墓。'},
+  {era:'南宋',date:'约1238年',book:'神雕侠侣',color:'#DAA520',title:'杨过小龙女古墓学艺',desc:'杨过拜小龙女为师，在古墓中学习玉女心经。两人日久生情。'},
+  {era:'南宋',date:'约1240年',book:'神雕侠侣',color:'#DAA520',title:'杨过断臂',desc:'郭芙因误会一剑斩断杨过右臂。杨过逃至深谷，遇神雕，得独孤求败传承——玄铁重剑。'},
+  {era:'南宋',date:'约1243年',book:'神雕侠侣',color:'#DAA520',title:'十六年之约',desc:'小龙女为救杨过跳下绝情谷深崖，留下"十六年后在此相会"的刻字。杨过开始了漫长的等待。'},
+  {era:'南宋',date:'约1259年',book:'神雕侠侣',color:'#DAA520',title:'襄阳大战·杨过杀蒙哥',desc:'蒙古大军围攻襄阳。杨过以飞石击杀蒙古大汗蒙哥，蒙古军被迫撤退。这为南宋续命十年。'},
+  {era:'南宋',date:'约1259年',book:'神雕侠侣',color:'#DAA520',title:'第三次华山论剑',desc:'杨过小龙女重逢后与众人同上华山。新五绝诞生：东邪黄药师、西狂杨过、南僧一灯、北侠郭靖、中顽童周伯通。'},
+  {era:'南宋',date:'约1273年',book:'神雕侠侣',color:'#DAA520',title:'襄阳城破·郭靖黄蓉殉国',desc:'襄阳城破，郭靖与黄蓉双双殉国。郭靖临死前将杨过所赠玄铁重剑铸成倚天剑和屠龙刀，内藏九阴真经和武穆遗书。郭襄携倚天剑逃生，郭破虏携屠龙刀下落不明。'},
+  // 元末·倚天
+  {era:'元末',date:'约1275年',book:'倚天屠龙记',color:'#BDB76B',title:'张三丰创武当',desc:'张君宝（后改名张三丰）离开少林寺，在武当山悟道，创立武当派。太极拳剑由此诞生。'},
+  {era:'元末',date:'约1280年',book:'倚天屠龙记',color:'#BDB76B',title:'郭襄创峨眉',desc:'郭襄四十岁时大彻大悟，在峨眉山出家为尼，创立峨眉派。倚天剑为镇派之宝。'},
+  {era:'元末',date:'约1280年',book:'倚天屠龙记',color:'#BDB76B',title:'觉远圆寂·九阳三分',desc:'少林觉远大师圆寂前背诵九阳真经。在场的张三丰、郭襄、无色禅师各记一部分，后来分别发展为武当九阳功、峨眉九阳功和少林九阳功。'},
+  {era:'元末',date:'约1320年',book:'倚天屠龙记',color:'#BDB76B',title:'阳顶天走火入魔',desc:'明教教主阳顶天在光明顶密道中修炼乾坤大挪移时，发现妻子与成昆私通，走火入魔而死。明教自此四分五裂。'},
+  {era:'元末',date:'约1335年',book:'倚天屠龙记',color:'#BDB76B',title:'谢逊灭门成昆全家',desc:'金毛狮王谢逊全家被师父成昆所杀。谢逊为逼成昆现身，四处杀人留"杀人者混元霹雳手成昆"，夺得屠龙刀流落冰火岛。'},
+  {era:'元末',date:'约1337年',book:'倚天屠龙记',color:'#BDB76B',title:'张翠山殷素素之死',desc:'张翠山携妻殷素素和儿子张无忌从冰火岛返回中原。各大门派逼问谢逊下落，张翠山自刎，殷素素殉情。张无忌身中玄冥神掌。'},
+  {era:'元末',date:'约1347年',book:'倚天屠龙记',color:'#BDB76B',title:'六大门派围攻光明顶',desc:'张无忌在光明顶以九阳神功和乾坤大挪移大展神威，力挫六大门派，化解了明教灭教之危，被推举为明教教主。'},
+  {era:'元末',date:'约1348年',book:'倚天屠龙记',color:'#BDB76B',title:'武当山太极初显',desc:'张三丰百岁寿宴，当场传授张无忌太极拳和太极剑，以柔克刚击败赵敏手下三大高手。'},
+  {era:'元末',date:'约1349年',book:'倚天屠龙记',color:'#BDB76B',title:'屠狮大会',desc:'少林寺举办屠狮大会，谢逊被囚。张无忌率明教高手救援。周芷若以九阴白骨爪大出风头，黄衫女子出手制服之。成昆被谢逊所杀。'},
+  {era:'元末',date:'约1350年',book:'倚天屠龙记',color:'#BDB76B',title:'张无忌赵敏归隐',desc:'张无忌辞去明教教主之位，与赵敏归隐蒙古草原。朱元璋逐步掌控明教势力，最终建立明朝。'},
+  // 明·笑傲
+  {era:'明',date:'约1480年',book:'笑傲江湖',color:'#8FBC8F',title:'华山派剑气二宗分裂',desc:'华山派因对武学理念不同分裂为剑宗和气宗。剑宗风清扬隐居后山，气宗掌控华山。'},
+  {era:'明',date:'约1490年',book:'笑傲江湖',color:'#8FBC8F',title:'日月神教崛起',desc:'日月神教（疑为明教后身）成为武林第一大教派，与五岳剑派长期对抗。'},
+  {era:'明',date:'约1500年',book:'笑傲江湖',color:'#8FBC8F',title:'东方不败篡位',desc:'任我行被副手东方不败暗算，囚禁于西湖梅庄地下。东方不败篡位成为日月神教教主，练葵花宝典。'},
+  {era:'明',date:'约1510年',book:'笑傲江湖',color:'#8FBC8F',title:'福威镖局灭门',desc:'青城派余沧海为夺辟邪剑谱，将福州福威镖局满门屠灭，仅林平之逃脱。'},
+  {era:'明',date:'约1512年',book:'笑傲江湖',color:'#8FBC8F',title:'令狐冲学独孤九剑',desc:'令狐冲在华山思过崖遇剑宗前辈风清扬。风清扬传其独孤九剑——无招胜有招，剑术从此通神。'},
+  {era:'明',date:'约1512年',book:'笑傲江湖',color:'#8FBC8F',title:'刘正风金盆洗手惨案',desc:'衡山派刘正风欲金盆洗手退出江湖。嵩山派以勾结魔教为由将其满门屠灭。刘正风与曲洋合奏《笑傲江湖》曲后双双殒命。'},
+  {era:'明',date:'约1513年',book:'笑傲江湖',color:'#8FBC8F',title:'令狐冲任盈盈相爱',desc:'令狐冲在洛阳绿竹巷遇任盈盈（圣姑），两人以琴相交，终成眷属。'},
+  {era:'明',date:'约1513年',book:'笑傲江湖',color:'#8FBC8F',title:'东方不败之死',desc:'令狐冲、任我行、向问天围攻黑木崖。东方不败以一枚绣花针独战三大高手，终因分心杨莲亭被杀。'},
+  {era:'明',date:'约1514年',book:'笑傲江湖',color:'#8FBC8F',title:'五岳并派大会',desc:'左冷禅推动五岳并派。岳不群以辟邪剑法刺瞎左冷禅双眼，夺得五岳派掌门。令狐冲率恒山派退出。'},
+  {era:'明',date:'约1515年',book:'笑傲江湖',color:'#8FBC8F',title:'令狐冲任盈盈归隐',desc:'任我行暴毙，向问天接任日月神教教主。令狐冲与任盈盈成婚，归隐山林，琴箫合奏《笑傲江湖》。'},
+  // 明·侠客行
+  {era:'明',date:'约1550年',book:'侠客行',color:'#6B8E23',title:'石破天与石中玉错位',desc:'石破天（狗杂种）因相貌酷似石中玉被长乐帮误认为帮主，由此卷入武林纷争。'},
+  {era:'明',date:'约1552年',book:'侠客行',color:'#6B8E23',title:'侠客岛之谜解开',desc:'石破天不识文字，反而参透侠客岛石壁上《太玄经》的武学奥秘。侠客岛沉没，武林数十年的噩梦终结。'},
+  // 明末·碧血剑
+  {era:'明末',date:'约1628年',book:'碧血剑',color:'#556B2F',title:'袁崇焕被冤杀',desc:'明蓟辽督师袁崇焕被崇祯皇帝以谋反罪凌迟处死。其子袁承志被旧部救走，送往华山学艺。'},
+  {era:'明末',date:'约1640年',book:'碧血剑',color:'#556B2F',title:'袁承志学成下山',desc:'袁承志在华山拜穆人清为师，学成混元功。后又得金蛇郎君夏雪宜的武功秘籍和金蛇剑。'},
+  {era:'明末',date:'约1643年',book:'碧血剑',color:'#556B2F',title:'袁承志任七省盟主',desc:'袁承志在泰山被推举为七省武林盟主，率群雄抗击清军。与温青青（夏青青）相爱。'},
+  {era:'明末',date:'约1644年',book:'碧血剑',color:'#556B2F',title:'崇祯自缢·明朝灭亡',desc:'李自成攻破北京，崇祯帝在煤山自缢身亡。长平公主（阿九）被崇祯砍断一臂后获救，后拜木桑道人为师，法号九难。吴三桂引清兵入关。'},
+  // 清初·鹿鼎记
+  {era:'清初',date:'约1669年',book:'鹿鼎记',color:'#4682B4',title:'康熙擒鳌拜',desc:'少年康熙在韦小宝协助下擒拿权臣鳌拜。韦小宝从此平步青云。'},
+  {era:'清初',date:'约1670年',book:'鹿鼎记',color:'#4682B4',title:'韦小宝入天地会',desc:'韦小宝拜陈近南为师，加入天地会，成为青木堂香主。"平生不识陈近南，便称英雄也枉然"。'},
+  {era:'清初',date:'约1671年',book:'鹿鼎记',color:'#4682B4',title:'韦小宝集齐七位夫人',desc:'韦小宝先后娶双儿、方怡、沐剑屏、苏荃、建宁公主、曾柔、阿珂七位夫人。'},
+  {era:'清初',date:'约1672年',book:'鹿鼎记',color:'#4682B4',title:'陈近南之死',desc:'天地会总舵主陈近南被郑克塽暗算而死。韦小宝悲痛欲绝。'},
+  {era:'清初',date:'约1673年',book:'鹿鼎记',color:'#4682B4',title:'吴三桂起兵·三藩之乱',desc:'吴三桂在云南起兵反清。韦小宝在各方势力间周旋，最终选择携七位夫人归隐。'},
+  // 清中·书剑
+  {era:'清中',date:'约1753年',book:'书剑恩仇录',color:'#5F9EA0',title:'陈家洛接任红花会总舵主',desc:'陈家洛接替义父于万亭成为红花会总舵主。红花会以反清复汉为宗旨。'},
+  {era:'清中',date:'约1754年',book:'书剑恩仇录',color:'#5F9EA0',title:'陈家洛与乾隆会面',desc:'陈家洛在杭州与乾隆皇帝会面，真相揭露：乾隆实为汉人，是陈家洛的亲哥哥。'},
+  {era:'清中',date:'约1754年',book:'书剑恩仇录',color:'#5F9EA0',title:'香香公主之死',desc:'香香公主（喀丝丽）被乾隆看中送入宫中。为给陈家洛报信，在清真寺内自尽。'},
+  // 清中·飞狐
+  {era:'清中',date:'约1766年',book:'飞狐外传',color:'#6495ED',title:'胡一刀苗人凤沧州决斗',desc:'辽东大侠胡一刀与金面佛苗人凤在沧州决战五天五夜。两人惺惺相惜，但胡一刀被田归农下毒暗算而死。胡夫人殉情。'},
+  {era:'清中',date:'约1768年',book:'飞狐外传',color:'#6495ED',title:'程灵素为救胡斐而死',desc:'药王门程灵素为救中毒的胡斐，以口吸出毒血，自己中毒身亡。金庸笔下最令人心碎的女主角之一。'},
+  {era:'清中',date:'约1780年',book:'雪山飞狐',color:'#7B68EE',title:'玉笔峰决战',desc:'胡斐与苗人凤在玉笔峰上再次对决。小说在此戛然而止——胡斐的刀悬在半空，留给读者永恒的悬念。'},
+  // 连城诀
+  {era:'清',date:'约1800年',book:'连城诀',color:'#9370DB',title:'丁典狱中传神照经',desc:'狄云被诬入狱，同牢丁典传其神照经。丁典被毒死后狄云靠神照经死而复生。'},
+  {era:'清',date:'约1800年',book:'连城诀',color:'#9370DB',title:'血刀老祖雪谷一敌四',desc:'血刀老祖在雪谷中以一敌四（南四奇），逐个击杀三奇，逼疯花铁干。最终被狄云击杀。'},
+];
+
+function renderTimeline() {
+  let html = '<h3 style="color:var(--head);margin:12px 0 20px">⏳ 金庸宇宙 · 历史时间线 <span style="font-size:.65em;color:#888">(' + TIMELINE_EVENTS.length + '个事件)</span></h3><div class="tl-wrap">';
+  let lastEra = '';
+  TIMELINE_EVENTS.forEach(e => {
+    if(e.era !== lastEra){
+      html += `<div class="tl-era"><h3>${e.era}</h3></div>`;
+      lastEra = e.era;
+    }
+    html += `<div class="tl-item">
+      <div class="tl-dot" style="border-color:${e.color}"></div>
+      <div class="tl-card">
+        <div class="tl-date">${e.date}</div>
+        <div class="tl-title">${e.title}</div>
+        <div class="tl-desc">${e.desc}</div>
+        <span class="tl-book" style="background:${e.color}22;color:${e.color};border:1px solid ${e.color}44">📖 ${e.book}</span>
+      </div>
+    </div>`;
+  });
+  html += '</div>';
+  document.getElementById('tlContent').innerHTML = html;
+}
+
+window.renderTimeline = renderTimeline;
+window.renderMap = renderMap;
+window.renderCouples = renderCouples;
+window.renderWeapons = renderWeapons;
+
+// ==================== MAP ====================
+const MAP_LOCATIONS = [
+  {area:'东海',name:'桃花岛',book:'射雕·神雕',color:'#e88',desc:'黄药师隐居之地，遍植桃花，以奇门五行阵守护。郭靖黄蓉在此成婚。'},
+  {area:'东海',name:'侠客岛',book:'侠客行',color:'#8af',desc:'南海孤岛，龙木二岛主居此。石壁上刻有李白《侠客行》及蝌蚪文（太玄经），参透后岛沉。'},
+  {area:'东海',name:'冰火岛',book:'倚天屠龙记',color:'#f88',desc:'北极附近火山岛，张翠山殷素素谢逊流落十年。张无忌在此出生。'},
+  {area:'东海',name:'灵蛇岛',book:'倚天屠龙记',color:'#8f8',desc:'金花婆婆（紫衫龙王黛绮丝）居所，小昭出生地。'},
+  {area:'华北',name:'少室山·少林寺',book:'多部',color:'#fa0',desc:'天下第一名刹，禅武合一。藏经阁藏易筋经、九阳残篇。扫地僧、空见神僧、方正大师等皆出于此。'},
+  {area:'华北',name:'终南山·古墓',book:'神雕侠侣',color:'#aaf',desc:'林朝英创古墓派于此。小龙女杨过在此学艺。王重阳刻九阴真经于石棺。'},
+  {area:'华北',name:'终南山·重阳宫',book:'射雕·神雕',color:'#aaf',desc:'全真教总部，王重阳创教之地。全真七子掌教。'},
+  {area:'华北',name:'襄阳',book:'射雕·神雕',color:'#f44',desc:'南宋前线重镇。郭靖黄蓉率军民死守数十年，最终城破殉国。'},
+  {area:'华北',name:'华山',book:'射雕·神雕·笑傲',color:'#ca4',desc:'五岳之一。三次华山论剑之地。笑傲中华山派剑气二宗分裂于此。'},
+  {area:'华北',name:'黑木崖',book:'笑傲江湖',color:'#844',desc:'日月神教总坛，易守难攻。东方不败在此以一敌三，陨落于杨莲亭之死。'},
+  {area:'华北',name:'嵩山',book:'笑傲江湖',color:'#aa4',desc:'嵩山派所在，左冷禅大本营。五岳并派大会召开地。'},
+  {area:'华北',name:'恒山',book:'笑傲江湖',color:'#aca',desc:'恒山派所在，女尼修佛之地。令狐冲接任恒山掌门。'},
+  {area:'华北',name:'泰山',book:'笑傲江湖',color:'#ca4',desc:'天门道长掌教，后被玉玑子等叛乱。'},
+  {area:'华北',name:'衡山',book:'笑傲江湖',color:'#4a4',desc:'莫大先生"潇湘夜雨"。刘正风与曲洋合奏笑傲江湖曲。'},
+  {area:'华北',name:'聚贤庄',book:'天龙八部',color:'#a44',desc:'游氏双雄府邸。乔峰为救阿朱在此血战群雄。后被游坦之废弃。'},
+  {area:'华北',name:'武当山',book:'倚天·笑傲·书剑',color:'#48a',desc:'张三丰创武当派于元末。太极拳剑诞生之地。武当七侠名震江湖。'},
+  {area:'华北',name:'峨眉山',book:'倚天·笑傲',color:'#a8a',desc:'郭襄四十岁出家创峨眉派。灭绝师太、周芷若先后为掌门。'},
+  {area:'华北',name:'光明顶',book:'倚天屠龙记',color:'#f80',desc:'西域昆仑山脉中明教总坛。六大门派围攻光明顶，张无忌一战成名。'},
+  {area:'华北',name:'绝情谷',book:'神雕侠侣',color:'#a66',desc:'公孙止世代隐居之地，遍植情花。杨过在此跳崖，小龙女留下十六年之约。'},
+  {area:'华北',name:'梅庄',book:'笑傲江湖',color:'#666',desc:'杭州西湖畔庄园。任我行被东方不败囚禁于此十二年。令狐冲在此学吸星大法。'},
+  {area:'西域',name:'白驼山',book:'射雕·神雕',color:'#c84',desc:'西域荒漠中，西毒欧阳锋老巢。以蛇阵和蛤蟆功闻名。'},
+  {area:'西域',name:'灵鹫宫',book:'天龙八部',color:'#c8f',desc:'天山缥缈峰上。天山童姥创派，虚竹继任。统率三十六洞七十二岛。'},
+  {area:'西域',name:'星宿海',book:'天龙八部',color:'#484',desc:'西域荒原，丁春秋创星宿派于此。'},
+  {area:'西域',name:'昆仑山',book:'倚天屠龙记',color:'#88c',desc:'昆仑派所在。张无忌在此山谷中学得九阳神功。'},
+  {area:'西域',name:'大雪山·凌霄城',book:'侠客行',color:'#ccf',desc:'雪山派驻地。白自在自称"古往今来剑法第一"。'},
+  {area:'西南',name:'大理',book:'天龙·射雕·神雕',color:'#fa4',desc:'大理国都，段氏皇族所在。天龙寺为皇家寺院，一阳指与六脉神剑发源地。'},
+  {area:'西南',name:'无量山',book:'天龙八部',color:'#8a4',desc:'云南无量山。段誉在此跌入深谷，见神仙姐姐玉像，学凌波微步。'},
+  {area:'西南',name:'万劫谷',book:'天龙八部',color:'#4a4',desc:'钟万仇居所。段誉在此初遇钟灵、木婉清。'},
+  {area:'西南',name:'曼陀山庄',book:'天龙八部',color:'#f8a',desc:'太湖中王夫人（李青萝）的庄园。遍植山茶花。王语嫣在此长大。'},
+  {area:'江南',name:'姑苏·燕子坞',book:'天龙八部',color:'#8c8',desc:'姑苏慕容家。阿朱阿碧为婢女。"以彼之道还施彼身"的慕容氏居此。'},
+  {area:'江南',name:'杭州·西湖',book:'笑傲江湖',color:'#6aa',desc:'令狐冲在此学会吸星大法。梅庄地下囚禁任我行十二年。'},
+  {area:'江南',name:'福州·福威镖局',book:'笑傲江湖',color:'#a66',desc:'林远图创立的镖局。被余沧海率领青城派灭门，仅林平之逃脱。'},
+  {area:'江南',name:'洛阳·绿竹巷',book:'笑傲江湖',color:'#6a6',desc:'任盈盈隐居之地。令狐冲在此学琴，两人以《笑傲江湖》曲定情。'},
+  {area:'东北',name:'辽东·神龙岛',book:'鹿鼎记',color:'#66a',desc:'洪安通创神龙教于辽东蛇岛。韦小宝任白龙使。'},
+  {area:'东北',name:'长白山',book:'射雕英雄传',color:'#ccf',desc:'参仙老怪梁子翁居此。郭靖在此饮蝮蛇宝血。'},
+  {area:'塞外',name:'雁门关',book:'天龙八部',color:'#a44',desc:'乔峰身世揭露之地。三十年前雁门关惨案发生地。乔峰最终在此自尽，以己命换辽宋和平。'},
+  {area:'塞外',name:'蒙古草原',book:'射雕·神雕',color:'#ca4',desc:'郭靖出生和成长之地。成吉思汗在此崛起。张无忌赵敏归隐于此。'},
+  {area:'西域',name:'回疆',book:'书剑恩仇录',color:'#c84',desc:'霍青桐（翠羽黄衫）、香香公主（喀丝丽）的故乡。'},
+];
+
+function renderMap() {
+  const areas = {};
+  MAP_LOCATIONS.forEach(l => {if(!areas[l.area])areas[l.area]=[];areas[l.area].push(l);});
+  let html = '<h3 style="color:var(--head);margin:12px 0 16px">🗺️ 金庸世界地图 <span style="font-size:.65em;color:#888">(' + MAP_LOCATIONS.length + '处地点)</span></h3>';
+  for(let [area,locs] of Object.entries(areas)){
+    html += `<h4 style="color:var(--accent);margin:16px 0 8px;padding-left:0">📍 ${area}</h4><div class="map-grid">`;
+    locs.forEach(l=>{
+      html += `<div class="map-card" style="border-left-color:${l.color}">
+        <h4>${l.name}</h4><div class="map-book">📖 ${l.book}</div>
+        <div class="map-desc">${l.desc}</div>
+      </div>`;
+    });
+    html += '</div>';
+  }
+  document.getElementById('mapContent').innerHTML = html;
+}
+
+// ==================== COUPLES ====================
+const COUPLES = [
+  {type:'甜蜜',emoji:'💛',a:'郭靖',b:'黄蓉',book:'射雕·神雕',desc:'张家口相遇一见倾心，共守襄阳数十年，双双殉国。金庸笔下最经典的侠侣。',tagColor:'#fc9',tagBg:'#3a2a0a'},
+  {type:'甜蜜',emoji:'💚',a:'杨过',b:'小龙女',book:'神雕侠侣',desc:'古墓师徒→十六年生离→终南山下绝迹江湖。谁说天残地缺不能相守？',tagColor:'#9f9',tagBg:'#1a3a1a'},
+  {type:'甜蜜',emoji:'💜',a:'令狐冲',b:'任盈盈',book:'笑傲江湖',desc:'洛阳绿竹巷以琴结缘，正邪之恋终成眷属。琴箫合奏《笑傲江湖》。',tagColor:'#f9f',tagBg:'#3a1a3a'},
+  {type:'甜蜜',emoji:'💙',a:'张无忌',b:'赵敏',book:'倚天屠龙记',desc:'蒙古郡主为爱放弃荣华富贵，画眉归隐蒙古草原。',tagColor:'#9cf',tagBg:'#1a2a3a'},
+  {type:'甜蜜',emoji:'🧡',a:'虚竹',b:'李清露',book:'天龙八部',desc:'冰窖中梦姑梦郎→西夏公主招亲真相大白。最离奇的缘分。',tagColor:'#fc9',tagBg:'#3a2a0a'},
+  {type:'甜蜜',emoji:'🤍',a:'段誉',b:'王语嫣',book:'天龙八部',desc:'痴恋神仙姐姐→枯井定情→终成眷属。舔狗的终极胜利。',tagColor:'#eee',tagBg:'#222'},
+  {type:'甜蜜',emoji:'❤️',a:'石破天',b:'阿绣',book:'侠客行',desc:'雪山派少女与纯真少年，金庸笔下最纯的爱。',tagColor:'#faa',tagBg:'#3a1a1a'},
+  {type:'甜蜜',emoji:'💗',a:'韦小宝',b:'双儿',book:'鹿鼎记',desc:'七位夫人中最受宠的一个。忠心耿耿，生死相随。',tagColor:'#faf',tagBg:'#3a1a3a'},
+  {type:'悲剧',emoji:'💔',a:'乔峰',b:'阿朱',book:'天龙八部',desc:'塞上牛羊空许约——阿朱为父受过，被乔峰一掌误杀。金庸宇宙最痛。',tagColor:'#f66',tagBg:'#3a1a1a'},
+  {type:'悲剧',emoji:'💔',a:'阿紫',b:'乔峰',book:'天龙八部',desc:'单相思至死不渝。萧峰自尽后阿紫挖眼还游坦之，抱尸跳崖。',tagColor:'#f66',tagBg:'#3a1a1a'},
+  {type:'悲剧',emoji:'💔',a:'游坦之',b:'阿紫',book:'天龙八部',desc:'铁头人痴恋阿紫，甘受一切折磨，献出双目。最终随阿紫跳崖。',tagColor:'#f66',tagBg:'#3a1a1a'},
+  {type:'悲剧',emoji:'💔',a:'郭襄',b:'杨过',book:'神雕侠侣',desc:'风陵渡口初相遇，一见杨过误终身。四十岁大彻大悟创峨眉，终身未嫁。',tagColor:'#f66',tagBg:'#3a1a1a'},
+  {type:'悲剧',emoji:'💔',a:'程灵素',b:'胡斐',book:'飞狐外传',desc:'毒手药王关门弟子为救胡斐以口吸毒血，自己中毒而死。',tagColor:'#f66',tagBg:'#3a1a1a'},
+  {type:'悲剧',emoji:'💔',a:'丁典',b:'凌霜华',book:'连城诀',desc:'凌退思为逼问连城诀将女儿活埋棺中。丁典中毒而死，至死不渝。',tagColor:'#f66',tagBg:'#3a1a1a'},
+  {type:'悲剧',emoji:'💔',a:'周芷若',b:'张无忌',book:'倚天屠龙记',desc:'青梅竹马→师命难违→黑化→张无忌选赵敏。婚礼上被抢亲。',tagColor:'#f66',tagBg:'#3a1a1a'},
+  {type:'悲剧',emoji:'💔',a:'李莫愁',b:'陆展元',book:'神雕侠侣',desc:'"问世间情为何物"——被抛弃后化为赤练仙子，最终葬身情花火海。',tagColor:'#f66',tagBg:'#3a1a1a'},
+  {type:'悲剧',emoji:'💔',a:'阿青',b:'范蠡',book:'越女剑',desc:'白猿授剑破三千甲，却敌不过西施那一回眸。爱情面前，绝世武功也枉然。',tagColor:'#f66',tagBg:'#3a1a1a'},
+  {type:'虐恋',emoji:'💢',a:'天山童姥',b:'无崖子',book:'天龙八部',desc:'与李秋水争无崖子一生，至死方知无崖子爱的不是她们任何一个。',tagColor:'#f96',tagBg:'#3a2a1a'},
+  {type:'虐恋',emoji:'💢',a:'岳灵珊',b:'林平之',book:'笑傲江湖',desc:'深爱小林子却被利用。林平之自宫练辟邪后亲手杀妻。',tagColor:'#f96',tagBg:'#3a2a1a'},
+  {type:'虐恋',emoji:'💢',a:'夏青青',b:'袁承志',book:'碧血剑',desc:'金蛇郎君之女，醋坛子。与阿九争夺袁承志，最终随袁承志远走海外。',tagColor:'#f96',tagBg:'#3a2a1a'},
+];
+
+function renderCouples() {
+  const s = (document.getElementById('cpSearch')?.value||'').toLowerCase();
+  let filtered = COUPLES;
+  if(s) filtered = COUPLES.filter(c=>c.a.includes(s)||c.b.includes(s)||c.desc.includes(s)||c.book.includes(s)||c.type.includes(s));
+  let html = '<h3 style="color:var(--head);margin:12px 0 16px">💕 金庸情侣谱 <span style="font-size:.65em;color:#888">(' + filtered.length + '对)</span></h3><div class="cp-grid">';
+  filtered.forEach(c => {
+    html += `<div class="cp-card">
+      <div class="cp-emoji">${c.emoji}</div>
+      <div class="cp-info">
+        <div class="cp-names">${c.a} ❤️ ${c.b}</div>
+        <span class="cp-type-tag" style="background:${c.tagBg};color:${c.tagColor}">${c.type}</span>
+        <span style="font-size:.68em;opacity:.5;margin-left:4px">📖 ${c.book}</span>
+        <div class="cp-desc">${c.desc}</div>
+      </div>
+    </div>`;
+  });
+  html += '</div>';
+  document.getElementById('cpContent').innerHTML = html || '<p>未找到</p>';
+}
+
+// ==================== WEAPONS ====================
+const WEAPONS = [
+  {name:'倚天剑',type:'剑',owner:'郭襄→灭绝师太→周芷若→赵敏',book:'倚天屠龙记',color:'#fc9',desc:'郭靖黄蓉以杨过玄铁重剑熔铸而成，与屠龙刀同为玄铁所铸。内藏九阴真经与降龙十八掌精要。剑身刻"倚天"二字。"武林至尊宝刀屠龙，号令天下莫敢不从，倚天不出谁与争锋。"'},
+  {name:'屠龙刀',type:'刀',owner:'谢逊→张无忌',book:'倚天屠龙记',color:'#f80',desc:'与倚天剑同炉所出。内藏武穆遗书。谢逊在冰火岛参悟其中秘密未果。刀身黝黑沉重，锋锐无匹。'},
+  {name:'玄铁重剑',type:'剑',owner:'独孤求败→杨过',book:'神雕侠侣',color:'#888',desc:'独孤求败四十岁后用剑，重六十四斤。"重剑无锋大巧不工"。后被熔铸成倚天剑和屠龙刀。'},
+  {name:'金蛇剑',type:'剑',owner:'夏雪宜→袁承志',book:'碧血剑',color:'#c80',desc:'夏雪宜（金蛇郎君）所用之剑，剑身弯曲如金蛇。配合金蛇剑法使用，招式诡异刁钻。'},
+  {name:'打狗棒',type:'棒',owner:'历代丐帮帮主',book:'天龙→射雕→神雕→倚天',color:'#4a4',desc:'丐帮帮主信物。通体碧绿，看似普通竹棒，实则坚韧无比。打狗棒法三十六路，"绊劈缠戳挑引封转"八字诀。'},
+  {name:'圣火令',type:'令',owner:'明教历代教主',book:'倚天屠龙记',color:'#f84',desc:'波斯明教传来，共十二枚。上刻有山中老人霍山所创诡异武功。张无忌以此武功出奇制胜。'},
+  {name:'绣花针',type:'针',owner:'东方不败',book:'笑傲江湖',color:'#f6f',desc:'东方不败练葵花宝典后的武器。一枚小小绣花针可同时应对令狐冲独孤九剑+任我行吸星大法+向问天三人合击。'},
+  {name:'鸳鸯刀',type:'刀',owner:'萧中慧·袁冠南',book:'鸳鸯刀',color:'#faa',desc:'双刀一鞘，配合夫妻刀法使用。刀上刻有"仁者无敌"。'},
+  {name:'血刀',type:'刀',owner:'血刀老祖',book:'连城诀',color:'#a00',desc:'血刀门镇派之刀，刀身暗红，寒气逼人。狄云得此刀后在雪谷中生存。'},
+  {name:'真武剑',type:'剑',owner:'张三丰→武当历代掌门',book:'倚天屠龙记',color:'#48c',desc:'张三丰佩剑，武当镇派之宝。后被日月神教盗走。'},
+  {name:'君子剑+淑女剑',type:'剑',owner:'杨过·小龙女',book:'神雕侠侣',desc:'绝情谷公孙止所藏双剑。君子剑黝黑，淑女剑雪白。杨过小龙女各佩一剑，双剑合璧。',color:'#aaf'},
+  {name:'凝碧剑',type:'剑',owner:'张召重',book:'书剑恩仇录',color:'#4a8',desc:'武当叛徒张召重所用之剑。'}, 
+  {name:'黑白双剑',type:'剑',owner:'石清·闵柔',book:'侠客行',color:'#aaa',desc:'玄素庄石清闵柔夫妇佩剑，一黑一白。'},
+  {name:'匕首(韦小宝)',type:'匕首',owner:'韦小宝',book:'鹿鼎记',color:'#ccc',desc:'削铁如泥的匕首，韦小宝三大法宝之一（匕首+宝甲+火枪）。多次救其性命。'},
+];
+
+function renderWeapons() {
+  const s = (document.getElementById('wpSearch')?.value||'').toLowerCase();
+  let filtered = WEAPONS;
+  if(s) filtered = WEAPONS.filter(w=>w.name.includes(s)||w.owner.includes(s)||w.book.includes(s)||w.desc.includes(s));
+  let html = '<h3 style="color:var(--head);margin:12px 0 16px">⚔️ 神兵谱 <span style="font-size:.65em;color:#888">(' + filtered.length + '件)</span></h3><div class="cp-grid">';
+  filtered.forEach(w => {
+    html += `<div class="cp-card">
+      <div class="cp-emoji" style="font-size:1.5em">${w.type==='剑'?'🗡️':w.type==='刀'?'🔪':w.type==='棒'?'🦯':w.type==='针'?'📌':w.type==='令'?'📜':w.type==='匕首'?'🔪':'⚔️'}</div>
+      <div class="cp-info">
+        <div class="cp-names">${w.name}</div>
+        <span style="font-size:.68em;color:var(--accent)">👤 ${w.owner}</span>
+        <span style="font-size:.68em;opacity:.5;margin-left:4px">📖 ${w.book}</span>
+        <div class="cp-desc">${w.desc}</div>
+      </div>
+    </div>`;
+  });
+  html += '</div>';
+  document.getElementById('wpContent').innerHTML = html || '<p>未找到</p>';
+}
+
+// ==================== INIT ====================
+document.addEventListener('DOMContentLoaded', ()=>{
+  renderCharContent();
+});
+
+// ESC to close detail
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeDetail(); });
+
+// Click overlay background to close
+document.getElementById('detailPanel').addEventListener('click', function(e) {
+  if(e.target === this) closeDetail();
+});
+
+// Make functions global
+window.showTab = showTab;
+window.showRelTab = showRelTab;
+window.toggleBook = toggleBook;
+window.filterCharsByBook = filterCharsByBook;
+window.filterChars = filterChars;
+window.filterRels = filterRels;
+window.filterKf = filterKf;
+window.filterSects = filterSects;
+window.openSectDetail = openSectDetail;
+window.closeDetail = closeDetail;
+window.openCharDetail = openCharDetail;
+window.openKfDetail = openKfDetail;
+</script>
+</body>
+</html>
