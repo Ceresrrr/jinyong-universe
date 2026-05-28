@@ -135,23 +135,21 @@ footer{text-align:center;padding:28px;color:#3a3a4a;font-size:.7em;border-top:1p
 .rank-card{background:var(--panel);border:1px solid rgba(255,255,255,.04);border-radius:var(--radius-sm);padding:12px 16px;cursor:pointer;transition:var(--transition)}
 .rank-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.35);border-color:rgba(255,255,255,.1)}
 
-.tl-wrap{position:relative;max-width:1000px;margin:0 auto;padding:30px 0}
-.tl-wrap::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:3px;transform:translateX(-50%);background:linear-gradient(180deg,#8B4513,#B8860B,#CD853F,#DAA520,#8FBC8F,#6B8E23,#4682B4,#5F9EA0,#9370DB,#C71585);border-radius:2px}
-.tl-era{text-align:center;padding:40px 0 16px;position:relative;z-index:1;clear:both}
-.tl-era h3{display:inline-block;background:var(--panel);color:var(--gold);padding:10px 32px;border-radius:22px;border:1px solid rgba(232,193,118,.2);font-size:.88em;letter-spacing:2px;box-shadow:0 0 20px rgba(232,193,118,.06)}
-.tl-row{display:flex;align-items:flex-start;margin:0;position:relative}
-.tl-row:nth-child(odd){flex-direction:row}.tl-row:nth-child(even){flex-direction:row-reverse}
-.tl-spacer{flex:1;min-width:20px}
-.tl-dot-col{width:0;display:flex;justify-content:center;position:relative;flex-shrink:0}
-.tl-dot{width:18px;height:18px;border-radius:50%;border:3px solid;z-index:2;background:var(--bg);box-shadow:0 0 10px currentColor;flex-shrink:0}
-.tl-card{flex:1;max-width:440px;background:var(--panel);border:1px solid rgba(255,255,255,.04);border-radius:var(--radius);padding:16px 18px;transition:var(--transition);margin:6px 20px}
-.tl-card:hover{border-color:rgba(255,255,255,.1);box-shadow:0 4px 16px rgba(0,0,0,.3);transform:translateY(-1px)}
-.tl-row:nth-child(odd) .tl-card{text-align:left}.tl-row:nth-child(even) .tl-card{text-align:left}
-.tl-date{font-size:.7em;color:var(--accent);font-weight:600;margin-bottom:4px;letter-spacing:.5px}
-.tl-title{color:var(--head);font-weight:600;font-size:.9em;margin-bottom:4px}
-.tl-desc{font-size:.76em;color:#999;line-height:1.6}
+.tl-wrap{position:relative;max-width:900px;margin:0 auto;padding:30px 0 30px 140px}
+.tl-wrap::before{content:'';position:absolute;left:110px;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#8B4513,#B8860B,#CD853F,#DAA520,#8FBC8F,#6B8E23,#4682B4,#5F9EA0,#9370DB,#C71585);border-radius:2px}
+.tl-era{text-align:left;padding:40px 0 12px 0;position:relative;z-index:1;margin-left:-140px}
+.tl-era h3{display:inline-block;background:var(--panel);color:var(--gold);padding:8px 24px;border-radius:20px;border:1px solid rgba(232,193,118,.2);font-size:.85em;letter-spacing:2px;box-shadow:0 0 16px rgba(232,193,118,.06);margin-left:110px}
+.tl-row{display:flex;align-items:flex-start;margin:4px 0;position:relative}
+.tl-date-badge{width:100px;text-align:right;padding-right:24px;flex-shrink:0;position:relative;margin-left:-140px}
+.tl-date-badge span{display:inline-block;background:var(--panel);color:var(--accent);padding:4px 10px;border-radius:10px;font-size:.7em;font-weight:600;white-space:nowrap;border:1px solid rgba(255,255,255,.05)}
+.tl-dot-col{position:absolute;left:102px;top:6px;z-index:2}
+.tl-dot{width:14px;height:14px;border-radius:50%;border:3px solid;background:var(--bg);box-shadow:0 0 8px currentColor}
+.tl-card{flex:1;max-width:650px;background:var(--panel);border:1px solid rgba(255,255,255,.04);border-radius:var(--radius);padding:14px 18px;transition:var(--transition);margin-left:12px}
+.tl-card:hover{border-color:rgba(255,255,255,.1);box-shadow:0 4px 16px rgba(0,0,0,.3);transform:translateX(2px)}
+.tl-title{color:var(--head);font-weight:600;font-size:.92em;margin-bottom:4px}
+.tl-desc{font-size:.78em;color:#999;line-height:1.6}
 .tl-book{display:inline-block;padding:3px 10px;border-radius:4px;font-size:.64em;font-weight:600;margin-top:6px}
-@media(max-width:768px){.tl-wrap::before{left:32px;transform:none}.tl-row{flex-direction:row!important}.tl-spacer{display:none}.tl-dot-col{width:auto;left:0}.tl-card{max-width:100%;margin:6px 6px 6px 24px}.tl-era h3{font-size:.78em;padding:8px 20px}}
+@media(max-width:768px){.tl-wrap{padding:20px 0 20px 60px}.tl-wrap::before{left:38px}.tl-era{margin-left:-60px}.tl-era h3{font-size:.75em;padding:6px 16px;margin-left:38px}.tl-date-badge{width:50px;padding-right:14px;margin-left:-60px}.tl-date-badge span{font-size:.62em;padding:2px 6px}.tl-dot-col{left:31px;top:5px}.tl-dot{width:12px;height:12px}.tl-card{margin-left:6px;padding:10px 12px}}
 
 .map-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
 .map-card{background:var(--panel);border:1px solid rgba(255,255,255,.04);border-radius:var(--radius);padding:16px 18px;transition:var(--transition);border-left:4px solid}
@@ -1866,24 +1864,20 @@ const TIMELINE_EVENTS = [
 function renderTimeline() {
   let html = '<h3 style="color:var(--head);margin:12px 0 20px">⏳ 金庸宇宙 · 历史时间线 <span style="font-size:.65em;color:#888">(' + TIMELINE_EVENTS.length + '个事件)</span></h3><div class="tl-wrap">';
   let lastEra = '';
-  let isOdd = true;
   TIMELINE_EVENTS.forEach(e => {
     if(e.era !== lastEra){
       html += `<div class="tl-era"><h3>${e.era}</h3></div>`;
       lastEra = e.era;
-      isOdd = true;
     }
     html += `<div class="tl-row">
-      <div class="tl-spacer"></div>
+      <div class="tl-date-badge"><span>${e.date}</span></div>
       <div class="tl-dot-col"><div class="tl-dot" style="border-color:${e.color}"></div></div>
-      <div class="tl-card" style="${isOdd?'':'margin-left:20px;margin-right:0'}">
-        <div class="tl-date">${e.date}</div>
+      <div class="tl-card">
         <div class="tl-title">${e.title}</div>
         <div class="tl-desc">${e.desc}</div>
         <span class="tl-book" style="background:${e.color}22;color:${e.color};border:1px solid ${e.color}44">📖 ${e.book}</span>
       </div>
     </div>`;
-    isOdd = !isOdd;
   });
   html += '</div>';
   document.getElementById('tlContent').innerHTML = html;
