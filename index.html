@@ -195,72 +195,54 @@ footer{text-align:center;padding:28px;color:#3a3a4a;font-size:.7em;border-top:1p
 </header>
 
 <nav id="mainNav">
-<button class="active" onclick="scrollToAnchor('chars')">👥 人物索引</button>
-<button onclick="scrollToAnchor('kungfu')">⚔ 武功全表</button>
-<button onclick="scrollToAnchor('sects')">🏛 门派全表</button>
-<button onclick="scrollToAnchor('ranking')">🏆 武功排名</button>
-<button onclick="scrollToAnchor('timeline')">⏳ 历史时间线</button>
-<button onclick="scrollToAnchor('map')">🗺️ 地理地图</button>
+<button class="active" onclick="showTab('characters')">👥 人物索引</button>
+<button onclick="showTab('kungfu')">⚔ 武功全表</button>
+<button onclick="showTab('sects')">🏛 门派全表</button>
+<button onclick="showTab('ranking')">🏆 武功排名</button>
+<button onclick="showTab('timeline')">⏳ 历史时间线</button>
+<button onclick="showTab('map')">🗺️ 地理地图</button>
 </nav>
 
 <main>
-<!-- ========== 总览（全部内容） ========== -->
-<section id="overview" class="active">
-
-<!-- 人物索引 -->
-<div id="anchor-chars" class="anchor-section">
-<h2 class="section-divider">👥 人物索引</h2>
+<!-- ========== 人物索引 ========== -->
+<section id="characters" class="active">
 <input class="search-box" id="charSearch" placeholder="🔍 搜索人物名、别名、绰号...（如：乔峰、东邪、令狐冲）" oninput="filterChars()">
 <div class="tab-sub" id="bookSubNav"></div>
 <div id="charContent"></div>
-</div>
+</section>
 
-<!-- 武功全表 -->
-<div id="anchor-kungfu" class="anchor-section">
-<h2 class="section-divider">⚔ 武功全表</h2>
+<!-- ========== 武功全表 ========== -->
+<section id="kungfu">
 <input class="search-box" id="kfSearch" placeholder="🔍 搜索武功（如：降龙十八掌、独孤九剑、六脉神剑）" oninput="filterKf()">
 <div id="kfContent"></div>
-</div>
+</section>
 
-<!-- 门派全表 -->
-<div id="anchor-sects" class="anchor-section">
-<h2 class="section-divider">🏛 门派全表</h2>
+<!-- ========== 门派全表 ========== -->
+<section id="sects">
 <input class="search-box" id="sectSearch" placeholder="🔍 搜索门派（如：少林、武当、丐帮、日月神教）" oninput="filterSects()">
 <div id="sectContent"></div>
-</div>
+</section>
 
-<!-- 武功排名 -->
-<div id="anchor-ranking" class="anchor-section">
-<h2 class="section-divider">🏆 武功排名</h2>
+<!-- ========== 武功排名 ========== -->
+<section id="ranking">
 <input class="search-box" id="rankSearch" placeholder="🔍 搜索排名中的人物..." oninput="renderRanking()">
 <div class="tab-sub" id="rankSubNav">
 <button class="active" onclick="showRankView('book')">📖 单书排名</button>
 </div>
 <div id="rankContent"></div>
-</div>
-
-<!-- 历史时间线 -->
-<div id="anchor-timeline" class="anchor-section">
-<h2 class="section-divider">⏳ 历史时间线</h2>
-<div id="tlContent"></div>
-</div>
-
-<!-- 地理地图 -->
-<div id="anchor-map" class="anchor-section">
-<h2 class="section-divider">🗺️ 地理地图</h2>
-<div id="mapContent"></div>
-</div>
-
 </section>
 
-<!-- 以下section保留以便ID引用不报错 -->
-<section id="characters" style="display:none"></section>
-<section id="relations" style="display:none"></section>
-<section id="kungfu" style="display:none"></section>
-<section id="sects" style="display:none"></section>
-<section id="ranking" style="display:none"></section>
-<section id="timeline" style="display:none"></section>
-<section id="map" style="display:none"></section>
+<!-- ========== 历史时间线 ========== -->
+<section id="timeline">
+<div id="tlContent"></div>
+</section>
+
+<!-- ========== 地理地图 ========== -->
+<section id="map">
+<div id="mapContent"></div>
+</section>
+
+</main>
 
 
 
@@ -1257,30 +1239,19 @@ function initData() {
 initData();
 
 // Tab navigation
-// Navigation - scroll to anchor
-function scrollToAnchor(anchor) {
-  const el = document.getElementById('anchor-'+anchor);
-  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
-  // Highlight active nav button
+function showTab(tab) {
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
-  document.querySelector(`nav button[onclick*="${anchor}"]`)?.classList.add('active');
+  const sec = document.getElementById(tab);
+  if(sec) sec.classList.add('active');
+  document.querySelector(`nav button[onclick*="${tab}"]`)?.classList.add('active');
+  if(tab==='characters') renderCharContent();
+  if(tab==='kungfu') renderKfContent();
+  if(tab==='sects') renderSectContent();
+  if(tab==='ranking') renderRanking();
+  if(tab==='timeline') renderTimeline();
+  if(tab==='map') renderMap();
 }
-
-// Highlight nav on scroll
-let scrollTimeout;
-window.addEventListener('scroll', ()=>{
-  clearTimeout(scrollTimeout);
-  scrollTimeout = setTimeout(()=>{
-    const anchors = ['chars','kungfu','sects','ranking','timeline','map'];
-    let current = 'chars';
-    anchors.forEach(a=>{
-      const el = document.getElementById('anchor-'+a);
-      if(el && el.getBoundingClientRect().top < 200) current = a;
-    });
-    document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
-    document.querySelector(`nav button[onclick*="${current}"]`)?.classList.add('active');
-  },100);
-});
 
 function showRelTab(sub) {
   document.querySelectorAll('#overview .tab-sub button').forEach(b=>{
@@ -1955,11 +1926,6 @@ function renderMap() {
 // ==================== INIT ====================
 document.addEventListener('DOMContentLoaded', ()=>{
   renderCharContent();
-  renderKfContent();
-  renderSectContent();
-  renderRanking();
-  renderTimeline();
-  renderMap();
 });
 
 // ESC to close detail
@@ -1971,7 +1937,7 @@ document.getElementById('detailPanel').addEventListener('click', function(e) {
 });
 
 // Make functions global
-window.scrollToAnchor = scrollToAnchor;
+window.showTab = showTab;
 window.showRelTab = showRelTab;
 window.toggleBook = toggleBook;
 window.filterCharsByBook = filterCharsByBook;
