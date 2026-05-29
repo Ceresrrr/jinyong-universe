@@ -145,14 +145,12 @@ footer{text-align:center;padding:28px;color:#3a3a4a;font-size:.7em;border-top:1p
 .tl-row{display:flex;align-items:flex-start;margin:4px 0;position:relative}
 .tl-date-badge{width:100px;text-align:right;padding-right:24px;flex-shrink:0;position:relative;margin-left:-140px}
 .tl-date-badge span{display:inline-block;background:var(--panel);color:var(--accent);padding:4px 10px;border-radius:10px;font-size:.7em;font-weight:600;white-space:nowrap;border:1px solid rgba(255,255,255,.05)}
-.tl-dot-col{position:absolute;left:102px;top:6px;z-index:2}
-.tl-dot{width:14px;height:14px;border-radius:50%;border:3px solid;background:var(--bg);box-shadow:0 0 8px currentColor}
 .tl-card{flex:1;max-width:650px;background:var(--panel);border:1px solid rgba(255,255,255,.04);border-radius:var(--radius);padding:14px 18px;transition:var(--transition);margin-left:12px}
 .tl-card:hover{border-color:rgba(255,255,255,.1);box-shadow:0 4px 16px rgba(0,0,0,.3);transform:translateX(2px)}
 .tl-title{color:var(--head);font-weight:600;font-size:.92em;margin-bottom:4px}
 .tl-desc{font-size:.78em;color:#999;line-height:1.6}
 .tl-book{display:inline-block;padding:3px 10px;border-radius:4px;font-size:.64em;font-weight:600;margin-top:6px}
-@media(max-width:768px){.tl-wrap{padding:20px 0 20px 60px}.tl-wrap::before{left:38px}.tl-era{margin-left:-60px}.tl-era h3{font-size:.75em;padding:6px 16px;margin-left:38px}.tl-date-badge{width:50px;padding-right:14px;margin-left:-60px}.tl-date-badge span{font-size:.62em;padding:2px 6px}.tl-dot-col{left:31px;top:5px}.tl-dot{width:12px;height:12px}.tl-card{margin-left:6px;padding:10px 12px}}
+@media(max-width:768px){.tl-wrap{padding:20px 0 20px 60px}.tl-wrap::before{left:38px}.tl-era{margin-left:-60px}.tl-era h3{font-size:.75em;padding:6px 16px;margin-left:38px}.tl-date-badge{width:50px;padding-right:14px;margin-left:-60px}.tl-date-badge span{font-size:.62em;padding:2px 6px}.tl-card{margin-left:6px;padding:10px 12px}}
 
 .map-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
 .map-card{background:var(--panel);border:1px solid rgba(255,255,255,.04);border-radius:var(--radius);padding:16px 18px;transition:var(--transition);border-left:4px solid}
@@ -184,7 +182,6 @@ footer{text-align:center;padding:28px;color:#3a3a4a;font-size:.7em;border-top:1p
   .detail-hero h2{font-size:1.4em}
   .cp-grid{grid-template-columns:1fr}
   .tl-item{padding-left:54px}
-  .tl-dot{left:22px;width:14px;height:14px}
 }
 </style>
 </head>
@@ -1845,7 +1842,6 @@ function renderTimeline() {
     }
     html += `<div class="tl-row">
       <div class="tl-date-badge"><span>${e.date}</span></div>
-      <div class="tl-dot-col"><div class="tl-dot" style="border-color:${e.color}"></div></div>
       <div class="tl-card">
         <div class="tl-title">${e.title}</div>
         <div class="tl-desc">${e.desc}</div>
