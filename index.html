@@ -90,6 +90,9 @@ td:last-child{color:#aaa;font-size:.8em;max-width:280px}
 
 footer{text-align:center;padding:28px;color:#3a3a4a;font-size:.7em;border-top:1px solid rgba(255,255,255,.04);margin-top:40px;letter-spacing:.5px}
 
+.section-divider{color:var(--gold);font-size:1.4em;padding:20px 0 10px;margin:32px 0 12px;border-bottom:2px solid rgba(232,193,118,.15);letter-spacing:2px}
+.anchor-section{scroll-margin-top:70px}
+
 .kf-card{background:var(--panel);border:1px solid rgba(255,255,255,.04);border-radius:var(--radius);padding:16px 18px;transition:var(--transition)}
 .kf-card h4{color:var(--gold);margin-bottom:4px;font-size:.95em}
 .kf-card .user{color:var(--accent);font-size:.8em;margin:3px 0}
@@ -192,80 +195,72 @@ footer{text-align:center;padding:28px;color:#3a3a4a;font-size:.7em;border-top:1p
 </header>
 
 <nav id="mainNav">
-<button class="active" onclick="showTab('overview')">📊 总览</button>
-<button onclick="showTab('characters')">👥 人物索引</button>
-<button onclick="showTab('relations')">🔗 跨书关系</button>
-<button onclick="showTab('kungfu')">⚔ 武功全表</button>
-<button onclick="showTab('sects')">🏛 门派全表</button>
-<button onclick="showTab('ranking')">🏆 武功排名</button>
-<button onclick="showTab('timeline')">⏳ 历史时间线</button>
-<button onclick="showTab('map')">🗺️ 地理地图</button>
-
+<button class="active" onclick="scrollToAnchor('chars')">👥 人物索引</button>
+<button onclick="scrollToAnchor('kungfu')">⚔ 武功全表</button>
+<button onclick="scrollToAnchor('sects')">🏛 门派全表</button>
+<button onclick="scrollToAnchor('ranking')">🏆 武功排名</button>
+<button onclick="scrollToAnchor('timeline')">⏳ 历史时间线</button>
+<button onclick="scrollToAnchor('map')">🗺️ 地理地图</button>
 </nav>
 
 <main>
-<!-- ========== 总览 ========== -->
+<!-- ========== 总览（全部内容） ========== -->
 <section id="overview" class="active">
 
-<div class="stats-grid">
-<div class="stat-card"><h3>📚 总小说数</h3><div class="num">15</div></div>
-<div class="stat-card"><h3>👥 收录人物</h3><div class="num">800+</div></div>
-<div class="stat-card"><h3>⚔ 有名武功</h3><div class="num">350+</div></div>
-<div class="stat-card"><h3>🏛 门派组织</h3><div class="num">120+</div></div>
-<div class="stat-card"><h3>🔗 跨书关联</h3><div class="num">200+</div></div>
-<div class="stat-card"><h3>📅 时间跨度</h3><div class="num">2500年</div></div>
-</div>
-
-</section>
-
-<!-- ========== 人物索引 ========== -->
-<section id="characters">
+<!-- 人物索引 -->
+<div id="anchor-chars" class="anchor-section">
+<h2 class="section-divider">👥 人物索引</h2>
 <input class="search-box" id="charSearch" placeholder="🔍 搜索人物名、别名、绰号...（如：乔峰、东邪、令狐冲）" oninput="filterChars()">
 <div class="tab-sub" id="bookSubNav"></div>
 <div id="charContent"></div>
-</section>
-
-<!-- ========== 跨书关系 ========== -->
-<section id="relations">
-<input class="search-box" id="relSearch" placeholder="🔍 搜索关系（如：郭靖、降龙十八掌、师徒）" oninput="filterRels()">
-<div class="tab-sub">
-<button class="active" onclick="showRelTab('blood')">🩸 血缘家族</button>
-<button onclick="showRelTab('master')">📜 师徒/传功</button>
-<button onclick="showRelTab('emotion')">💕 情感/恩怨</button>
 </div>
-<div id="relContent"></div>
-</section>
 
-<!-- ========== 武功 ========== -->
-<section id="kungfu">
+<!-- 武功全表 -->
+<div id="anchor-kungfu" class="anchor-section">
+<h2 class="section-divider">⚔ 武功全表</h2>
 <input class="search-box" id="kfSearch" placeholder="🔍 搜索武功（如：降龙十八掌、独孤九剑、六脉神剑）" oninput="filterKf()">
 <div id="kfContent"></div>
-</section>
+</div>
 
-<!-- ========== 门派 ========== -->
-<section id="sects">
+<!-- 门派全表 -->
+<div id="anchor-sects" class="anchor-section">
+<h2 class="section-divider">🏛 门派全表</h2>
 <input class="search-box" id="sectSearch" placeholder="🔍 搜索门派（如：少林、武当、丐帮、日月神教）" oninput="filterSects()">
 <div id="sectContent"></div>
-</section>
+</div>
 
-<!-- ========== 武功排名 ========== -->
-<section id="ranking">
+<!-- 武功排名 -->
+<div id="anchor-ranking" class="anchor-section">
+<h2 class="section-divider">🏆 武功排名</h2>
 <input class="search-box" id="rankSearch" placeholder="🔍 搜索排名中的人物..." oninput="renderRanking()">
 <div class="tab-sub" id="rankSubNav">
 <button class="active" onclick="showRankView('book')">📖 单书排名</button>
 </div>
 <div id="rankContent"></div>
-</section>
+</div>
 
-<!-- ========== 历史时间线 ========== -->
-<section id="timeline">
+<!-- 历史时间线 -->
+<div id="anchor-timeline" class="anchor-section">
+<h2 class="section-divider">⏳ 历史时间线</h2>
 <div id="tlContent"></div>
+</div>
+
+<!-- 地理地图 -->
+<div id="anchor-map" class="anchor-section">
+<h2 class="section-divider">🗺️ 地理地图</h2>
+<div id="mapContent"></div>
+</div>
+
 </section>
 
-<!-- ========== 地理地图 ========== -->
-<section id="map">
-<div id="mapContent"></div>
-</section>
+<!-- 以下section保留以便ID引用不报错 -->
+<section id="characters" style="display:none"></section>
+<section id="relations" style="display:none"></section>
+<section id="kungfu" style="display:none"></section>
+<section id="sects" style="display:none"></section>
+<section id="ranking" style="display:none"></section>
+<section id="timeline" style="display:none"></section>
+<section id="map" style="display:none"></section>
 
 
 
@@ -1262,24 +1257,39 @@ function initData() {
 initData();
 
 // Tab navigation
-function showTab(tab) {
-  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+// Navigation - scroll to anchor
+function scrollToAnchor(anchor) {
+  const el = document.getElementById('anchor-'+anchor);
+  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+  // Highlight active nav button
   document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
-  document.getElementById(tab).classList.add('active');
-  document.querySelector(`nav button[onclick*="${tab}"]`)?.classList.add('active');
-  if(tab==='characters') renderCharContent();
-  if(tab==='relations') renderRelContent();
-  if(tab==='kungfu') renderKfContent();
-  if(tab==='sects') renderSectContent();
-  if(tab==='ranking') renderRanking();
-  if(tab==='timeline') renderTimeline();
-  if(tab==='map') renderMap();
-
+  document.querySelector(`nav button[onclick*="${anchor}"]`)?.classList.add('active');
 }
 
+// Highlight nav on scroll
+let scrollTimeout;
+window.addEventListener('scroll', ()=>{
+  clearTimeout(scrollTimeout);
+  scrollTimeout = setTimeout(()=>{
+    const anchors = ['chars','kungfu','sects','ranking','timeline','map'];
+    let current = 'chars';
+    anchors.forEach(a=>{
+      const el = document.getElementById('anchor-'+a);
+      if(el && el.getBoundingClientRect().top < 200) current = a;
+    });
+    document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+    document.querySelector(`nav button[onclick*="${current}"]`)?.classList.add('active');
+  },100);
+});
+
 function showRelTab(sub) {
-  document.querySelectorAll('#relations .tab-sub button').forEach(b=>b.classList.remove('active'));
-  document.querySelector(`#relations .tab-sub button[onclick*="${sub}"]`)?.classList.add('active');
+  document.querySelectorAll('#overview .tab-sub button').forEach(b=>{
+    if(b.onclick && b.onclick.toString().includes('showRelTab')) b.classList.remove('active');
+  });
+  const btns = document.querySelectorAll('#overview .tab-sub button');
+  btns.forEach(b=>{
+    if(b.getAttribute('onclick') && b.getAttribute('onclick').includes(sub)) b.classList.add('active');
+  });
   renderRelContent(sub);
 }
 
@@ -1945,6 +1955,11 @@ function renderMap() {
 // ==================== INIT ====================
 document.addEventListener('DOMContentLoaded', ()=>{
   renderCharContent();
+  renderKfContent();
+  renderSectContent();
+  renderRanking();
+  renderTimeline();
+  renderMap();
 });
 
 // ESC to close detail
@@ -1956,7 +1971,7 @@ document.getElementById('detailPanel').addEventListener('click', function(e) {
 });
 
 // Make functions global
-window.showTab = showTab;
+window.scrollToAnchor = scrollToAnchor;
 window.showRelTab = showRelTab;
 window.toggleBook = toggleBook;
 window.filterCharsByBook = filterCharsByBook;
